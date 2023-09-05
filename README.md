@@ -1,5 +1,10 @@
-# BI-Project
+==========
+BI-Project
+==========
 
+-----
+START
+-----
 
 Create a folder: - BI-Project:
 Create 2 folders inside of BI-Project folder: 
@@ -22,3 +27,11 @@ In the package.json in the “scripts” add:
 Implement the necessary code in all the files.
 When all the set up connection between the Mongo-Atlas and NodeJS are than, in CMD from the server location run:
 - npm start.
+
+
+----------------------
+PROJECT IMPLEMENTATION
+----------------------
+
+????????????? (About the Project)
+
