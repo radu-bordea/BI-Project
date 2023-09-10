@@ -22,5 +22,9 @@ app.post("/types", mongoose.createType);
 app.get("/devices", mongoose.getDevices);
 app.post("/devices", mongoose.createDevice);
 
+// data middleware
+app.get("/data", mongoose.getData);
+app.post("/data", mongoose.createData);
+
 // listening the port
 app.listen(5000);

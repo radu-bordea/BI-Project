@@ -4,6 +4,7 @@ const Location = require("./models/location");
 const Keeper = require("./models/keeper");
 const Type = require("./models/type");
 const Device = require("./models/device");
+const Data = require("./models/data");
 
 // connect to mongo atlas bi database
 mongoose
@@ -102,6 +103,27 @@ const createDevice = async (req, res, next) => {
   res.json(resut);
 };
 
+/* === DEVICES === */
+// get data from mongo atlas
+const getData = async (req, res, next) => {
+  const data = await Data.find().exec();
+  res.json(data);
+};
+
+// post data to mongo atlas
+const createData = async (req, res, next) => {
+  const createdData = new Data({
+    _id: req.body._id,
+    deviceId: req.body.deviceId,
+    value: req.body.value,
+    timeStamp: req.body.timeStamp,
+    registerTimeStamp: req.body.registerTimeStamp,
+  });
+  console.log(createdData);
+  const resut = await createdData.save();
+  res.json(resut);
+};
+
 /* === EXPORTS === */
 //locations
 exports.getLocations = getLocations;
@@ -118,3 +140,7 @@ exports.createType = createType;
 // devices
 exports.getDevices = getDevices;
 exports.createDevice = createDevice;
+
+// data
+exports.getData = getData;
+exports.createData = createData;
