@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const Location = require("./models/location");
 const Keeper = require("./models/keeper");
+const Type = require("./models/type");
+const Device = require("./models/device");
 
 // connect to mongo atlas bi database
 mongoose
@@ -59,10 +61,60 @@ const createKeeper = async (req, res, next) => {
   res.json(result);
 };
 
+/* === TYPES === */
+// get types from mongo atlas
+const getTypes = async (req, res, next) => {
+  const types = await Type.find().exec();
+  res.json(types);
+};
+
+// post type to mongo atlas
+const createType = async (req, res, next) => {
+  const createdType = new Type({
+    _id: req.body._id,
+    name: req.body.name,
+    unit: req.body.unit,
+    precision: req.body.precision,
+  });
+  console.log(createdType);
+  const result = await createdType.save();
+  res.json(result);
+};
+
+/* === DEVICES === */
+// get devices from mongo atlas
+const getDevices = async (req, res, next) => {
+  const devices = await Device.find().exec();
+  res.json(devices);
+};
+
+// post device to mongo atlas
+const createDevice = async (req, res, next) => {
+  const createdDevice = new Device({
+    _id: req.body._id,
+    locationId: req.body.locationId,
+    typeId: req.body.typeId,
+    keeperId: req.body.keeperId,
+    address: req.body.address,
+  });
+  console.log(createdDevice);
+  const resut = await createdDevice.save();
+  res.json(resut);
+};
+
 /* === EXPORTS === */
 //locations
 exports.getLocations = getLocations;
 exports.createLocation = createLocation;
+
 // keepers
 exports.getKeepers = getKeepers;
 exports.createKeeper = createKeeper;
+
+// types
+exports.getTypes = getTypes;
+exports.createType = createType;
+
+// devices
+exports.getDevices = getDevices;
+exports.createDevice = createDevice;

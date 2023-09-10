@@ -10,12 +10,17 @@ app.use(bodyParser.json());
 app.get("/locations", mongoose.getLocations);
 app.post("/locations", mongoose.createLocation);
 
-
 // keepers middleware
-app.get("/keepers", mongoose.getKeepers)
-app.post("/keepers", mongoose.createKeeper)
+app.get("/keepers", mongoose.getKeepers);
+app.post("/keepers", mongoose.createKeeper);
 
+// types middleware
+app.get("/types", mongoose.getTypes);
+app.post("/types", mongoose.createType);
+
+// devices middleware
+app.get("/devices", mongoose.getDevices);
+app.post("/devices", mongoose.createDevice);
 
 // listening the port
 app.listen(5000);
-
