@@ -1,0 +1,36 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+  background-color: rgba(26, 27, 27, 0.096);
+}
+
+.content {
+
+  width: 50%;
+  margin: auto;
+}
+
+nav {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.footer {
+  background-color: #333;
+  margin-top: auto;
+  color: white;
+  padding: 10px;
+}
