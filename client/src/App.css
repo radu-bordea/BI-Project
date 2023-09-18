@@ -6,46 +6,6 @@
   background-color: rgba(45, 49, 49, 0.096);
 }
 
-.content {
-  width: 100%;
-  height: 70vb;
-  margin: auto;
-  display: flex;
-  justify-content: space-around;
-}
-
-.content .content-header {
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  color: white;
-  background-color: #333;
-}
-
-.content .content-header .model {
-  display: block;
-  margin: 2px 4px;
-  height: 30px;
-  text-shadow: 0.5px 0.5px 0.5px #333;
-}
-
-.content .content-header .model:hover{
-  background-color: #f8df00;
-  color: #333;
-}
-
-.content .content-header .model-data {
-  font-size: 20px;
-  text-shadow: 1.5px 1.5px 1.5px #333;
-
-}
-
-
-.content .content-graph {
-  width: 70%;
-
-}
-
 nav {
   background-color: #333;
   color: white;
