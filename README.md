@@ -31,7 +31,15 @@ In the rooth folder:
 - In the CMD from client run "npx create-react-app client"
 - a new folder "client" will apear with all react modules
 - change the App.js component configuration
-create a components folder with 3 components (Menu.js, Content.js, Footer.js)
+create a components folder
+In the components folder create a navigation folder wich holds all the Navigation components and css styles
+Content.js and Footer.js will belong to components on the same level asd Navigation folder 
+
+install dependencies more:
+ - npm install --save react-router-dom@5 --save-exact
+ - npm install react-transition-group
+
+
 
 // to be continued ....
 

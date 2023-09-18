@@ -26,24 +26,31 @@ const options = {
   plugins: {
     legend: {
       labels: {
-        color: '#474745' // Set legend label color to white
-      }
+        color: "#474745", // Set legend label color to white
+      },
     },
   },
   elements: {
     point: {
-      backgroundColor: '#0f97e6' // Set point color to white
+      backgroundColor: "#0f97e6", // Set point color to white
     },
     line: {
-      borderColor: '#f7423cde', // Set line color to white
-      borderWidth: 2
-    }
+      borderColor: "#f7423cde", // Set line color to white
+      borderWidth: 2,
+    },
   },
-  
 };
 
 function Content() {
+  const [checkData, setCheckData] = useState(false)
+  const [checkLocation, setCheckLocation] = useState(false)
+  const [checkKeeper, setCheckKeeper] = useState(false)
+  const [checkDevice, setCheckDevice] = useState(false)
+  const [checkType, setCheckType] = useState(false)
+
   const [measurements, setMeasurements] = useState([]);
+
+
 
   const fetchData = async () => {
     try {
@@ -69,7 +76,7 @@ function Content() {
     formatTimestamp(measure.timeStamp)
   );
   const dataset = {
-    label: "Measurement Data",
+    label: "Temperature",
     data: measurements.map((measure) => measure.value.$numberDecimal),
   };
 
@@ -78,9 +85,33 @@ function Content() {
     datasets: [dataset],
   };
 
+
+  const handleButtonClick = (buttonName) => {
+    setCheckData(buttonName === "data");
+    setCheckLocation(buttonName === "location");
+    setCheckKeeper(buttonName === "keeper");
+    setCheckDevice(buttonName === "device");
+    setCheckType(buttonName === "type");
+  }
+
   return (
     <div className="content">
-      {measurements && measurements.length > 0 && <Line data={data} options={options}/>}
+      <div className="content-header">
+        <button className="model model-data" onClick={() => handleButtonClick("data")}>DATA</button>
+        <button className="model" onClick={() => handleButtonClick("location")}>Locations</button>
+        <button className="model" onClick={() => handleButtonClick("keeper")}>Keepers</button>
+        <button className="model" onClick={() => handleButtonClick("device")}>Devices</button>
+        <button className="model" onClick={() => handleButtonClick("type")}>Types</button>
+      </div>
+      <div className="content-graph">
+        {checkData && measurements && measurements.length > 0 && (
+          <Line data={data} options={options} />
+        )}
+        {checkLocation && <h1>Locations</h1>}
+        {checkKeeper && <h1>Keepers</h1>}
+        {checkDevice && <h1>Devices</h1>}
+        {checkType && <h1>Types</h1>}
+      </div>
     </div>
   );
 }
