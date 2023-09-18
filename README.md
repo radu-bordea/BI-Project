@@ -38,7 +38,7 @@ Content.js and Footer.js will belong to components on the same level asd Navigat
 install dependencies more:
  - npm install --save react-router-dom@5 --save-exact
  - npm install react-transition-group
-
+ - npm install react -icons
 
 
 // to be continued ....
