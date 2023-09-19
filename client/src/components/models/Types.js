@@ -1,36 +1,37 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function Devices() {
-  const [devices, setDevices] = useState([]);
+function Types() {
+  const [types, setTypes] = useState([]);
 
-  const fetchDevices = async () => {
+  const fetchTypes = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/devices");
-      setDevices(response.data); // Update to set the entire response.data array
-      console.log(devices);
+      const response = await axios.get("http://localhost:5000/types");
+      setTypes(response.data); // Update to set the entire response.data array
+      console.log(types);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
-    fetchDevices();
+    fetchTypes();
   }, []);
 
   return (
     <>
       <hr style={{ width: "80%" }} />
       <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
-        {devices.map((device, index) => (
+        {types.map((device, index) => (
           <button key={index} style={{ marginRight: "10px" }}>
-            {device._id}
+            {device.name}
           </button>
         ))}
       </div>
       <hr style={{ width: "80%" }} />
     </>
   );
+  
 }
 
-export default Devices;
+export default Types;

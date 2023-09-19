@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {FaLocationArrow} from "react-icons/fa"
+import {IoAccessibility} from "react-icons/io5"
+import {TbDevices2} from "react-icons/tb"
+import {WiCelsius, WiThermometerExterior, WiDayRainMix} from "react-icons/wi"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +17,9 @@ import {
 import { Line } from "react-chartjs-2";
 import "./Content.css";
 import Devices from "./models/Devices";
+import Locations from "./models/Locations";
+import Keepers from "./models/Keepers";
+import Types from "./models/Types";
 
 ChartJS.register(
   CategoryScale,
@@ -51,14 +58,22 @@ function Content() {
   const [checkType, setCheckType] = useState(false);
 
   const [measurements, setMeasurements] = useState([]);
+  const [behives, setBehives] = useState([]);
+  const [behiveChoice, setBehiveChoice] = useState("");
 
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:5000/data");
       setMeasurements(response.data); // Update to set the entire response.data array
-      console.log("====================================");
-      console.log(response.data);
-      console.log("====================================");
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchBehives = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/behives");
+      setBehives(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -71,8 +86,13 @@ function Content() {
     return `${formattedDate}`;
   };
 
-  useEffect(() => {
+  const fetchAll = () => {
     fetchData();
+    fetchBehives();
+  };
+
+  useEffect(() => {
+    fetchAll();
   }, []);
 
   const labels = [
@@ -81,32 +101,46 @@ function Content() {
     ),
   ];
 
+  const behiveMeasure = () => {
+    let devices = ["1", "2", "3"];
+    if (behiveChoice === "2") {
+      devices = ["4", "5", "6"];
+    }
+    return devices;
+  };
+
+  const dev = behiveMeasure();
+
   const datasetTemp = {
     label: "Temperature",
     data: measurements
-      .filter((measure) => measure.deviceId === "1")
+      .filter((measure) => measure.deviceId === dev[0])
       .map((measure) => measure.value.$numberDecimal),
     borderColor: "red", // Set line color to red
     backgroundColor: "red", // Set point color to red
   };
-  // const dataset2 = {
-  //   label: "Humidity",
-  //   data: measurements.map((measure) => measure.value.$numberDecimal),
-  // };
 
   const datasetHum = {
     label: "Humidity",
     data: measurements
-      .filter((measure) => measure.deviceId === "2")
+      .filter((measure) => measure.deviceId === dev[1])
       .map((measure) => measure.value.$numberDecimal),
-      borderColor: "blue", // Set line color to blue
-  backgroundColor: "blue", // Set point color to blue
+    borderColor: "blue", // Set line color to blue
+    backgroundColor: "blue", // Set point color to blue
+  };
+
+  const datasetWeight = {
+    label: "Weight",
+    data: measurements
+      .filter((measure) => measure.deviceId === dev[2])
+      .map((measure) => measure.value.$numberDecimal),
+    borderColor: "green", // Set line color to green
+    backgroundColor: "green", // Sset line color to green
   };
 
   const data = {
     labels: labels,
-    datasets: [datasetTemp, datasetHum],
-    // datasets: [dataset, dataset2],
+    datasets: [datasetTemp, datasetHum, datasetWeight],
   };
 
   const handleButtonClick = (buttonName) => {
@@ -127,33 +161,62 @@ function Content() {
           DATA
         </button>
         <button className="model" onClick={() => handleButtonClick("location")}>
-          Locations
+          Locations  <FaLocationArrow />
         </button>
         <button className="model" onClick={() => handleButtonClick("keeper")}>
-          Keepers
+          Keepers  <IoAccessibility/>
         </button>
         <button className="model" onClick={() => handleButtonClick("device")}>
-          Devices
+          Devices <TbDevices2/>
         </button>
         <button className="model" onClick={() => handleButtonClick("type")}>
-          Types
+          Types <WiCelsius/> <WiThermometerExterior/> <WiDayRainMix/>
         </button>
       </div>
       <div className="content-graph">
         {checkData && measurements && measurements.length > 0 && (
           <div>
-            <Devices />
+            {
+              <>
+                <hr style={{ width: "80%" }} />
+                <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
+                  {behives.map((behive, index) => (
+                    <button
+                      className="behive"
+                      key={index}
+                      style={{ marginRight: "10px" }}
+                      onClick={() => setBehiveChoice(behive._id)}
+                    >
+                      {`Behive ${behive._id}`}
+                    </button>
+                  ))}
+                </div>
+                <hr style={{ width: "80%" }} />
+              </>
+            }
             <Line data={data} options={options} />
           </div>
         )}
-        {checkLocation && <h1>Locations</h1>}
-        {checkKeeper && <h1>Keepers</h1>}
+        {checkLocation && (
+          <h1>
+            <Locations />
+          </h1>
+        )}
+        {checkKeeper && (
+          <h1>
+            <Keepers />
+          </h1>
+        )}
         {checkDevice && (
           <h1>
             <Devices />
           </h1>
         )}
-        {checkType && <h1>Types</h1>}
+        {checkType && (
+          <h1>
+            <Types />
+          </h1>
+        )}
       </div>
     </div>
   );

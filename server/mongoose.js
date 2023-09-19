@@ -4,6 +4,7 @@ const Location = require("./models/location");
 const Keeper = require("./models/keeper");
 const Type = require("./models/type");
 const Device = require("./models/device");
+const Behive = require("./models/behive");
 const Data = require("./models/data");
 
 // connect to mongo atlas bi database
@@ -103,6 +104,25 @@ const createDevice = async (req, res, next) => {
   res.json(resut);
 };
 
+/* === BEHIVES === */
+// get behives from mongo atlas
+const getBehives = async (req, res, next) => {
+  const behives = await Behive.find().exec();
+  res.json(behives);
+};
+
+// post behive to mongo atlas
+const createBehive = async (req, res, next) => {
+  const createdBehive = new Behive({
+    _id: req.body._id,
+    deviceId: req.body.deviceId,
+  });
+  console.log(createdBehive);
+  const resut = await createdBehive.save();
+  res.json(resut);
+};
+
+
 /* === DEVICES === */
 // get data from mongo atlas
 const getData = async (req, res, next) => {
@@ -140,6 +160,10 @@ exports.createType = createType;
 // devices
 exports.getDevices = getDevices;
 exports.createDevice = createDevice;
+
+// behives
+exports.getBehives = getBehives
+exports.createBehive = createBehive
 
 // data
 exports.getData = getData;
