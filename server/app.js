@@ -32,5 +32,9 @@ app.post("/devices", mongoose.createDevice);
 app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
 
+// behives middleware
+app.get("/behives", mongoose.getBehives)
+app.post("/behives", mongoose.createBehive)
+
 // listening the port
 app.listen(5000);
