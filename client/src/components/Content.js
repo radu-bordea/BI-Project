@@ -35,41 +35,40 @@ const options = {
   plugins: {
     legend: {
       labels: {
-        color: "#d3caca", 
+        color: "#d3caca",
       },
     },
   },
   elements: {
     point: {
-      backgroundColor: "#0f97e6", 
+      backgroundColor: "#0f97e6",
     },
     line: {
-      borderColor: "#f7423cde", 
+      borderColor: "#f7423cde",
       borderWidth: 3,
     },
   },
   scales: {
     x: {
       grid: {
-        color: "#6b6a6a", 
-        borderWidth: 0.2
+        color: "#6b6a6a",
+        borderWidth: 0.2,
       },
       ticks: {
-        color: "#bbb9b6" 
-      }
+        color: "#bbb9b6",
+      },
     },
     y: {
       grid: {
-        color: "#6e6e6d", 
-        borderWidth: 0.2
+        color: "#6e6e6d",
+        borderWidth: 0.2,
       },
       ticks: {
-        color: "#bbb9b6" 
-      }
-    }
-  }
+        color: "#bbb9b6",
+      },
+    },
+  },
 };
-
 
 function Content() {
   const [checkData, setCheckData] = useState(false);
@@ -81,6 +80,18 @@ function Content() {
   const [measurements, setMeasurements] = useState([]);
   const [behives, setBehives] = useState([]);
   const [behiveChoice, setBehiveChoice] = useState("");
+
+  const [startDate, setStartDate] = useState("2023-09-01");
+  const [endDate, setEndDate] = useState("2023-09-07");
+
+
+  const handleStartDateChange = (event) => {
+    setStartDate(event.target.value);
+  };
+
+  const handleEndDateChange = (event) => {
+    setEndDate(event.target.value);
+  };
 
   const fetchData = async () => {
     try {
@@ -117,10 +128,14 @@ function Content() {
   }, []);
 
   const labels = [
-    ...new Set(
-      measurements.map((measure) => formatTimestamp(measure.timeStamp))
-    ),
-  ];
+  ...new Set(measurements
+  .filter((measure) => {
+    const measureTimestamp = new Date(measure.timeStamp).getTime();
+    return measureTimestamp >= new Date(startDate).getTime() && measureTimestamp <= new Date(endDate).getTime();
+  })
+  .map((measure) => formatTimestamp(measure.timeStamp))),
+];
+
 
   const behiveMeasure = () => {
     let devices = ["1", "2", "3"];
@@ -137,8 +152,8 @@ function Content() {
     data: measurements
       .filter((measure) => measure.deviceId === dev[0])
       .map((measure) => measure.value.$numberDecimal),
-    borderColor: "#f18787", 
-    backgroundColor: "red", 
+    borderColor: "#f18787",
+    backgroundColor: "red",
   };
 
   const datasetHum = {
@@ -146,8 +161,8 @@ function Content() {
     data: measurements
       .filter((measure) => measure.deviceId === dev[1])
       .map((measure) => measure.value.$numberDecimal),
-    borderColor: "#8c8cd3", 
-    backgroundColor: "#0c0cc2", 
+    borderColor: "#8c8cd3",
+    backgroundColor: "#0c0cc2",
   };
 
   const datasetWeight = {
@@ -155,8 +170,8 @@ function Content() {
     data: measurements
       .filter((measure) => measure.deviceId === dev[2])
       .map((measure) => measure.value.$numberDecimal),
-    borderColor: "#6cb66c", 
-    backgroundColor: "green", 
+    borderColor: "#6cb66c",
+    backgroundColor: "green",
   };
 
   const data = {
@@ -215,6 +230,18 @@ function Content() {
                 <hr style={{ width: "80%", borderColor: "#050505" }} />
               </>
             }
+            <form className="form">
+              <div>
+                <label for="startDate">Start Date:</label>
+                <div className="span"></div>
+                <input type="date" id="startDate" name="startDate" defaultValue={startDate} onChange={handleStartDateChange}/>
+              </div>
+              <div>
+                <label for="endDate">End Date:</label>
+                <div className="span"></div>
+                <input type="date" id="endDate" name="endDate" defaultValue={endDate} onChange={handleEndDateChange}/>
+              </div>
+            </form>
             <Line data={data} options={options} />
           </div>
         )}

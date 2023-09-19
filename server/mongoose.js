@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-require("dotenv").config(); // Load environment variables
-
-const uri = process.env.MONGO_URI;
 
 const Location = require("./models/location");
 const Keeper = require("./models/keeper");
@@ -12,7 +9,9 @@ const Data = require("./models/data");
 
 // connect to mongo atlas bi database
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(
+    "mongodb+srv://radu:brn1989@cluster0.37mmycn.mongodb.net/bi-project?retryWrites=true&w=majority"
+  )
   .then(() => {
     console.log("Connected to database!");
   })

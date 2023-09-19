@@ -64,7 +64,6 @@
   color: white;
   text-shadow: 0.5px 0.5px 0.5px #444;
   border-radius: 5px;
-  margin: 3px;
   border: 1px solid rgb(70, 67, 62);
 }
 
@@ -77,6 +76,19 @@
 .behive:hover {
   background-color: black;
   color: wheat;
+}
+
+.form{
+  display: flex;
+  justify-content: space-around;
+  font-size: 10px;
+  color: wheat;
+  
+}
+
+.form .span{
+  display: inline-block;
+  width: 10px;
 }
 
 @media only screen and (max-width: 768px) {
