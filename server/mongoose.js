@@ -33,8 +33,7 @@ const createLocation = async (req, res, next) => {
   const createdLocation = new Location({
     _id: req.body._id,
     name: req.body.name,
-    long: req.body.long,
-    lat: req.body.lat,
+    location: req.body.location,
   });
   console.log(createdLocation);
   const result = await createdLocation.save();
@@ -122,7 +121,6 @@ const createBehive = async (req, res, next) => {
   res.json(resut);
 };
 
-
 /* === DEVICES === */
 // get data from mongo atlas
 const getData = async (req, res, next) => {
@@ -162,8 +160,8 @@ exports.getDevices = getDevices;
 exports.createDevice = createDevice;
 
 // behives
-exports.getBehives = getBehives
-exports.createBehive = createBehive
+exports.getBehives = getBehives;
+exports.createBehive = createBehive;
 
 // data
 exports.getData = getData;
