@@ -137,8 +137,8 @@ function Content() {
     data: measurements
       .filter((measure) => measure.deviceId === dev[0])
       .map((measure) => measure.value.$numberDecimal),
-    borderColor: "#e27878", // Set line color to red
-    backgroundColor: "red", // Set point color to red
+    borderColor: "#f18787", 
+    backgroundColor: "red", 
   };
 
   const datasetHum = {
@@ -146,8 +146,8 @@ function Content() {
     data: measurements
       .filter((measure) => measure.deviceId === dev[1])
       .map((measure) => measure.value.$numberDecimal),
-    borderColor: "#8c8cd3", // Set line color to blue
-    backgroundColor: "#0c0cc2", // Set point color to blue
+    borderColor: "#8c8cd3", 
+    backgroundColor: "#0c0cc2", 
   };
 
   const datasetWeight = {
@@ -155,8 +155,8 @@ function Content() {
     data: measurements
       .filter((measure) => measure.deviceId === dev[2])
       .map((measure) => measure.value.$numberDecimal),
-    borderColor: "#6cb66c", // Set line color to green
-    backgroundColor: "green", // Sset line color to green
+    borderColor: "#6cb66c", 
+    backgroundColor: "green", 
   };
 
   const data = {
