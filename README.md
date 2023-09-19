@@ -32,13 +32,21 @@ In the rooth folder:
 - a new folder "client" will apear with all react modules
 - change the App.js component configuration
 create a components folder
-In the components folder create a navigation folder wich holds all the Navigation components and css styles
-Content.js and Footer.js will belong to components on the same level asd Navigation folder 
-
+In the components folder:
+	- create a navigation folder wich holds all the Navigation components and css styles
+	  Content.js and Footer.js will belong to components on the same level asd Navigation folder 
+	- create a models folder which will contain the models components neeed it for recat front end
+	- create Devices.js, Keeper.js, Locations.js, Types.js, models.css
+	
 install dependencies more:
  - npm install --save react-router-dom@5 --save-exact
  - npm install react-transition-group
- - npm install react -icons
+ - npm install react - icons
+
+create .env file
+npm install dotenv
+
+
 
 
 // to be continued ....
