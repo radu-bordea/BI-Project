@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import './models.css'
 
 function Keepers() {
   const [keepers, setKeepers] = useState([]);
@@ -20,15 +21,15 @@ function Keepers() {
 
   return (
     <>
-      <hr style={{ width: "70%" }} />
-      <div style={{ width:"60%", margin: "auto", overflowX: "auto", whiteSpace: "nowrap" }}>
+      <hr  />
+      <div >
         {keepers.map((keeper, index) => (
-          <button key={index} style={{ marginRight: "10px" }}>
+          <button key={index} >
             {keeper.firstName} {keeper.lastName}
           </button>
         ))}
       </div>
-      <hr style={{ width: "70%" }} />
+      <hr className="hr2-keepers"  />
     </>
   );
   

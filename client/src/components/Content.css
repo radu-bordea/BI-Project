@@ -12,48 +12,44 @@
   height: 50%;
   display: flex;
   flex-direction: column;
-
 }
 
 .content .content-header .model {
   display: block;
   margin: 2px 4px;
   height: 30px;
-  background-color: #444;
+  background-color: #333;
   color: white;
   text-shadow: 0.5px 0.5px 0.5px #333;
   border-radius: 5px;
-  box-shadow: 2px 2px 3px black;
   margin: 3px;
   text-align: left;
   padding-left: 35%;
+  border: 1px solid rgb(70, 67, 62);
 }
 
 .content .content-header .model:hover {
   background-color: black;
   color: wheat;
+  border: 1px solid rgb(70, 67, 62);
 }
 
-.content .content-header .model:focus{
+.content .content-header .model:focus {
   background: #f8df00;
   border-color: #292929;
   color: #292929;
 }
-
 
 .content .content-header .model-data {
   font-size: 20px;
   text-shadow: 1.5px 1.5px 1.5px #333;
 }
 
-
-
 .content .content-graph {
   padding-top: 5px;
   /* background-color: aquamarine; */
   width: 60%;
 }
-
 
 .content .content-graph .measures .measure {
   display: inline-block;
@@ -68,8 +64,8 @@
   color: white;
   text-shadow: 0.5px 0.5px 0.5px #444;
   border-radius: 5px;
-  box-shadow: 2px 2px 3px black;
   margin: 3px;
+  border: 1px solid rgb(70, 67, 62);
 }
 
 .behive:focus {
@@ -83,32 +79,27 @@
   color: wheat;
 }
 
-
 @media only screen and (max-width: 768px) {
-    .content {
-        display: flex;
-        flex-direction: column;
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
 
-    }
+  .content .content-header {
+    width: 100%;
+  }
 
-    .content .content-header {
-        width: 100%;
-    }
+  .content .content-header .model {
+    margin-top: 2px;
+    margin-left: 0px;
+    margin-right: 0px;
+    background-color: #444;
+    color: white;
+    padding-left: 40%;
+  }
 
-    .content .content-header .model {
-        margin-top: 2px;
-        margin-left: 0px;
-        margin-right: 0px;
-        background-color: #444;
-        color: white;
-        padding-left: 40%;
-    }
-
-
-    .content .content-graph {
-        width: 97%;
-        height: 100%;
-    }
-
-   
+  .content .content-graph {
+    width: 97%;
+    height: 100%;
+  }
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import './models.css'
 
 function Devices() {
   const [devices, setDevices] = useState([]);
@@ -20,15 +21,15 @@ function Devices() {
 
   return (
     <>
-      <hr style={{ width: "80%" }} />
-      <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
+      <hr />
+      <div >
         {devices.map((device, index) => (
-          <button key={index} style={{ marginRight: "10px" }}>
+          <button key={index} >
             {device._id}
           </button>
         ))}
       </div>
-      <hr style={{ width: "80%" }} />
+      <hr className="hr2"  />
     </>
   );
 }

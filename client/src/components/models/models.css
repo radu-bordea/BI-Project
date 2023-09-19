@@ -1,0 +1,21 @@
+hr {
+  width: 80%;
+  border-color: #a3a1a1;
+}
+
+.hr2 {
+  margin-top: 20px;
+}
+
+.hr2-keepers {
+  margin-top: 30px;
+}
+
+div {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+button {
+  margin: 0 10px 10px 0;
+}
