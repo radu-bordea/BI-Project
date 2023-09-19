@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import './models.css'
 
 function Locations() {
   const [locations, setLocations] = useState([]);
@@ -20,15 +21,15 @@ function Locations() {
 
   return (
     <>
-      <hr style={{ width: "80%" }} />
-      <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
+      <hr  />
+      <div >
         {locations.map((location, index) => (
-          <button key={index} style={{ marginRight: "10px" }}>
+          <button  key={index} >
             {location.name}
           </button>
         ))}
       </div>
-      <hr style={{ width: "80%" }} />
+      <hr className="hr2"  />
     </>
   );
   

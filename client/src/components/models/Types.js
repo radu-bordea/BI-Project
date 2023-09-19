@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import './models.css'
 
 function Types() {
   const [types, setTypes] = useState([]);
@@ -20,15 +21,15 @@ function Types() {
 
   return (
     <>
-      <hr style={{ width: "80%" }} />
-      <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
+      <hr />
+      <div >
         {types.map((device, index) => (
-          <button key={index} style={{ marginRight: "10px" }}>
+          <button  key={index} >
             {device.name}
           </button>
         ))}
       </div>
-      <hr style={{ width: "80%" }} />
+      <hr className="hr2"  />
     </>
   );
   

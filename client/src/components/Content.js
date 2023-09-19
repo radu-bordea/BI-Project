@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {FaLocationArrow} from "react-icons/fa"
-import {IoAccessibility} from "react-icons/io5"
-import {TbDevices2} from "react-icons/tb"
-import {WiCelsius, WiThermometerExterior, WiDayRainMix} from "react-icons/wi"
+import { FaLocationArrow } from "react-icons/fa";
+import { IoAccessibility } from "react-icons/io5";
+import { TbDevices2 } from "react-icons/tb";
+import { WiCelsius, WiThermometerExterior, WiDayRainMix } from "react-icons/wi";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -35,20 +35,41 @@ const options = {
   plugins: {
     legend: {
       labels: {
-        color: "#474745", // Set legend label color to white
+        color: "#d3caca", 
       },
     },
   },
   elements: {
     point: {
-      backgroundColor: "#0f97e6", // Set point color to white
+      backgroundColor: "#0f97e6", 
     },
     line: {
-      borderColor: "#f7423cde", // Set line color to white
-      borderWidth: 2,
+      borderColor: "#f7423cde", 
+      borderWidth: 3,
     },
   },
+  scales: {
+    x: {
+      grid: {
+        color: "#6b6a6a", 
+        borderWidth: 0.2
+      },
+      ticks: {
+        color: "#bbb9b6" 
+      }
+    },
+    y: {
+      grid: {
+        color: "#6e6e6d", 
+        borderWidth: 0.2
+      },
+      ticks: {
+        color: "#bbb9b6" 
+      }
+    }
+  }
 };
+
 
 function Content() {
   const [checkData, setCheckData] = useState(false);
@@ -112,29 +133,29 @@ function Content() {
   const dev = behiveMeasure();
 
   const datasetTemp = {
-    label: "Temperature",
+    label: "Temp °C ",
     data: measurements
       .filter((measure) => measure.deviceId === dev[0])
       .map((measure) => measure.value.$numberDecimal),
-    borderColor: "red", // Set line color to red
+    borderColor: "#e27878", // Set line color to red
     backgroundColor: "red", // Set point color to red
   };
 
   const datasetHum = {
-    label: "Humidity",
+    label: "Humidity g/m3",
     data: measurements
       .filter((measure) => measure.deviceId === dev[1])
       .map((measure) => measure.value.$numberDecimal),
-    borderColor: "blue", // Set line color to blue
-    backgroundColor: "blue", // Set point color to blue
+    borderColor: "#8c8cd3", // Set line color to blue
+    backgroundColor: "#0c0cc2", // Set point color to blue
   };
 
   const datasetWeight = {
-    label: "Weight",
+    label: "Weight kg",
     data: measurements
       .filter((measure) => measure.deviceId === dev[2])
       .map((measure) => measure.value.$numberDecimal),
-    borderColor: "green", // Set line color to green
+    borderColor: "#6cb66c", // Set line color to green
     backgroundColor: "green", // Sset line color to green
   };
 
@@ -161,16 +182,16 @@ function Content() {
           DATA
         </button>
         <button className="model" onClick={() => handleButtonClick("location")}>
-          Locations  <FaLocationArrow />
+          Locations <FaLocationArrow />
         </button>
         <button className="model" onClick={() => handleButtonClick("keeper")}>
-          Keepers  <IoAccessibility/>
+          Keepers <IoAccessibility />
         </button>
         <button className="model" onClick={() => handleButtonClick("device")}>
-          Devices <TbDevices2/>
+          Devices <TbDevices2 />
         </button>
         <button className="model" onClick={() => handleButtonClick("type")}>
-          Types <WiCelsius/> <WiThermometerExterior/> <WiDayRainMix/>
+          Types <WiCelsius /> <WiThermometerExterior /> <WiDayRainMix />
         </button>
       </div>
       <div className="content-graph">
@@ -178,7 +199,7 @@ function Content() {
           <div>
             {
               <>
-                <hr style={{ width: "80%" }} />
+                <hr style={{ width: "80%", borderColor: "#050505" }} />
                 <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
                   {behives.map((behive, index) => (
                     <button
@@ -191,7 +212,7 @@ function Content() {
                     </button>
                   ))}
                 </div>
-                <hr style={{ width: "80%" }} />
+                <hr style={{ width: "80%", borderColor: "#050505" }} />
               </>
             }
             <Line data={data} options={options} />
