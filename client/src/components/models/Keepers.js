@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import './models.css'
+import "./models.css";
 
 function Keepers() {
   const [keepers, setKeepers] = useState([]);
@@ -21,18 +21,16 @@ function Keepers() {
 
   return (
     <>
-      <hr  />
-      <div >
+      <hr />
+      <div>
         {keepers.map((keeper, index) => (
-          <button key={index} >
+          <button key={index}>
             {keeper.firstName} {keeper.lastName}
           </button>
         ))}
       </div>
-      <hr className="hr2-keepers"  />
     </>
   );
-  
 }
 
 export default Keepers;

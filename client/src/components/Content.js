@@ -84,7 +84,6 @@ function Content() {
   const [startDate, setStartDate] = useState("2023-09-01");
   const [endDate, setEndDate] = useState("2023-09-07");
 
-
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
   };
@@ -128,14 +127,18 @@ function Content() {
   }, []);
 
   const labels = [
-  ...new Set(measurements
-  .filter((measure) => {
-    const measureTimestamp = new Date(measure.timeStamp).getTime();
-    return measureTimestamp >= new Date(startDate).getTime() && measureTimestamp <= new Date(endDate).getTime();
-  })
-  .map((measure) => formatTimestamp(measure.timeStamp))),
-];
-
+    ...new Set(
+      measurements
+        .filter((measure) => {
+          const measureTimestamp = new Date(measure.timeStamp).getTime();
+          return (
+            measureTimestamp >= new Date(startDate).getTime() &&
+            measureTimestamp <= new Date(endDate).getTime()
+          );
+        })
+        .map((measure) => formatTimestamp(measure.timeStamp))
+    ),
+  ];
 
   const behiveMeasure = () => {
     let devices = ["1", "2", "3"];
@@ -187,6 +190,8 @@ function Content() {
     setCheckType(buttonName === "type");
   };
 
+  const show_graph = checkData && measurements && measurements.length > 0;
+
   return (
     <div className="content">
       <div className="content-header">
@@ -197,75 +202,68 @@ function Content() {
           DATA
         </button>
         <button className="model" onClick={() => handleButtonClick("location")}>
-          Locations <FaLocationArrow />
+          <FaLocationArrow />
         </button>
         <button className="model" onClick={() => handleButtonClick("keeper")}>
-          Keepers <IoAccessibility />
+          <IoAccessibility />
         </button>
         <button className="model" onClick={() => handleButtonClick("device")}>
-          Devices <TbDevices2 />
+          <TbDevices2 />
         </button>
         <button className="model" onClick={() => handleButtonClick("type")}>
-          Types <WiCelsius /> <WiThermometerExterior /> <WiDayRainMix />
+          <WiDayRainMix />
         </button>
       </div>
       <div className="content-graph">
-        {checkData && measurements && measurements.length > 0 && (
+        {show_graph && <Line data={data} options={options} className="line" />}
+        {checkLocation && <Locations />}
+        {checkKeeper && <Keepers />}
+        {checkDevice && <Devices />}
+        {checkType && <Types />}
+      </div>
+
+      <div className="content-dates">
+        {show_graph && (
           <div>
-            {
-              <>
-                <hr style={{ width: "80%", borderColor: "#050505" }} />
-                <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
-                  {behives.map((behive, index) => (
-                    <button
-                      className="behive"
-                      key={index}
-                      style={{ marginRight: "10px" }}
-                      onClick={() => setBehiveChoice(behive._id)}
-                    >
-                      {`Behive ${behive._id}`}
-                    </button>
-                  ))}
-                </div>
-                <hr style={{ width: "80%", borderColor: "#050505" }} />
-              </>
-            }
-            <form className="form">
-              <div>
-                <label for="startDate">Start Date:</label>
-                <div className="span"></div>
-                <input type="date" id="startDate" name="startDate" defaultValue={startDate} onChange={handleStartDateChange}/>
-              </div>
-              <div>
-                <label for="endDate">End Date:</label>
-                <div className="span"></div>
-                <input type="date" id="endDate" name="endDate" defaultValue={endDate} onChange={handleEndDateChange}/>
-              </div>
-            </form>
-            <Line data={data} options={options} />
+            <label for="startDate">Start Date:</label>
+            <div className="span"></div>
+            <input
+              type="date"
+              id="startDate"
+              name="startDate"
+              defaultValue={startDate}
+              onChange={handleStartDateChange}
+            />
           </div>
         )}
-        {checkLocation && (
-          <h1>
-            <Locations />
-          </h1>
-        )}
-        {checkKeeper && (
-          <h1>
-            <Keepers />
-          </h1>
-        )}
-        {checkDevice && (
-          <h1>
-            <Devices />
-          </h1>
-        )}
-        {checkType && (
-          <h1>
-            <Types />
-          </h1>
+        {show_graph && (
+          <div>
+            <label for="endDate">End Date:</label>
+            <div className="span"></div>
+            <input
+              type="date"
+              id="endDate"
+              name="endDate"
+              defaultValue={endDate}
+              onChange={handleEndDateChange}
+            />
+          </div>
         )}
       </div>
+      {show_graph && (
+        <div className="content-beehives">
+          {behives.map((behive, index) => (
+            <button
+              className="model-2"
+              key={index}
+              style={{ marginRight: "10px" }}
+              onClick={() => setBehiveChoice(behive._id)}
+            >
+              {`Behive ${behive._id}`}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

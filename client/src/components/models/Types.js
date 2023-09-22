@@ -21,7 +21,7 @@ function Types() {
 
   return (
     <>
-      <hr />
+          <hr />
       <div >
         {types.map((device, index) => (
           <button  key={index} >
@@ -29,7 +29,6 @@ function Types() {
           </button>
         ))}
       </div>
-      <hr className="hr2"  />
     </>
   );
   
