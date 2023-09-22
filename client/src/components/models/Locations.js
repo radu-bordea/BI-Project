@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import './models.css'
+import "./models.css";
 
 function Locations() {
   const [locations, setLocations] = useState([]);
@@ -21,18 +21,14 @@ function Locations() {
 
   return (
     <>
-      <hr  />
-      <div >
+      <hr />
+      <div>
         {locations.map((location, index) => (
-          <button  key={index} >
-            {location.name}
-          </button>
+          <button key={index}>{location.name}</button>
         ))}
       </div>
-      <hr className="hr2"  />
     </>
   );
-  
 }
 
 export default Locations;

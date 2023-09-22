@@ -22,24 +22,3 @@ nav ul li {
   margin-right: 10px;
 }
 
-.footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content:space-around;
-  background: #050505;
-  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-  margin-top: auto;
-  color: white;
-  padding: 5px;
-  font-size: 10px;
-}
-
-.footer p {
-  display: block;
-  width: 200px;
-}
-
-.footer p span {
-  content: "\2B50";
-}

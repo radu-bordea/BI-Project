@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import './models.css'
+import "./models.css";
 
 function Devices() {
   const [devices, setDevices] = useState([]);
@@ -22,14 +22,11 @@ function Devices() {
   return (
     <>
       <hr />
-      <div >
+      <div>
         {devices.map((device, index) => (
-          <button key={index} >
-            {device._id}
-          </button>
+          <button key={index}>{device._id}</button>
         ))}
       </div>
-      <hr className="hr2"  />
     </>
   );
 }
