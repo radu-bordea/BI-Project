@@ -1,8 +1,10 @@
+import React from "react";
+import Map from "./Map";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./models.css";
 
-function Locations() {
+const Locations = () => {
   const [locations, setLocations] = useState([]);
 
   const fetchLocations = async () => {
@@ -19,16 +21,19 @@ function Locations() {
     fetchLocations();
   }, []);
 
+  const center = { lat: 37.7749, lng: -122.4194 }; // Example coordinates (San Francisco)
+  const zoom = 13; // Example zoom level
+
   return (
-    <>
-      <hr />
-      <div>
+    <div className="lev1">
+      <div className="lev2">
         {locations.map((location, index) => (
-          <button key={index}>{location.name}</button>
+          <button className="btn" key={{index}}>{location.name}</button>
         ))}
       </div>
-    </>
+      <Map center={center} zoom={zoom} />
+    </div>
   );
-}
+};
 
 export default Locations;
