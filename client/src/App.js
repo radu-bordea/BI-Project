@@ -1,7 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Switch } from "react-router-dom";
+
+
 import Content from "./components/Content";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 import "./App.css";
 
 import MainNavigation from "./components/Navigation/MainNavigation";
@@ -13,11 +15,16 @@ function App() {
         <MainNavigation />
         <main>
           <Switch>
-
-            <Route path="/content">
+            <Router path="/users">
+            </Router>
+            <Router path="/content">
               <Content />
-            </Route>
-            <Redirect to="/" />
+            </Router>
+            <Router path="/login">
+            </Router>
+            <Router path="/">
+              <Redirect to="/" />
+            </Router>
           </Switch>
         </main>
         <Footer />
