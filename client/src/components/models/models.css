@@ -1,0 +1,23 @@
+hr {
+  width: 80%;
+  border-color: #919090;
+  margin-bottom: 30px;
+}
+
+div {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.hr2-keepers {
+  margin-top: 30px;
+}
+
+
+button {
+  margin: 0 10px 10px 0;
+}
+
+.model-name {
+  color: rgb(216, 218, 212);
+}
