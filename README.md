@@ -25,7 +25,7 @@ In the package.json in the “scripts” add:
 - “start”: “nodemon app.js”
 Implement the necessary code in all the files.
 When all the set up connection between the Mongo-Atlas and NodeJS are than, in CMD from the server location run:
-- npm start.
+- npm start .
 
 In the rooth folder:
 - In the CMD from client run "npx create-react-app client"

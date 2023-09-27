@@ -1,0 +1,200 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.content {
+  height: 80vh;
+  display: flex;
+}
+
+.content-header,
+.content-graph,
+.content-dates,
+.content-beehives {
+  height: 100%; /* Make content-header and content-graph take up full height of content */
+}
+
+.content-header,
+.content-beehives {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto 0;
+}
+
+.model {
+  margin: 2px 4px;
+  height: 30px;
+  background-color: #333;
+  color: white;
+  text-shadow: 0.5px 0.5px 0.5px #333;
+  border-radius: 5px;
+  margin: 3px;
+  border: 1px solid rgb(70, 67, 62);
+  position: relative;
+  transition: left 0.7s ease;
+}
+
+.model {
+  left: -70px;
+  padding-left: 35%;
+  text-align: right;
+}
+
+.model-2 {
+  width: 150px;
+  margin: 2px 4px;
+  height: 30px;
+  background-color: #333;
+  color: white;
+  text-shadow: 0.5px 0.5px 0.5px #333;
+  border-radius: 5px;
+  margin: 3px;
+  border: 1px solid rgb(70, 67, 62);
+  position: relative;
+  transition: right 0.7s ease;
+  right: -60px;
+  padding-right: 35%;
+  text-align: left;
+}
+
+.model:hover,
+.model:focus {
+  left: -40px;
+}
+
+.model-2:hover,
+.model-2:focus {
+  right: -30px;
+}
+
+.content .content-header .model:hover,
+.model-2:hover {
+  background-color: black;
+  color: wheat;
+  border: 1px solid rgb(70, 67, 62);
+}
+
+.content .content-header .model:focus,
+.model-2:focus {
+  border-color: #292929;
+  color: #292929;
+  background: #f8df00;
+}
+
+.content .content-header .model-data,
+.model-2:focus {
+  font-size: 20px;
+  text-shadow: 1.5px 1.5px 1.5px #333;
+}
+
+.content-graph {
+  flex-grow: 1;
+  /* background-color: aqua; */
+}
+
+.content-dates {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-left: 1px solid rgb(90, 87, 87);
+  margin-left: 20px;
+  color: #b8b8b8;
+}
+
+.content-beehives {
+  width: 100px;
+  overflow-x: hidden;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background: #050505;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  color: white;
+  font-size: 10px;
+  position: fixed;
+  bottom: 0%;
+  width: 100%;
+}
+
+.footer p {
+  display: block;
+  width: 200px;
+}
+
+@media only screen and (max-width: 768px) {
+  .content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .content .content-header {
+    width: 80%;
+    height: 30%;
+  }
+
+  .content .content-header .model {
+    height: 1.2rem;
+    margin-top: 2px;
+    margin-left: 0px;
+    margin-right: 0px;
+    background-color: #444;
+    color: white;
+    padding-left: 40%;
+    left: -250px;
+    text-align: right;
+  }
+
+  .content .content-header .model:hover {
+    left: -20px;
+  }
+
+  .content .content-graph {
+    width: 97%;
+    height: 50%;
+    margin-top: 30px;
+  }
+
+  .content-dates {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    margin: 20px auto;
+  }
+
+  .content-beehives {
+    width: 150px;
+    margin-left: auto;
+  }
+
+  .model-2 {
+    right: -100px;
+  }
+
+  .model-2:hover,
+  .model-2:focus {
+    right: -30px;
+  }
+
+  .footer {
+    height: 12vb;
+    padding-top: 5px;
+  }
+
+  .footer p {
+    margin: 4px;
+    height: 2px;
+  }
+}
