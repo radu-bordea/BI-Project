@@ -1,0 +1,32 @@
+.container {
+    /* background-color: beige */
+}
+
+.city-btn {
+    display: flex;
+    flex-direction: column;
+    max-height: 400px; /* Removed quotes */
+    overflow-y: auto;  /* Removed quotes */
+}
+
+.map {
+    height: 400px;
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin-top: 10%;
+    }
+
+    .map {
+        height: 300px;
+    }
+
+    .city-btn {
+        display: flex;
+        flex-direction: row;
+        overflow: auto;
+        margin: 50px 0px;
+    }
+}
