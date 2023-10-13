@@ -18,7 +18,7 @@ In the server folder create the following files:
 In the server folder from the CMD run:
 	- npm install express
 	- npm install body-parser
-    	- npm install mongodb
+    - npm install mongodb
 	- npm install mongoose
  	- npm install -g nodemon
 In the package.json in the “scripts” add:
@@ -40,8 +40,12 @@ In the components folder:
 	
 install dependencies more:
  - npm install --save react-router-dom@5 --save-exact
+ - npm install axios chart.js react-chartjs-2
+ - npm install bootstrap
  - npm install react-transition-group
- - npm install react - icons
+ - npm install react-icons
+ - npm install --save google-maps-react
+
 
 create .env file
 npm install dotenv
