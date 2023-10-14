@@ -1,0 +1,34 @@
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background: #050505;
+    background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    color: white;
+    font-size: 10px;
+    position: fixed;
+    bottom: 0%;
+    width: 100%;
+  }
+  
+  .footer p {
+    display: block;
+    width: 200px;
+  }
+
+  
+
+@media only screen and (max-width: 768px) {
+  
+    .footer {
+      height: 12vb;
+      padding-top: 5px;
+    }
+  
+    .footer p {
+      margin: 4px;
+      height: 2px;
+    }
+  }
+  
