@@ -8,6 +8,7 @@ import About from './Components/About';
 import Data from './Components/Data';
 import Map from './Components/Map';
 import './App.css';
+import Footer from './Components/Footer';
 
 const App = () => {
   const [expanded, setExpanded] = useState(false);
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/maps" component={Map} />
         </Switch>
       </div>
+        <Footer/>
     </Router>
   );
 }

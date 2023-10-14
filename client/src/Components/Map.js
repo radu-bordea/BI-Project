@@ -3,86 +3,90 @@ import axios from "axios";
 import "./Map.css";
 
 const Map = () => {
-  const [locationsName, setLocationsName] = useState([]);
-  const [locationsCoordinates, setLocationsCoordinates] = useState([]);
+
+  const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
+
+  console.log(selectedCity)
 
   const fetchLocations = async () => {
     try {
       const response = await axios.get("http://localhost:5000/locations");
-
-      // Extract names and coordinates
-      const names = response.data.map(location => location.name);
-      const coordinates = response.data.map(location => location.location);
-
-      // Update states
-      setLocationsName(names);
-      setLocationsCoordinates(coordinates);
-
-      console.log(names);
-      console.log(coordinates[0]);
+  
+      const cityData = response.data.map(location => ({
+        name: location.name,
+        lat: location.location.lat,
+        long: location.location.long
+      }));
+  
+      setCities(cityData);
+  
+      console.log(cityData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
+  
+  
   useEffect(() => {
     fetchLocations();
   }, []);
 
-
+  
   useEffect(() => {
     const map = new window.google.maps.Map(document.getElementById("map"), {
-      center: { lat: 60.0971, lng: 19.9348 },
-      zoom: 14,
-    });
+      center: { lat: 60.0971, lng: 19.9348 }, // New York coordinates
+      zoom: 12,
+    },[]);
 
-    // Add a marker for Mariehamn
-    new window.google.maps.Marker({
-      position: { lat: 60.0971, lng: 19.9348 },
-      map: map,
-      title: "Mariehamn",
-    });
-
-    // Add markers for locations
-    locationsCoordinates.forEach(location => {
+    // add markers for all cities
+    cities.forEach((city, index) => {
       new window.google.maps.Marker({
-        position: { lat: location.lat, lng: location.long },
+        position: { lat: city.lat, lng: city.long },
         map: map,
-        title: location.name,
+        title: city.name,
       });
     });
+    
 
+    
     // If a city is selected, update the map
     if (selectedCity) {
-      const selectedCityCoords = locationsCoordinates.find(
-        location => location.name === selectedCity
+      const selectedCityCoords = cities.find(
+        (city) => city.name === selectedCity
       );
       if (selectedCityCoords) {
         map.setCenter({
           lat: selectedCityCoords.lat,
-          lng: selectedCityCoords.long, // Changed from lng to long
+          lng: selectedCityCoords.long,
         });
-        map.setZoom(14);
+        map.setZoom(12);
       }
     }
-  }, [selectedCity, locationsCoordinates]); // Added locationsCoordinates as dependency
+  }, [selectedCity]);
+
+  const handleCity = (city) => {
+    setSelectedCity(city)
+    
+  }
 
   return (
     <div className="container">
       <div className="row mt-4">
         <div className="col-md-2">
           <div className="list-group city-btn">
-            {locationsName.map((city, index) => ( // Changed from hard-coded cities to using locationsName
-              <button
-                key={index}
-                onClick={() => setSelectedCity(city)}
-                type="button"
-                className="list-group-item list-group-item-action"
-              >
-                {city}
-              </button>
-            ))}
+            {cities.map(
+              (city, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleCity(city.name)}
+                  type="button"
+                  className="list-group-item list-group-item-action"
+                >
+                  {city.name}
+                </button>
+              )
+            )}
           </div>
         </div>
         <div className="col-md-10">
