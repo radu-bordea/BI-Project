@@ -7,14 +7,19 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Replace with your React app's URL if it's different
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Replace with your React app's URL if it's different
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 // locations middleware
 app.get("/locations", mongoose.getLocations);
 app.post("/locations", mongoose.createLocation);
+app.put("/locations/:id", mongoose.updateLocation);
+app.delete("/locations/:id", mongoose.deleteLocation);
 
 // keepers middleware
 app.get("/keepers", mongoose.getKeepers);
@@ -33,8 +38,8 @@ app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
 
 // behives middleware
-app.get("/behives", mongoose.getBehives)
-app.post("/behives", mongoose.createBehive)
+app.get("/behives", mongoose.getBehives);
+app.post("/behives", mongoose.createBehive);
 
 // listening the port
 app.listen(5000);
