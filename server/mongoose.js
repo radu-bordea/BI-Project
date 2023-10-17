@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-require('dotenv').config(); // Load environment variables
+require("dotenv").config(); // Load environment variables
 
 const Location = require("./models/location");
 const Keeper = require("./models/keeper");
@@ -7,7 +7,6 @@ const Type = require("./models/type");
 const Device = require("./models/device");
 const Behive = require("./models/behive");
 const Data = require("./models/data");
-
 
 const uri = process.env.MONGO_URI;
 
@@ -41,6 +40,38 @@ const createLocation = async (req, res, next) => {
   const result = await createdLocation.save();
   console.log(typeof createdLocation._id);
   res.json(result);
+};
+
+// update location to mongo atlas
+const updateLocation = async (req, res, next) => {
+  try {
+    const locationId = req.params.id;
+    const updatedData = req.body;
+
+    const updatedLocation = await Location.findByIdAndUpdate(locationId, updatedData, { new: true });
+
+    if (!updatedLocation) {
+      return res.status(404).json({ message: 'Location not found' });
+    }
+
+    res.json(updatedLocation);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// delete location to mongo atlas
+const deleteLocation = async (req, res, next) => {
+  try {
+    const locationId = req.params.id;
+    const deleteLocation = await Location.findByIdAndDelete(locationId);
+    if (!deleteLocation) {
+      return res.status(404).json({ message: "Location not found" });
+    }
+    res.json({ message: "Location deleted Succesfully" });
+  } catch (error) {
+    next(error);
+  }
 };
 
 /* === KEEPERS === */
@@ -148,6 +179,8 @@ const createData = async (req, res, next) => {
 //locations
 exports.getLocations = getLocations;
 exports.createLocation = createLocation;
+exports.updateLocation = updateLocation;
+exports.deleteLocation = deleteLocation;
 
 // keepers
 exports.getKeepers = getKeepers;
