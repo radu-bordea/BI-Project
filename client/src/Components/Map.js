@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Map.css";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const Map = () => {
   const [cities, setCities] = useState([]);
@@ -12,7 +13,7 @@ const Map = () => {
     lat: "",
     long: "",
   });
-  
+
   console.log(selectedCity);
 
   const fetchLocations = async () => {
@@ -80,117 +81,123 @@ const Map = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
-    })
+      [name]: value,
+    });
   };
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:5000/locations", {
         _id: formData.id,
         name: formData.name,
         location: {
           lat: parseFloat(formData.lat),
-          long: parseFloat(formData.long)
-        }
-      })
-      console.log("Location added:", response.data)
+          long: parseFloat(formData.long),
+        },
+      });
+      console.log("Location added:", response.data);
 
       // Clear form input values after submission
       setFormData({
         id: "",
         name: "",
         lat: "",
-        long: ""
-      })
+        long: "",
+      });
 
       // Update the list of locations
-      setCities(prevCities => [...prevCities, response.data])
+      setCities((prevCities) => [...prevCities, response.data]);
 
       // Fetch updated locations
     } catch (error) {
-      console.error("Error adding location:", error)
+      console.error("Error adding location:", error);
     }
+  };
+
+  const handleDelete = (e) => {
+    console.log("DELETED");
   }
 
   return (
     <div className="container">
       <div className="row mt-4">
-        <div className="col-lg-2">
-          <div className="list-group city-btn">
+        <form onSubmit={handleSubmit} className="row my-2 mx-auto">
+          <div className="form-group col-lg-6">
+            <label htmlFor="id">ID</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="id"
+              name="id"
+              value={formData.id}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group col-lg-6">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group col-lg-6">
+            <label htmlFor="lat">Latitude</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="lat"
+              name="lat"
+              value={formData.lat}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group col-lg-6">
+            <label htmlFor="long">Longitude</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="long"
+              name="long"
+              value={formData.long}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn col-11 mx-auto btn-add"
+          >
+            Add Location
+          </button>
+        </form>
+        <div className="row">
+          <div className="list-group city-btn col-lg-3">
             {cities.map((city, index) => (
-              <button
-                key={index}
-                onClick={() => handleCity(city.name)}
-                type="button"
-                className="btn btn-info list-group-item list-group-item-action mt-1"
-              >
-                {city.name}
-              </button>
+              <div className="btn-container ">
+                <button
+                  key={index}
+                  onClick={() => handleCity(city.name)}
+                  type="button"
+                  className="btn-container btn btn-light mt-1 child_1 col-9"
+                >
+                  {city.name}
+                </button>
+                <button className="child_2 btn btn-danger col-3" onClick={handleDelete}>
+                  <FaRegTrashAlt />
+                </button>
+              </div>
             ))}
           </div>
-        </div>
-        <div className="col-lg-10">
-          <form onSubmit={handleSubmit} className="row my-2 mx-auto">
-            <div className="form-group col-6 col-lg-2">
-              <label htmlFor="id">ID</label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                id="id"
-                name="id"
-                value={formData.id}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="form-group col-6 col-lg-2">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="form-group col-6 col-lg-3">
-              <label htmlFor="lat">Latitude</label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                id="lat"
-                name="lat"
-                value={formData.lat}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="form-group col-6 col-lg-3">
-              <label htmlFor="long">Longitude</label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                id="long"
-                name="long"
-                value={formData.long}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn col-11 mx-auto col-lg-2 btn-primary"
-              style={{ height: "38px", marginTop: "25px" }}
-            >
-              Add Location
-            </button>
-          </form>
-          <div id="map" className="map"></div>
+          <div id="map" className="map col-lg-9"></div>
         </div>
       </div>
     </div>
