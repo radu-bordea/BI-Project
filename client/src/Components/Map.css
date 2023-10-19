@@ -1,32 +1,66 @@
 .container {
-    /* background-color: beige */
+  /* background-color: beige; */
+  font-size: 16px;
 }
 
 .city-btn {
-    display: flex;
-    flex-direction: column;
-    max-height: 400px; /* Removed quotes */
-    overflow-y: auto;  /* Removed quotes */
+  display: flex;
+  flex-direction: column;
+  max-height: 500px; /* Removed quotes */
+  overflow-y: auto; /* Removed quotes */
+  /* border: 2px solid red; */
+}
+
+.city-btn button,
+form {
+  font-size: 20px;
+  padding: 10px;
+}
+
+form {
+    background-color: rgb(250, 250, 250);
+
+}
+
+.city-btn button {
+    background-color: rgb(253, 250, 250);
+}
+
+.city-btn button:focus {
+    background-color: rgb(202, 225, 225);
 }
 
 .map {
-    height: 400px;
-    width: 100%;
+  height: 500px;
+  width: 100%;
+  margin-top: 30px;
+  /* border: 2px solid red; */
 }
 
-@media screen and (max-width: 768px) {
-    .container {
-        margin-top: 10%;
-    }
+@media screen and (max-width: 1000px) {
+  .container {
+    margin-top: 2px;
+    font-size: 12px;
+  }
 
-    .map {
-        height: 300px;
-    }
+  .map {
+    height: 300px;
+  }
 
-    .city-btn {
-        display: flex;
-        flex-direction: row;
-        overflow: auto;
-        margin: 50px 0px;
-    }
+  .city-btn {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    margin-bottom: 5px;
+  }
+
+  .city-btn button {
+    width: 50%;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  form {
+    font-size: 12px;
+  }
 }
