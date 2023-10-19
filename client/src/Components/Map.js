@@ -12,7 +12,7 @@ const Map = () => {
     lat: "",
     long: "",
   });
-
+  
   console.log(selectedCity);
 
   const fetchLocations = async () => {
@@ -69,7 +69,7 @@ const Map = () => {
         map.setZoom(12);
       }
     }
-  }, [cities, selectedCity]);
+  }, [selectedCity]);
 
   const handleCity = (city) => {
     setSelectedCity(city);
@@ -118,27 +118,27 @@ const Map = () => {
   return (
     <div className="container">
       <div className="row mt-4">
-        <div className="col-md-2">
+        <div className="col-lg-2">
           <div className="list-group city-btn">
             {cities.map((city, index) => (
               <button
                 key={index}
                 onClick={() => handleCity(city.name)}
                 type="button"
-                className="list-group-item list-group-item-action"
+                className="btn btn-info list-group-item list-group-item-action mt-1"
               >
                 {city.name}
               </button>
             ))}
           </div>
         </div>
-        <div className="col-md-10">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
+        <div className="col-lg-10">
+          <form onSubmit={handleSubmit} className="row my-2 mx-auto">
+            <div className="form-group col-6 col-lg-2">
               <label htmlFor="id">ID</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control form-control-sm"
                 id="id"
                 name="id"
                 value={formData.id}
@@ -146,11 +146,11 @@ const Map = () => {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group col-6 col-lg-2">
               <label htmlFor="name">Name</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control form-control-sm"
                 id="name"
                 name="name"
                 value={formData.name}
@@ -158,11 +158,11 @@ const Map = () => {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group col-6 col-lg-3">
               <label htmlFor="lat">Latitude</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control form-control-sm"
                 id="lat"
                 name="lat"
                 value={formData.lat}
@@ -170,11 +170,11 @@ const Map = () => {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group col-6 col-lg-3">
               <label htmlFor="long">Longitude</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control form-control-sm"
                 id="long"
                 name="long"
                 value={formData.long}
@@ -182,7 +182,11 @@ const Map = () => {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className="btn col-11 mx-auto col-lg-2 btn-primary"
+              style={{ height: "38px", marginTop: "25px" }}
+            >
               Add Location
             </button>
           </form>
