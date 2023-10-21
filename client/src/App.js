@@ -6,7 +6,7 @@ import Navbar from "./Components/NavbarComponent";
 import Home from "./Components/Home";
 import About from "./Components/About";
 import Data from "./Components/Data";
-import Map from "./Components/Map";
+import Map from "./Components/MapPage/Map";
 import "./App.css";
 import Footer from "./Components/Footer";
 
