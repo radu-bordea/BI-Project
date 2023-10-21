@@ -21,6 +21,7 @@ In the server folder from the CMD run:
     - npm install mongodb
 	- npm install mongoose
  	- npm install -g nodemon
+	- npm install cors
 In the package.json in the “scripts” add:
 - “start”: “nodemon app.js”
 Implement the necessary code in all the files.
