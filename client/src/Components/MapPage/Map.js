@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Map.css";
+
 
 const Map = ({cities, setCities}) => {
   // States to manage cities, selected city, and form data
@@ -48,30 +48,10 @@ const Map = ({cities, setCities}) => {
     setSelectedCity(city);
   };
 
-
-  // Function to handle city deletion
-  const handleDelete = async (id) => {
-    console.log("Deleting city with id:", id);
-    try {
-      const response = await axios.delete(
-        `http://localhost:5000/locations/${id}`
-      );
-
-      console.log("Response from server:", response);
-
-      if (response.status === 200) {
-        console.log("Location deleted:", response.data);
-
-        // Filter out the deleted city from the cities list
-        setCities((prevCities) => prevCities.filter((city) => city._id !== id));
-      }
-    } catch (error) {
-      console.error("Error deleting location:", error);
-    }
-  };
-
   return (
     <div className="container">
+      <h3>Here are the Devices with the Graph!</h3>
+      <hr />
       <div className="row">
         <div className="row">
           <div className="list-group city-btn col-lg-3">
@@ -81,9 +61,9 @@ const Map = ({cities, setCities}) => {
                   key={index}
                   onClick={() => handleCity(city.name)}
                   type="button"
-                  className="btn-container btn btn-light mt-1 child_1 col-9"
+                  className=" btn btn-light mt-1 child_1 col-9"
                 >
-                  {city.name}
+                {city.name}
                 </button>
               </div>
             ))}
@@ -91,6 +71,7 @@ const Map = ({cities, setCities}) => {
           <div id="map" className="map col-lg-9"></div>
         </div>
       </div>
+      <hr />
     </div>
   );
 };

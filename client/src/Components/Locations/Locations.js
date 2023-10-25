@@ -1,9 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import LocationForm from "../MapPage/LocationForm";
+import LocationForm from "./LocationForm";
 import { FaRegTrashAlt } from "react-icons/fa";
-import './Locations.css'
 
 const Locations = ({ cities, setCities, setSelectedCity }) => {
   const [formData, setFormData] = useState({
@@ -72,23 +71,23 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
       <div className="container">
         <div className="row">
           <LocationForm
-            className="form col-9"
             formData={formData}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
           />
-          <div className="list-group city-btn col-3">
+          <div className="list-group city-btn">
             {cities.map((city) => (
-              <div className="btn-container row" key={city._id}>
-                <h1 className="btn-container btn btn-light mt-1 child_1 col-9">
+              <div className="btn-container" key={city._id}>
+                <h1 className=" btn btn-light mt-1 child_1 col-11">
                   {city.name}
                 </h1>
-                <button
-                  className="child_2 btn btn-danger col-3"
+
+                <h1
+                  className="child_2 btn btn-danger"
                   onClick={() => handleDelete(city._id)}
                 >
                   <FaRegTrashAlt />
-                </button>
+                </h1>
               </div>
             ))}
           </div>

@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./Components/NavbarComponent";
 import Home from "./Components/Home";
 import About from "./Components/About";
-import Data from "./Components/Data";
+import Data from './Components/Data';
 import Map from "./Components/MapPage/Map";
 import "./App.css";
 import Footer from "./Components/Footer";
@@ -59,11 +59,11 @@ const App = () => {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/about" component={About} />
-            <Route path="/data" component={Data} />
             <Route
               path="/maps"
               component={() => <Map cities={cities} setCities={setCities} />}
             />
+            <Route path="/data" component={Data} />
             <Route
               path="/admin"
               component={() => (
