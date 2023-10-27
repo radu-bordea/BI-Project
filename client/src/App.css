@@ -28,6 +28,17 @@ h3 {
   color: #777;
 }
 
+.city-item {
+  text-align: center;
+}
+
+/* Custom CSS to change background color on hover */
+.city-item:hover {
+  background-color: darkgray;
+  color: white; /* Change text color to white for better visibility */
+  text-align: center;
+}
+
 .city-btn {
   display: flex;
   flex-direction: column;
@@ -35,42 +46,34 @@ h3 {
   overflow-y: auto; /* Removed quotes */
   /* border: 2px solid red; */
 }
-.city-btn .child_1,
+.city-btn,
 form {
   font-size: 16px;
   padding: 10px;
   min-width: 120px;
 }
 
-form {
-  background-color: rgb(250, 250, 250);
-}
-
-.city-btn button {
+.city-btn {
   display: flex;
   justify-content: space-between;
 }
-.btn-container {
-  display: flex;
+
+.city-btn .child {
+  margin-right: 10px;
+}
+
+.city-btn .child:hover {
+  background-color: rgb(240, 239, 239);
+  box-shadow: 5px 5px 5px lightblue;
+}
+
+.btn-del {
   align-items: center;
+  margin-left: auto;
+  color: red;
+  cursor: pointer;
 }
-.btn-container .child_1 {
-  margin: 5px;
-  border: none;
-  background-color: rgb(203, 207, 207);
-}
-.btn-container .child_1:hover {
-  background-color: rgb(202, 225, 225);
-}
-.btn-container .child_2 {
-  opacity: 80%;
-  align-items: center;
-  width: 40px;
-  height: 42px;
-}
-.city-btn .child_1:focus {
-  background-color: rgb(202, 225, 225);
-}
+
 .btn-add {
   height: "38px";
   margin-top: "10px";
@@ -101,11 +104,7 @@ form {
     overflow: auto;
     margin-bottom: 5px;
   }
-  .city-btn button {
-    width: 50%;
-    font-size: 11px;
-    text-align: center;
-  }
+
   form {
     font-size: 10px;
   }

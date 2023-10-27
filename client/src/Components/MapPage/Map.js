@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-
-const Map = ({cities, setCities}) => {
+const Map = ({ cities, setCities }) => {
   // States to manage cities, selected city, and form data
   const [selectedCity, setSelectedCity] = useState(null);
 
@@ -42,7 +41,6 @@ const Map = ({cities, setCities}) => {
     initializeMap();
   }, [selectedCity]);
 
-
   // Function to handle city selection
   const handleCity = (city) => {
     setSelectedCity(city);
@@ -53,19 +51,17 @@ const Map = ({cities, setCities}) => {
       <h3>Here are the Devices with the Graph!</h3>
       <hr />
       <div className="row">
-        <div className="row">
-          <div className="list-group city-btn col-lg-3">
+        <div className="row bg-light">
+          <div className="list-group  city-btn col-lg-3">
             {cities.map((city, index) => (
-              <div className="btn-container " key={city._id}>
-                <button
-                  key={index}
-                  onClick={() => handleCity(city.name)}
-                  type="button"
-                  className=" btn btn-light mt-1 child_1 col-9"
-                >
+              <button
+                key={city._id}
+                onClick={() => handleCity(city.name)}
+                type="button"
+                className=" btn list-group-item child "
+              >
                 {city.name}
-                </button>
-              </div>
+              </button>
             ))}
           </div>
           <div id="map" className="map col-lg-9"></div>
