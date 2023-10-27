@@ -25,14 +25,17 @@ const Data = () => {
       <h3>Here are the Devices with the Graph!</h3>
       <hr />
       <div className="row">
-        <div className="button-container col-md-2">
+        <div className="list-group bg-light city-btn col-12 col-lg-2">
           {devices.map((device, index) => (
-            <button className="btn btn-outline-info" key={index}>
+            <button
+              className="list-group-item child m-1"
+              key={index}
+            >
               {device._id}
             </button>
           ))}
         </div>
-        <div className="col-md-10 graph-container">
+        <div className="graph-container col-12 col-lg-10">
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime
             optio autem rem ex illum soluta porro doloribus deleniti, quisquam
