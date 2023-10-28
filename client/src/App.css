@@ -63,8 +63,12 @@ form {
 }
 
 .city-btn .child:hover {
-  background-color: rgb(240, 239, 239);
-  box-shadow: 5px 5px 5px lightblue;
+  box-shadow: 5px 5px 5px rgb(27, 27, 27);
+}
+
+.btn, .list-group-item {
+  min-width: 150px;
+  opacity: 70%;
 }
 
 .btn-del {
@@ -74,17 +78,7 @@ form {
   cursor: pointer;
 }
 
-.btn-add {
-  height: "38px";
-  margin-top: "10px";
-  background-color: rgb(28, 143, 238);
-  margin-top: 10px;
-  color: white;
-}
-.btn-add:hover {
-  background-color: rgb(21, 121, 202);
-  color: white;
-}
+
 .map {
   height: 400px;
   margin-bottom: 30px;

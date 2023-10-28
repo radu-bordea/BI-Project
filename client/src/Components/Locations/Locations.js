@@ -75,9 +75,12 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
           />
-          <div className="list-group bg-light city-btn">
+          <div className="list-group  city-btn">
             {cities.map((city) => (
-              <div className="d-flex list-group-item child m-1">
+              <div
+                className="d-flex m-1 list-group-item list-group-item-dark"
+                
+              >
                 <span className="p-1">{city.name}</span>
                 <FaRegTrashAlt
                   className="btn-del mt-2"

@@ -1,67 +1,125 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import "./Data.css";
 
-const Data = () => {
-  const [devices, setDevices] = useState([]);
 
-  const fetchDevices = async () => {
+import LineChart from "./LineChart";
+
+
+const Data = () => {
+  
+  const [measurements, setMeasurements] = useState([]);
+  const [behives, setBehives] = useState([]);
+  const [behiveChoice, setBehiveChoice] = useState("");
+  const [startDate, setStartDate] = useState("2023-09-01");
+  const [endDate, setEndDate] = useState("2023-09-07");
+
+  // Define formatTimestamp function before using it
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const formattedDate = date.toLocaleDateString();
+    const formattedTime = date.toLocaleTimeString();
+    return `${formattedDate}`;
+  };
+
+  const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/devices");
-      setDevices(response.data); // Update to set the entire response.data array
-      console.log(devices);
+      const response = await axios.get("http://localhost:5000/data");
+      setMeasurements(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
+  const fetchBehives = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/behives");
+      setBehives(response.data);
+    } catch (error) {
+      console.error("Error fetching behives:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchDevices();
+    fetchBehives();
+    fetchData();
   }, []);
+
+  const behiveMeasure = () => {
+    let devices = ["1", "2", "3"];
+    if (behiveChoice === "2") {
+      devices = ["4", "5", "6"];
+    }
+    return devices;
+  };
+
+  const dev = behiveMeasure();
+
+  const labels = [
+    ...new Set(
+      measurements
+        .filter((measure) => {
+          const measureTimestamp = new Date(measure.timeStamp).getTime();
+          return (
+            measureTimestamp >= new Date(startDate).getTime() &&
+            measureTimestamp <= new Date(endDate).getTime()
+          );
+        })
+        .map((measure) => formatTimestamp(measure.timeStamp))
+    ),
+  ];
+
+  const datasetTemp = {
+    label: "Temp °C",
+    data: measurements
+      .filter((measure) => measure.deviceId === dev[0])
+      .map((measure) => measure.value.$numberDecimal),
+    borderColor: "#f18787",
+    backgroundColor: "red",
+  };
+
+  const datasetHum = {
+    label: "Humidity g/m3",
+    data: measurements
+      .filter((measure) => measure.deviceId === dev[1])
+      .map((measure) => measure.value.$numberDecimal),
+    borderColor: "#8c8cd3",
+    backgroundColor: "#0c0cc2",
+  };
+
+  const datasetWeight = {
+    label: "Weight kg",
+    data: measurements
+      .filter((measure) => measure.deviceId === dev[2])
+      .map((measure) => measure.value.$numberDecimal),
+    borderColor: "#6cb66c",
+    backgroundColor: "green",
+  };
+
+  const data = {
+    labels: labels,
+    datasets: [datasetTemp, datasetHum, datasetWeight],
+  };
 
   return (
     <div className="container">
       <h3>Here are the Devices with the Graph!</h3>
       <hr />
       <div className="row">
-        <div className="list-group bg-light city-btn col-12 col-lg-2">
-          {devices.map((device, index) => (
+        <div className="list-group city-btn col-12 col-lg-2">
+          {behives.map((behive, index) => (
             <button
-              className="list-group-item child m-1"
+              className=" m-1 btn btn-primary"
               key={index}
+              onClick={() => setBehiveChoice(behive._id)}
             >
-              {device._id}
+              {`Beehive ID: ${behive._id}`}
             </button>
           ))}
         </div>
         <div className="graph-container col-12 col-lg-10">
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime
-            optio autem rem ex illum soluta porro doloribus deleniti, quisquam
-            tempore architecto recusandae repudiandae cupiditate modi omnis
-            consectetur dolore labore? Delectus alias enim facere dolore ipsa,
-            praesentium placeat aperiam quia fugiat, nobis obcaecati quaerat
-            laborum voluptatibus libero vero, dolorum dicta explicabo eius
-            totam. Autem id architecto blanditiis, unde sequi velit ducimus
-            praesentium quo dolore, consequatur magnam labore deserunt aut fugit
-            distinctio maxime omnis nam cum. Corporis exercitationem odit animi
-            nesciunt. Autem, incidunt nemo. Dolorem, aliquid suscipit vel
-            dolorum minus iure ullam cupiditate doloribus officiis
-            exercitationem nobis nihil natus repellat corrupti soluta voluptate
-            deleniti laborum architecto modi. Dicta assumenda itaque deleniti
-            autem reiciendis quod asperiores quia molestias, minima rerum quam
-            nemo odit voluptatem accusamus, qui illo totam voluptate quibusdam,
-            in velit! Vel placeat laudantium consequuntur sunt delectus illo nam
-            neque voluptate veniam, quo expedita aliquam voluptatum, sapiente
-            laboriosam inventore officiis quos rerum optio non eaque aperiam
-            alias, autem tenetur. Sint mollitia ratione aliquid quasi
-            consequuntur blanditiis vero veritatis at molestiae voluptatum
-            assumenda repudiandae est hic saepe omnis in, impedit modi autem
-            tenetur sit labore odio ipsum ut praesentium. Alias inventore eos,
-            suscipit adipisci soluta blanditiis fuga fugit mollitia vitae
-            assumenda sequi! Provident.
-          </p>
+          <LineChart data={data} />
         </div>
       </div>
       <hr />

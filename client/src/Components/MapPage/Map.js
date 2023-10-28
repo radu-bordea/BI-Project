@@ -51,14 +51,14 @@ const Map = ({ cities, setCities }) => {
       <h3>Here are the Devices with the Graph!</h3>
       <hr />
       <div className="row">
-        <div className="row bg-light">
+        <div className="row ">
           <div className="list-group  city-btn col-lg-3">
             {cities.map((city, index) => (
               <button
                 key={city._id}
                 onClick={() => handleCity(city.name)}
                 type="button"
-                className=" btn list-group-item child "
+                className=" btn btn-primary text-white m-1"
               >
                 {city.name}
               </button>
