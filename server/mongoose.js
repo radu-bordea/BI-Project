@@ -36,11 +36,21 @@ const createLocation = async (req, res, next) => {
     name: req.body.name,
     location: req.body.location,
   });
-  console.log(createdLocation);
-  const result = await createdLocation.save();
-  console.log(typeof createdLocation._id);
-  res.json(result);
+
+  try {
+    const result = await createdLocation.save();
+    res.json(result);
+  } catch (error) {
+    if (error.code === 11000) {
+      // Duplicate key error
+      res.status(400).json({ error: "Location with the same ID already exists." });
+    } else {
+      // Handle other errors
+      next(error);
+    }
+  }
 };
+
 
 // update location to mongo atlas
 const updateLocation = async (req, res, next) => {
@@ -90,10 +100,23 @@ const createKeeper = async (req, res, next) => {
     email: req.body.email,
     phone: req.body.phone,
   });
-  console.log(createdKeeper);
-  const result = await createdKeeper.save();
-  res.json(result);
+
+  try {
+    const result = await createdKeeper.save();
+    res.json(result);
+  } catch (error) {
+    if (error.code === 11000) {
+      // Duplicate key error
+      res
+        .status(400)
+        .json({ error: "Keeper with the same ID already exists." });
+    } else {
+      // Handle other errors
+      next(error);
+    }
+  }
 };
+
 
 /* === TYPES === */
 // get types from mongo atlas
@@ -110,10 +133,21 @@ const createType = async (req, res, next) => {
     unit: req.body.unit,
     precision: req.body.precision,
   });
-  console.log(createdType);
-  const result = await createdType.save();
-  res.json(result);
+
+  try {
+    const result = await createdType.save();
+    res.json(result);
+  } catch (error) {
+    if (error.code === 11000) {
+      // Duplicate key error
+      res.status(400).json({ error: "Type with the same ID already exists." });
+    } else {
+      // Handle other errors
+      next(error);
+    }
+  }
 };
+
 
 /* === DEVICES === */
 // get devices from mongo atlas
@@ -131,10 +165,23 @@ const createDevice = async (req, res, next) => {
     keeperId: req.body.keeperId,
     address: req.body.address,
   });
-  console.log(createdDevice);
-  const resut = await createdDevice.save();
-  res.json(resut);
+
+  try {
+    const result = await createdDevice.save();
+    res.json(result);
+  } catch (error) {
+    if (error.code === 11000) {
+      // Duplicate key error
+      res
+        .status(400)
+        .json({ error: "Device with the same ID already exists." });
+    } else {
+      // Handle other errors
+      next(error);
+    }
+  }
 };
+
 
 /* === BEHIVES === */
 // get behives from mongo atlas
@@ -149,10 +196,23 @@ const createBehive = async (req, res, next) => {
     _id: req.body._id,
     deviceId: req.body.deviceId,
   });
-  console.log(createdBehive);
-  const resut = await createdBehive.save();
-  res.json(resut);
+
+  try {
+    const result = await createdBehive.save();
+    res.json(result);
+  } catch (error) {
+    if (error.code === 11000) {
+      // Duplicate key error
+      res
+        .status(400)
+        .json({ error: "Behive with the same ID already exists." });
+    } else {
+      // Handle other errors
+      next(error);
+    }
+  }
 };
+
 
 /* === DEVICES === */
 // get data from mongo atlas
@@ -170,10 +230,21 @@ const createData = async (req, res, next) => {
     timeStamp: req.body.timeStamp,
     registerTimeStamp: req.body.registerTimeStamp,
   });
-  console.log(createdData);
-  const resut = await createdData.save();
-  res.json(resut);
+
+  try {
+    const result = await createdData.save();
+    res.json(result);
+  } catch (error) {
+    if (error.code === 11000) {
+      // Duplicate key error
+      res.status(400).json({ error: "Data with the same ID already exists." });
+    } else {
+      // Handle other errors
+      next(error);
+    }
+  }
 };
+
 
 /* === EXPORTS === */
 //locations

@@ -43,6 +43,12 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
       setCities((prevCities) => [...prevCities, response.data]);
       setSelectedCity(response.data.name);
     } catch (error) {
+      if (error.response && error.response.status === 409){
+        console.error(
+          "Duplicate key error: Location with the same ID already exists."
+        );
+        // Handle the duplicate key error here (e.g., show an error message to the user).
+      }
       console.error("Error adding location:", error);
     }
   };
