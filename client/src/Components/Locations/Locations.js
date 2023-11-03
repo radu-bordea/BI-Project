@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import LocationForm from "./LocationForm";
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
 const Locations = ({ cities, setCities, setSelectedCity }) => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,8 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
     lat: "",
     long: "",
   });
+
+  const [isEditing, setIsEditing] = useState(false); // Add an isEditing state
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,27 +25,33 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/locations", {
-        _id: formData.id,
-        name: formData.name,
-        location: {
-          lat: parseFloat(formData.lat),
-          long: parseFloat(formData.long),
-        },
-      });
-      console.log("Location added:", response.data);
+      if (isEditing) {
+        // If editing, call handleUpdate
+        handleUpdate();
+      } else {
+        // If not editing, add a new location
+        const response = await axios.post("http://localhost:5000/locations", {
+          _id: formData.id,
+          name: formData.name,
+          location: {
+            lat: parseFloat(formData.lat),
+            long: parseFloat(formData.long),
+          },
+        });
+        console.log("Location added:", response.data);
 
-      setFormData({
-        id: "",
-        name: "",
-        lat: "",
-        long: "",
-      });
+        setFormData({
+          id: "",
+          name: "",
+          lat: "",
+          long: "",
+        });
 
-      setCities((prevCities) => [...prevCities, response.data]);
-      setSelectedCity(response.data.name);
+        setCities((prevCities) => [...prevCities, response.data]);
+        setSelectedCity(response.data.name);
+      }
     } catch (error) {
-      if (error.response && error.response.status === 409){
+      if (error.response && error.response.status === 409) {
         console.error(
           "Duplicate key error: Location with the same ID already exists."
         );
@@ -51,6 +59,79 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
       }
       console.error("Error adding location:", error);
     }
+  };
+
+const handleEdit = (city) => {
+  setIsEditing(true);
+
+  // Log the city object to the console
+  console.log("Editing city:", city);
+
+  // Set the formData with the selected location's data if it exists
+  if (city.location) {
+    setFormData({
+      id: city._id,
+      name: city.name,
+      lat: city.location.lat || "",
+      long: city.location.long || "",
+    });
+  } else {
+    setFormData({
+      id: city._id,
+      name: city.name,
+      lat: "",
+      long: "",
+    });
+  }
+};
+
+
+
+  const handleUpdate = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/locations/${formData.id}`,
+        {
+          _id: formData.id,
+          name: formData.name,
+          location: {
+            lat: parseFloat(formData.lat),
+            long: parseFloat(formData.long),
+          },
+        }
+      );
+
+      console.log("Location updated:", response.data);
+
+      // Update the corresponding location in the cities state
+      setCities((prevCities) =>
+        prevCities.map((city) =>
+          city._id === formData.id ? response.data : city
+        )
+      );
+
+      // Clear the form data and set isEditing to false
+      setFormData({
+        id: "",
+        name: "",
+        lat: "",
+        long: "",
+      });
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating location:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    // Clear the form data and set isEditing to false
+    setFormData({
+      id: "",
+      name: "",
+      lat: "",
+      long: "",
+    });
+    setIsEditing(false);
   };
 
   const handleDelete = async (id) => {
@@ -80,18 +161,25 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
             formData={formData}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
+            isEditing={isEditing}
+            handleCancel={handleCancel} // Pass the handleCancel function
           />
-          <div className="list-group  city-btn">
+
+          <div className="list-group city-btn">
             {cities.map((city) => (
-              <div
-                className="d-flex m-1 list-group-item list-group-item-dark"
-                
-              >
+              <div className="d-flex m-1 list-group-item list-group-item-dark">
                 <span className="p-1">{city.name}</span>
+                <div className="btn-del-container">
+
+                <FaPencilAlt
+                  className="btn-del mt-2 text-success"
+                  onClick={() => handleEdit(city)}
+                />
                 <FaRegTrashAlt
-                  className="btn-del mt-2"
+                  className="btn-del mt-2 text-danger"
                   onClick={() => handleDelete(city._id)}
                 />
+                </div>
               </div>
             ))}
           </div>

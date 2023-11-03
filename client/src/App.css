@@ -71,11 +71,14 @@ form {
   opacity: 70%;
 }
 
+.btn-del-container {
+  margin-left: auto;
+}
+
 .btn-del {
   align-items: center;
-  margin-left: auto;
-  color: red;
   cursor: pointer;
+  margin-left: 15px;
 }
 
 
