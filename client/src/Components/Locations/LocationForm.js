@@ -1,11 +1,16 @@
 import React from "react";
 
-const LocationForm = ({ formData, handleInputChange, handleSubmit }) => {
+const LocationForm = ({
+  formData,
+  handleInputChange,
+  handleSubmit,
+  isEditing,
+  handleCancel, // Add handleCancel prop
+}) => {
   return (
-    // The form element with an event handler for form submission
-    <form onSubmit={handleSubmit} className={"row my-3 mx-auto"}>
+    <form onSubmit={handleSubmit} className="row my-3 mx-auto">
       {/* Input field for ID */}
-      <div className="form-group  col-lg-6">
+      <div className="form-group col-lg-6">
         <label htmlFor="id">ID</label>
         <input
           type="text"
@@ -14,7 +19,8 @@ const LocationForm = ({ formData, handleInputChange, handleSubmit }) => {
           name="id"
           value={formData.id}
           onChange={handleInputChange}
-          required // Field is required
+          required
+          disabled={isEditing}
         />
       </div>
       {/* Input field for Name */}
@@ -27,7 +33,7 @@ const LocationForm = ({ formData, handleInputChange, handleSubmit }) => {
           name="name"
           value={formData.name}
           onChange={handleInputChange}
-          required // Field is required
+          required
         />
       </div>
       {/* Input field for Latitude */}
@@ -40,7 +46,7 @@ const LocationForm = ({ formData, handleInputChange, handleSubmit }) => {
           name="lat"
           value={formData.lat}
           onChange={handleInputChange}
-          required // Field is required
+          required
         />
       </div>
       {/* Input field for Longitude */}
@@ -53,16 +59,27 @@ const LocationForm = ({ formData, handleInputChange, handleSubmit }) => {
           name="long"
           value={formData.long}
           onChange={handleInputChange}
-          required // Field is required
+          required
         />
       </div>
-      {/* Submit button */}
-      <button
-        type="submit"
-        className="btn btn-primary col-11 mt-3 mx-auto"
-      >
-        Add Location
-      </button>
+      {/* Submit and Cancel buttons */}
+      <div className="d-flex justify-content-between col-11 mt-3 mx-auto">
+        <button
+          type="submit"
+          className={`btn btn-${isEditing ? "success" : "primary"}`}
+        >
+          {isEditing ? "Update Location" : "Add Location"}
+        </button>
+        {isEditing && ( // Render Cancel button only in edit mode
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={handleCancel} // Call handleCancel function
+          >
+            Cancel
+          </button>
+        )}
+      </div>
     </form>
   );
 };
