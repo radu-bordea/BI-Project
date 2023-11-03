@@ -73,6 +73,7 @@ form {
 
 .btn-del-container {
   margin-left: auto;
+  display: flex;
 }
 
 .btn-del {
@@ -100,6 +101,10 @@ form {
     flex-direction: row;
     overflow: auto;
     margin-bottom: 5px;
+  }
+
+  .btn-del{
+    margin-left: 5px;
   }
 
   form {
