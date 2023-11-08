@@ -46,6 +46,7 @@ install dependencies more:
  - npm install react-transition-group
  - npm install react-icons
  - npm install --save google-maps-react
+ - npm install @auth0/auth0-react
 
 
 create .env file

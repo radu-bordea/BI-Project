@@ -4,14 +4,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./Components/NavbarComponent";
 import Home from "./Components/Home";
 import About from "./Components/About";
-import Data from './Components/Data';
+import Data from "./Components/Data";
 import Map from "./Components/MapPage/Map";
 import "./App.css";
 import Footer from "./Components/Footer";
 import Locations from "./Components/Locations/Locations";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "./Components/Login/Login";
 
 const App = () => {
+  const { isAuthenticated } = useAuth0();
+
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true); // New loading state
   const [cities, setCities] = useState([]);
@@ -79,6 +83,7 @@ const App = () => {
                 />
               )}
             />
+            <Route path="/login" component={LoginButton} />
           </Switch>
         )}
         <Footer className="fixed-bottom" />
