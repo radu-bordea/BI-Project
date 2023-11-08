@@ -2,9 +2,14 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import logo from '../images/beehive-logo.png'
+import logo from "../images/beehive-logo.png";
+import LogoutButton from "./Login/Logout";
+import { useAuth0 } from "@auth0/auth0-react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
+  const { isAuthenticated } = useAuth0();
+
   return (
     <Navbar
       bg="dark"
@@ -13,16 +18,16 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
       variant="dark"
       onToggle={() => setExpanded(!expanded)}
     >
-      <Navbar.Brand as={NavLink} to="/" >
+      <Navbar.Brand as={NavLink} to="/">
         <span style={{}}>
-          <img src={logo} alt="Logo for beehive project" className="logo"/>
+          <img src={logo} alt="Logo for beehive project" className="logo" />
         </span>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav className="mr-auto ">
           <Nav.Link
-            className="mx-1"
+            className=" mx-1"
             as={NavLink}
             to="/"
             exact
@@ -55,14 +60,28 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
           >
             Data
           </Nav.Link>
-          <Nav.Link
-            className="mx-1"
-            as={NavLink}
-            to="/admin"
-            onClick={handleNavClick}
-          >
-            <i>Edit-Locations</i>
-          </Nav.Link>
+          {isAuthenticated && (
+            <Nav.Link
+              className="mx-1"
+              as={NavLink}
+              to="/admin"
+              onClick={handleNavClick}
+            >
+              <i>Edit-Locations</i>
+            </Nav.Link>
+          )}
+          {isAuthenticated && <LogoutButton />}
+          {!isAuthenticated && (
+            <Nav.Link
+              className="mx-1 btn"
+              style={{ backgroundColor: "#007BFF" }}
+              as={NavLink}
+              to="/login"
+              onClick={handleNavClick}
+            >
+              Login
+            </Nav.Link>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
