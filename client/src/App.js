@@ -10,6 +10,7 @@ import "./App.css";
 import Footer from "./Components/Footer";
 import Locations from "./Components/Locations/Locations";
 import axios from "axios";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./Components/Login/Login";
 
@@ -28,8 +29,8 @@ const App = () => {
       const cityData = response.data.map((location) => ({
         _id: location._id,
         name: location.name,
-        lat: location.location.lat,
-        long: location.location.long,
+        lat: location.lat,
+        long: location.long,
       }));
 
       // Sort the cityData array by id before setting it in the state

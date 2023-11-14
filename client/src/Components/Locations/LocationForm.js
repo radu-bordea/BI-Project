@@ -38,9 +38,11 @@ const LocationForm = ({
       </div>
       {/* Input field for Latitude */}
       <div className="form-group col-lg-6">
-        <label htmlFor="lat">Latitude</label>
+        <label htmlFor="lat">
+          Latitude <span className="coordinates">N(+) | S(-)</span>
+        </label>
         <input
-          type="text"
+          type="number"
           className="form-control form-control-sm"
           id="lat"
           name="lat"
@@ -51,9 +53,11 @@ const LocationForm = ({
       </div>
       {/* Input field for Longitude */}
       <div className="form-group col-lg-6">
-        <label htmlFor="long">Longitude</label>
+        <label htmlFor="long">
+          Longitude <span className="coordinates">E(+) | W(-)</span>
+        </label>
         <input
-          type="text"
+          type="number"
           className="form-control form-control-sm"
           id="long"
           name="long"

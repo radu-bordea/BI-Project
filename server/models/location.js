@@ -4,10 +4,8 @@ const mongoose = require("mongoose");
 const locationSchema = mongoose.Schema({
   _id: { type: String, required: true, unique: true },
   name: { type: String, required: true },
-  location: { 
-    lat: {type: Number, required: true},
-    long: {type: Number, required: true}
-   },
+  lat: { type: Number, required: true },
+  long: { type: Number, required: true },
 });
 
 module.exports = mongoose.model("Location", locationSchema);

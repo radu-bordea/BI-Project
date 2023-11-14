@@ -34,7 +34,8 @@ const createLocation = async (req, res, next) => {
   const createdLocation = new Location({
     _id: req.body._id,
     name: req.body.name,
-    location: req.body.location,
+    lat: req.body.lat,
+    long: req.body.long
   });
 
   try {
