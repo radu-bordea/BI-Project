@@ -6,9 +6,11 @@ const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
 
   return (
-    <button className="btn btn-primary" onClick={loginWithRedirect()}>
-      Login
-    </button>
+    <div className="container-login">
+      <span className="loading" onClick={loginWithRedirect()}>
+        We are executing loagin through the auth0 api
+      </span>
+    </div>
   );
 };
 

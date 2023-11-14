@@ -18,7 +18,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: name === "lat" || name === "long" ? parseFloat(value) : value,
     });
   };
 
@@ -33,10 +33,8 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
         const response = await axios.post("http://localhost:5000/locations", {
           _id: formData.id,
           name: formData.name,
-          location: {
-            lat: parseFloat(formData.lat),
-            long: parseFloat(formData.long),
-          },
+          lat: formData.lat,
+          long: formData.long,
         });
         console.log("Location added:", response.data);
 
@@ -61,31 +59,21 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
     }
   };
 
-const handleEdit = (city) => {
-  setIsEditing(true);
+  const handleEdit = (city) => {
+    setIsEditing(true);
 
-  // Log the city object to the console
-  console.log("Editing city:", city);
+    // Log the city object to the console
+    console.log("Editing city:", city);
 
-  // Set the formData with the selected location's data if it exists
-  if (city.location) {
+    // Set the formData with the selected location's data
     setFormData({
       id: city._id,
       name: city.name,
-      lat: city.location.lat || "",
-      long: city.location.long || "",
+      lat: city.lat,
+      long: city.long,
     });
-  } else {
-    setFormData({
-      id: city._id,
-      name: city.name,
-      lat: "",
-      long: "",
-    });
-  }
-};
 
-
+  };
 
   const handleUpdate = async () => {
     try {
@@ -94,10 +82,8 @@ const handleEdit = (city) => {
         {
           _id: formData.id,
           name: formData.name,
-          location: {
-            lat: parseFloat(formData.lat),
-            long: parseFloat(formData.long),
-          },
+          lat: formData.lat,
+          long: formData.long,
         }
       );
 
@@ -170,15 +156,14 @@ const handleEdit = (city) => {
               <div className="d-flex m-1 list-group-item list-group-item-dark">
                 <span className="p-1">{city.name}</span>
                 <div className="btn-del-container">
-
-                <FaPencilAlt
-                  className="btn-del mt-2 text-success"
-                  onClick={() => handleEdit(city)}
-                />
-                <FaRegTrashAlt
-                  className="btn-del mt-2 text-danger"
-                  onClick={() => handleDelete(city._id)}
-                />
+                  <FaPencilAlt
+                    className="btn-del mt-2 text-success"
+                    onClick={() => handleEdit(city)}
+                  />
+                  <FaRegTrashAlt
+                    className="btn-del mt-2 text-danger"
+                    onClick={() => handleDelete(city._id)}
+                  />
                 </div>
               </div>
             ))}

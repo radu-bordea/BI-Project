@@ -66,7 +66,8 @@ form {
   box-shadow: 5px 5px 5px rgb(27, 27, 27);
 }
 
-.btn, .list-group-item {
+.btn,
+.list-group-item {
   min-width: 150px;
   opacity: 70%;
 }
@@ -82,12 +83,39 @@ form {
   margin-left: 15px;
 }
 
-
 .map {
   height: 400px;
   margin-bottom: 30px;
   /* border: 2px solid red; */
 }
+
+.container-login {
+  width: 100vw;
+  height: 100vh;
+  background: whitesmoke;
+  border: 1px solid #ccc; /* Optional: Add a border for visualization */
+  display: flex;
+  flex-direction: column;
+      align-items: center;
+  justify-content: center;
+
+}
+
+.container-login .loading {
+  cursor: pointer;
+  color: gray;
+  font-size: 2.5rem;
+
+}
+
+.coordinates {
+  background: rgb(247, 246, 246);
+  padding: 2px;
+  font-size: 8px;
+  color: green;
+  
+}
+
 @media screen and (max-width: 1000px) {
   .container {
     margin-top: 2px;
@@ -103,7 +131,7 @@ form {
     margin-bottom: 5px;
   }
 
-  .btn-del{
+  .btn-del {
     margin-left: 5px;
   }
 
