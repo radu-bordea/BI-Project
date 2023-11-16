@@ -30,6 +30,7 @@ h3 {
 
 .city-item {
   text-align: center;
+  font-size: 10px;
 }
 
 /* Custom CSS to change background color on hover */
@@ -129,13 +130,17 @@ form {
     flex-direction: row;
     overflow: auto;
     margin-bottom: 5px;
+    font-size: 13px;
   }
 
   .btn-del {
-    margin-left: 5px;
+    margin-left: 10px;
+    font-size: 12px;
   }
 
   form {
     font-size: 10px;
   }
+
+  
 }
