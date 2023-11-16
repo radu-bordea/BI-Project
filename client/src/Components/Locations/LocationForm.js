@@ -70,14 +70,14 @@ const LocationForm = ({
       <div className="d-flex justify-content-between col-11 mt-3 mx-auto">
         <button
           type="submit"
-          className={`btn btn-${isEditing ? "success" : "primary"}`}
+          className={`m-1 btn btn-${isEditing ? "success" : "primary"}`}
         >
           {isEditing ? "Update Location" : "Add Location"}
         </button>
         {isEditing && ( // Render Cancel button only in edit mode
           <button
             type="button"
-            className="btn btn-danger"
+            className="m-1 btn btn-danger"
             onClick={handleCancel} // Call handleCancel function
           >
             Cancel
