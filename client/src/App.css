@@ -97,16 +97,14 @@ form {
   border: 1px solid #ccc; /* Optional: Add a border for visualization */
   display: flex;
   flex-direction: column;
-      align-items: center;
+  align-items: center;
   justify-content: center;
-
 }
 
 .container-login .loading {
   cursor: pointer;
   color: gray;
   font-size: 2.5rem;
-
 }
 
 .coordinates {
@@ -114,7 +112,40 @@ form {
   padding: 2px;
   font-size: 8px;
   color: green;
-  
+}
+
+/* about component styles  */
+.about-container {
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.about-content {
+  margin-bottom: 20px;
+}
+
+.slider-container {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 7rem;
+  width: 80vw;
+  max-width: 1000px;
+  position: relative;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-img {
+  width: 160px;
+  height: 280px;
+  display: flex;
+  object-fit: cover;
+  justify-content: center;
+  text-align: center;
 }
 
 @media screen and (max-width: 1000px) {
@@ -142,5 +173,12 @@ form {
     font-size: 10px;
   }
 
-  
+  .slider-img {
+  width: 80px;
+  height: 160px;
+  display: flex;
+  object-fit: cover;
+  justify-content: center;
+  text-align: center;
+}
 }

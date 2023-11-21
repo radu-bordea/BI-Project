@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Map = ({ cities, setCities }) => {
+const Map = ({ cities}) => {
   // States to manage cities, selected city, and form data
   const [selectedCity, setSelectedCity] = useState(null);
 

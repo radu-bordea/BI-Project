@@ -47,6 +47,8 @@ install dependencies more:
  - npm install react-icons
  - npm install --save google-maps-react
  - npm install @auth0/auth0-react
+ - npm install react-slick --save
+ - npm install slick-carousel
 
 
 create .env file
