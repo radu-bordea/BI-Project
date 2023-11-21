@@ -70,7 +70,7 @@ const App = () => {
             <Route path="/about" component={About} />
             <Route
               path="/maps"
-              component={() => <Map cities={cities} setCities={setCities} />}
+              component={() => <Map cities={cities} />}
             />
             <Route path="/data" component={Data} />
             <Route
