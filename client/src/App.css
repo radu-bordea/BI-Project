@@ -148,6 +148,15 @@ form {
   text-align: center;
 }
 
+.slider-img img {
+  border-radius: 10px;
+  width: 90%;
+  height: 90%;
+  border: 3px solid lightblue;
+  box-shadow: 5px 5px 5px lightgray;
+  opacity:90%;
+}
+
 @media screen and (max-width: 1000px) {
   .container {
     margin-top: 2px;
@@ -174,11 +183,12 @@ form {
   }
 
   .slider-img {
-  width: 80px;
-  height: 160px;
+  width: 90px;
+  height: 90px;
   display: flex;
   object-fit: cover;
   justify-content: center;
   text-align: center;
 }
+
 }
