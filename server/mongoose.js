@@ -118,6 +118,38 @@ const createKeeper = async (req, res, next) => {
   }
 };
 
+// update location to mongo atlas
+const updateKeeper = async (req, res, next) => {
+  try {
+    const keeperId = req.params.id;
+    const updatedData = req.body;
+
+    const updatedKeeper = await Keeper.findByIdAndUpdate(keeperId, updatedData, { new: true });
+
+    if (!updatedKeeper) {
+      return res.status(404).json({ message: 'Keeper not found' });
+    }
+
+    res.json(updatedKeeper);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// delete location to mongo atlas
+const deleteKeeper = async (req, res, next) => {
+  try {
+    const keeperId = req.params.id;
+    const deleteKeeper = await Keeper.findByIdAndDelete(keeperId);
+    if (!deleteKeeper) {
+      return res.status(404).json({ message: "Keeper not found" });
+    }
+    res.json({ message: "Keeper deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 /* === TYPES === */
 // get types from mongo atlas
@@ -257,6 +289,8 @@ exports.deleteLocation = deleteLocation;
 // keepers
 exports.getKeepers = getKeepers;
 exports.createKeeper = createKeeper;
+exports.updateKeeper = updateKeeper
+exports.deleteKeeper = deleteKeeper
 
 // types
 exports.getTypes = getTypes;

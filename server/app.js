@@ -27,6 +27,8 @@ app.delete("/locations/:id", mongoose.deleteLocation);
 // keepers middleware
 app.get("/keepers", mongoose.getKeepers);
 app.post("/keepers", mongoose.createKeeper);
+app.put("/keepers/:id", mongoose.updateKeeper);
+app.delete("/keepers/:id", mongoose.deleteKeeper);
 
 // types middleware
 app.get("/types", mongoose.getTypes);
