@@ -52,7 +52,6 @@ const createLocation = async (req, res, next) => {
   }
 };
 
-
 // update location to mongo atlas
 const updateLocation = async (req, res, next) => {
   try {
@@ -149,6 +148,11 @@ const deleteKeeper = async (req, res, next) => {
     next(error);
   }
 };
+
+
+
+
+
 
 
 /* === TYPES === */
