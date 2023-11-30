@@ -61,14 +61,24 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
             Data
           </Nav.Link>
           {isAuthenticated && (
-            <Nav.Link
-              className="mx-1"
-              as={NavLink}
-              to="/admin"
-              onClick={handleNavClick}
-            >
-              <i>Edit-Locations</i>
-            </Nav.Link>
+            <>
+              <Nav.Link
+                className="mx-1"
+                as={NavLink}
+                to="/locations"
+                onClick={handleNavClick}
+              >
+                <i>Edit-Locations</i>
+              </Nav.Link>
+              <Nav.Link
+                className="mx-1"
+                as={NavLink}
+                to="/keepers"
+                onClick={handleNavClick}
+              >
+                <i>Edit-Keepers</i>
+              </Nav.Link>
+            </>
           )}
           {isAuthenticated && <LogoutButton />}
           {!isAuthenticated && (
