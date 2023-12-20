@@ -250,6 +250,38 @@ const createDevice = async (req, res, next) => {
   }
 };
 
+// update device to mongo atlas
+const updateDevice = async (req, res, next) => {
+  try {
+    const DeviceId = req.params.id;
+    const updatedData = req.body;
+
+    const updatedDevice = await Device.findByIdAndUpdate(DeviceId, updatedData, { new: true });
+
+    if (!updatedDevice) {
+      return res.status(404).json({ message: 'Device not found' });
+    }
+
+    res.json(updatedDevice);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// delete device to mongo atlas
+const deleteDevice = async (req, res, next) => {
+  try {
+    const deviceId = req.params.id;
+    const deleteDevice = await Device.findByIdAndDelete(deviceId);
+    if (!deleteDevice) {
+      return res.status(404).json({ message: "Device not found" });
+    }
+    res.json({ message: "Device deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 /* === BEHIVES === */
 // get behives from mongo atlas
@@ -336,6 +368,8 @@ exports.deleteType = deleteType;
 // devices
 exports.getDevices = getDevices;
 exports.createDevice = createDevice;
+exports.updateDevice = updateDevice;
+exports.deleteDevice = deleteDevice;
 
 // behives
 exports.getBehives = getBehives;
