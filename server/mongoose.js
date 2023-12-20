@@ -185,6 +185,37 @@ const createType = async (req, res, next) => {
   }
 };
 
+// update type to mongo atlas
+const updateType = async (req, res, next) => {
+  try {
+    const TypeId = req.params.id;
+    const updatedData = req.body;
+
+    const updatedType = await Type.findByIdAndUpdate(TypeId, updatedData, { new: true });
+
+    if (!updatedType) {
+      return res.status(404).json({ message: 'Type not found' });
+    }
+
+    res.json(updatedType);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// delete type to mongo atlas
+const deleteType = async (req, res, next) => {
+  try {
+    const typeId = req.params.id;
+    const deleteType = await Type.findByIdAndDelete(typeId);
+    if (!deleteType) {
+      return res.status(404).json({ message: "Type not found" });
+    }
+    res.json({ message: "Type deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
 
 /* === DEVICES === */
 // get devices from mongo atlas
@@ -299,6 +330,8 @@ exports.deleteKeeper = deleteKeeper
 // types
 exports.getTypes = getTypes;
 exports.createType = createType;
+exports.updateType = updateType;
+exports.deleteType = deleteType;
 
 // devices
 exports.getDevices = getDevices;

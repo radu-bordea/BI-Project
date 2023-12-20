@@ -32,7 +32,9 @@ app.delete("/keepers/:id", mongoose.deleteKeeper);
 
 // types middleware
 app.get("/types", mongoose.getTypes);
+app.put("/types/:id", mongoose.updateType);
 app.post("/types", mongoose.createType);
+app.delete("/types/:id", mongoose.deleteType);
 
 // devices middleware
 app.get("/devices", mongoose.getDevices);
