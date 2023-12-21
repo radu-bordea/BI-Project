@@ -42,13 +42,15 @@ app.post("/devices", mongoose.createDevice);
 app.put("/devices/:id", mongoose.updateDevice);
 app.delete("/devices/:id", mongoose.deleteDevice);
 
-// data middleware
-app.get("/data", mongoose.getData);
-app.post("/data", mongoose.createData);
-
 // behives middleware
 app.get("/behives", mongoose.getBehives);
 app.post("/behives", mongoose.createBehive);
+app.put("/behive/:id", mongoose.updateBehive);
+app.delete("/behive/:id", mongoose.deleteBehive);
+
+// data middleware
+app.get("/data", mongoose.getData);
+app.post("/data", mongoose.createData);
 
 // listening the port
 app.listen(5000);

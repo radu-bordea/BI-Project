@@ -313,6 +313,38 @@ const createBehive = async (req, res, next) => {
   }
 };
 
+// update behive to mongo atlas
+const updateBehive = async (req, res, next) => {
+  try {
+    const BehiveId = req.params.id;
+    const updatedData = req.body;
+
+    const updatedBehive = await Behive.findByIdAndUpdate(BehiveId, updatedData, { new: true });
+
+    if (!updatedBehive) {
+      return res.status(404).json({ message: 'Behive not found' });
+    }
+
+    res.json(updatedBehive);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// delete behive to mongo atlas
+const deleteBehive = async (req, res, next) => {
+  try {
+    const behiveId = req.params.id;
+    const deleteBehive = await Behive.findByIdAndDelete(behiveId);
+    if (!deleteBehive) {
+      return res.status(404).json({ message: "Behive not found" });
+    }
+    res.json({ message: "Behive deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 /* === DEVICES === */
 // get data from mongo atlas
@@ -374,6 +406,8 @@ exports.deleteDevice = deleteDevice;
 // behives
 exports.getBehives = getBehives;
 exports.createBehive = createBehive;
+exports.updateBehive = updateBehive;
+exports.deleteBehive = deleteBehive;
 
 // data
 exports.getData = getData;
