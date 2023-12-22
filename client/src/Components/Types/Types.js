@@ -1,15 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import LocationForm from "./LocationForm";
+import TypeForm from "./TypeForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Locations = ({ cities, setCities, setSelectedCity }) => {
+const Types = ({ types, setTypes, setSelectedType }) => {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
-    lat: "",
-    long: "",
+    unit: "",
+    precision: "",
   });
 
   const [isEditing, setIsEditing] = useState(false); // Add an isEditing state
@@ -18,7 +18,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name === "lat" || name === "long" ? parseFloat(value) : value,
+      [name]: value,
     });
   };
 
@@ -29,70 +29,69 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
         // If editing, call handleUpdate
         handleUpdate();
       } else {
-        // If not editing, add a new location
-        const response = await axios.post("http://localhost:5000/locations", {
+        // If not editing, add a new type
+        const response = await axios.post("http://localhost:5000/types", {
           _id: formData.id,
           name: formData.name,
-          lat: formData.lat,
-          long: formData.long,
+          unit: formData.unit,
+          precision: formData.precision,
         });
-        console.log("Location added:", response.data);
+        console.log("Type added:", response.data);
 
         setFormData({
           id: "",
           name: "",
-          lat: "",
-          long: "",
+          unit: "",
+          precision: "",
         });
 
-        setCities((prevCities) => [...prevCities, response.data]);
-        setSelectedCity(response.data.name);
+        setTypes((prevTypes) => [...prevTypes, response.data]);
+        setSelectedType(response.data.name);
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
         console.error(
-          "Duplicate key error: Location with the same ID already exists."
+          "Duplicate key error: Type with the same ID already exists."
         );
         // Handle the duplicate key error here (e.g., show an error message to the user).
       }
-      console.error("Error adding location:", error);
+      console.error("Error adding type:", error);
     }
   };
 
-  const handleEdit = (city) => {
+  const handleEdit = (type) => {
     setIsEditing(true);
 
-    // Log the city object to the console
-    console.log("Editing city:", city);
+    // Log the type object to the console
+    console.log("Editing type:", type);
 
-    // Set the formData with the selected location's data
+    // Set the formData with the selected type's data
     setFormData({
-      id: city._id,
-      name: city.name,
-      lat: city.lat,
-      long: city.long,
+      id: type._id,
+      name: type.name,
+      unit: type.unit,
+      precision: type.precision,
     });
-
   };
 
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/location/${formData.id}`,
+        `http://localhost:5000/type/${formData.id}`,
         {
           _id: formData.id,
           name: formData.name,
-          lat: formData.lat,
-          long: formData.long,
+          unit: formData.unit,
+          precision: formData.precision,
         }
       );
 
-      console.log("Location updated:", response.data);
+      console.log("Type updated:", response.data);
 
-      // Update the corresponding location in the cities state
-      setCities((prevCities) =>
-        prevCities.map((city) =>
-          city._id === formData.id ? response.data : city
+      // Update the corresponding type in the types state
+      setTypes((prevTypes) =>
+        prevTypes.map((type) =>
+          type._id === formData.id ? response.data : type
         )
       );
 
@@ -100,12 +99,12 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
       setFormData({
         id: "",
         name: "",
-        lat: "",
-        long: "",
+        unit: "",
+        precision: "",
       });
       setIsEditing(false);
     } catch (error) {
-      console.error("Error updating location:", error);
+      console.error("Error updating type:", error);
     }
   };
 
@@ -114,28 +113,28 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
     setFormData({
       id: "",
       name: "",
-      lat: "",
-      long: "",
+      unit: "",
+      precision: "",
     });
     setIsEditing(false);
   };
 
   const handleDelete = async (id) => {
-    console.log("Deleting city with id:", id);
+    console.log("Deleting type with id:", id);
     try {
       const response = await axios.delete(
-        `http://localhost:5000/location/${id}`
+        `http://localhost:5000/type/${id}`
       );
 
       console.log("Response from server:", response);
 
       if (response.status === 200) {
-        console.log("Location deleted:", response.data);
+        console.log("Type deleted:", response.data);
 
-        setCities((prevCities) => prevCities.filter((city) => city._id !== id));
+        setTypes((prevTypes) => prevTypes.filter((type) => type._id !== id));
       }
     } catch (error) {
-      console.error("Error deleting location:", error);
+      console.error("Error deleting type:", error);
     }
   };
 
@@ -143,7 +142,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
     <div>
       <div className="container">
         <div className="row">
-          <LocationForm
+          <TypeForm
             formData={formData}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
@@ -152,17 +151,17 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
           />
 
           <div className="list-group city-btn">
-            {cities.map((city) => (
+            {types.map((type) => (
               <div className="d-flex m-2 list-group-item list-group-item-dark">
-                <span className="p-1">{city.name}</span>
+                <span className="p-1">{type.name}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt
                     className="btn-del mt-2 text-success"
-                    onClick={() => handleEdit(city)}
+                    onClick={() => handleEdit(type)}
                   />
                   <FaRegTrashAlt
                     className="btn-del mt-2 text-danger"
-                    onClick={() => handleDelete(city._id)}
+                    onClick={() => handleDelete(type._id)}
                   />
                 </div>
               </div>
@@ -174,4 +173,4 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
   );
 };
 
-export default Locations;
+export default Types;

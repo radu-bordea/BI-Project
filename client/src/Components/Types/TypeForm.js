@@ -1,6 +1,6 @@
 import React from "react";
 
-const KeeperForm = ({
+const TypeForm = ({
   formData,
   handleInputChange,
   handleSubmit,
@@ -23,67 +23,53 @@ const KeeperForm = ({
           disabled={isEditing}
         />
       </div>
-      {/* Input field for firstName */}
+      {/* Input field for Name */}
       <div className="form-group col-lg-6">
-        <label htmlFor="name">First Name</label>
+        <label htmlFor="name">Name</label>
         <input
           type="text"
           className="form-control form-control-sm"
-          id="firstName"
-          name="firstName"
-          value={formData.firstName}
+          id="name"
+          name="name"
+          value={formData.name}
           onChange={handleInputChange}
           required
         />
       </div>
-      {/* Input field for lastName */}
+      {/* Input field for Unit */}
       <div className="form-group col-lg-6">
-        <label htmlFor="name">Last Name</label>
+        <label htmlFor="unit">Unit</label>
         <input
           type="text"
           className="form-control form-control-sm"
-          id="lastName"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      {/* Input field for email */}
-      <div className="form-group col-lg-6">
-        <label htmlFor="name">Email</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      {/* Input field for phone */}
-      <div className="form-group col-lg-6">
-        <label htmlFor="name">Phone</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="phone"
-          name="phone"
-          value={formData.phone}
+          id="unit"
+          name="unit"
+          value={formData.unit}
           onChange={handleInputChange}
           required
         />
       </div>
 
-
+      {/* Input field for Longitude */}
+      <div className="form-group col-lg-6">
+        <label htmlFor="precision">Precision</label>
+        <input
+          type="text"
+          className="form-control form-control-sm"
+          id="precision"
+          name="precision"
+          value={formData.precision}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
       {/* Submit and Cancel buttons */}
       <div className="d-flex justify-content-between col-11 mt-3 mx-auto">
         <button
           type="submit"
           className={`m-1 btn btn-${isEditing ? "success" : "primary"}`}
         >
-          {isEditing ? "Update Keeper" : "Add Keeper"}
+          {isEditing ? "Update Type" : "Add Type"}
         </button>
         {isEditing && ( // Render Cancel button only in edit mode
           <button
@@ -99,4 +85,4 @@ const KeeperForm = ({
   );
 };
 
-export default KeeperForm;
+export default TypeForm;
