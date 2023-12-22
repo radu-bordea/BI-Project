@@ -81,7 +81,7 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/keepers/${formData.id}`,
+        `http://localhost:5000/keeper/${formData.id}`,
         {
           _id: formData.id,
           firstName: formData.firstName,
@@ -130,7 +130,7 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
     console.log("Deleting keeper with id:", id);
     try {
       const response = await axios.delete(
-        `http://localhost:5000/keepers/${id}`
+        `http://localhost:5000/keeper/${id}`
       );
 
       console.log("Response from server:", response);

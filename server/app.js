@@ -21,26 +21,26 @@ app.use((req, res, next) => {
 // locations middleware
 app.get("/locations", mongoose.getLocations);
 app.post("/locations", mongoose.createLocation);
-app.put("/locations/:id", mongoose.updateLocation);
-app.delete("/locations/:id", mongoose.deleteLocation);
+app.put("/location/:id", mongoose.updateLocation);
+app.delete("/location/:id", mongoose.deleteLocation);
 
 // keepers middleware
 app.get("/keepers", mongoose.getKeepers);
 app.post("/keepers", mongoose.createKeeper);
-app.put("/keepers/:id", mongoose.updateKeeper);
-app.delete("/keepers/:id", mongoose.deleteKeeper);
+app.put("/keeper/:id", mongoose.updateKeeper);
+app.delete("/keeper/:id", mongoose.deleteKeeper);
 
 // types middleware
 app.get("/types", mongoose.getTypes);
 app.post("/types", mongoose.createType);
-app.put("/types/:id", mongoose.updateType);
-app.delete("/types/:id", mongoose.deleteType);
+app.put("/type/:id", mongoose.updateType);
+app.delete("/type/:id", mongoose.deleteType);
 
 // devices middleware
 app.get("/devices", mongoose.getDevices);
 app.post("/devices", mongoose.createDevice);
-app.put("/devices/:id", mongoose.updateDevice);
-app.delete("/devices/:id", mongoose.deleteDevice);
+app.put("/device/:id", mongoose.updateDevice);
+app.delete("/device/:id", mongoose.deleteDevice);
 
 // behives middleware
 app.get("/behives", mongoose.getBehives);

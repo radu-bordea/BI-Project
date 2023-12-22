@@ -12,6 +12,7 @@ import axios from "axios";
 
 import Locations from "./Components/Locations/Locations";
 import Keepers from "./Components/Keepers/Keepers";
+import Types from "./Components/Types/Types";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./Components/Login/Login";
@@ -27,6 +28,9 @@ const App = () => {
   // keepers
   const [keepers, setKeepers] = useState();
   const [selectedKeeper, setSelectedKeeper] = useState(null);
+  // types
+  const [types, setTypes] = useState();
+  const [selectedType, setSelectedType] = useState(null);
 
   // Function to fetch locations from the server
   const fetchLocations = async () => {
@@ -74,17 +78,39 @@ const App = () => {
       setLoading(false); // Error occurred, set loading to false
     }
   };
-  
+
+  // Function to fetch types from the server
+  const fetchTypes = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/types");
+      const typeData = response.data.map((type) => ({
+        _id: type._id,
+        name: type.name,
+        unit: type.unit,
+        precision: type.precision,
+      }));
+
+      // Sort the typeData array by id before setting it in the state
+      typeData.sort((a, b) => a._id.localeCompare(b._id));
+
+      setTypes(typeData);
+      setLoading(false); // Data has been fetched, set loading to false
+      console.log(typeData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Error occurred, set loading to false
+    }
+  };
+
   useEffect(() => {
     fetchLocations();
     fetchKeepers();
-  }, [selectedCity, selectedKeeper]);
+    fetchTypes();
+  }, [selectedCity, selectedKeeper, selectedType]);
 
   const handleNavClick = () => {
     setExpanded(false);
   };
-
-
 
   return (
     <Router className="container-fluid">
@@ -125,6 +151,18 @@ const App = () => {
                 />
               )}
             />
+            <Route
+              path="/types"
+              component={() => (
+                <Types
+                  types={types}
+                  setTypes={setTypes}
+                  // selectedTypes={selectedType}
+                  setSelectedType={setSelectedType}
+                />
+              )}
+            />
+
             <Route path="/login" component={LoginButton} />
           </Switch>
         )}
