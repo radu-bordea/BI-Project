@@ -13,6 +13,7 @@ import axios from "axios";
 import Locations from "./Components/Locations/Locations";
 import Keepers from "./Components/Keepers/Keepers";
 import Types from "./Components/Types/Types";
+import Devices from "./Components/Devices/Devices";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./Components/Login/Login";
@@ -31,6 +32,9 @@ const App = () => {
   // types
   const [types, setTypes] = useState();
   const [selectedType, setSelectedType] = useState(null);
+  // devices
+  const [devices, setDevices] = useState();
+  const [selectedDevice, setSelectedDevice] = useState(null);
 
   // Function to fetch locations from the server
   const fetchLocations = async () => {
@@ -102,11 +106,36 @@ const App = () => {
     }
   };
 
+  // Function to fetch keepers from the server
+  const fetchDevices = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/devices");
+      const deviceData = response.data.map((device) => ({
+        _id: device._id,
+        locationId: device.locationId,
+        typeId: device.typeId,
+        keeperId: device.keeperId,
+        address: device.address,
+      }));
+
+      // Sort the deviceData array by id before setting it in the state
+      deviceData.sort((a, b) => a._id.localeCompare(b._id));
+
+      setDevices(deviceData);
+      setLoading(false); // Data has been fetched, set loading to false
+      console.log(deviceData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Error occurred, set loading to false
+    }
+  };
+
   useEffect(() => {
     fetchLocations();
     fetchKeepers();
     fetchTypes();
-  }, [selectedCity, selectedKeeper, selectedType]);
+    fetchDevices();
+  }, [selectedCity, selectedKeeper, selectedType, selectedDevice]);
 
   const handleNavClick = () => {
     setExpanded(false);
@@ -159,6 +188,17 @@ const App = () => {
                   setTypes={setTypes}
                   // selectedTypes={selectedType}
                   setSelectedType={setSelectedType}
+                />
+              )}
+            />
+            <Route
+              path="/devices"
+              component={() => (
+                <Devices
+                  devices={devices}
+                  setDevices={setDevices}
+                  // selectedDevices={selectedDevice}
+                  setSelectedDevice={setSelectedDevice}
                 />
               )}
             />
