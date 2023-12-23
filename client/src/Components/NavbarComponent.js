@@ -86,6 +86,14 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
               >
                 <i>Edit-Types</i>
               </Nav.Link>
+              <Nav.Link
+                className="mx-1"
+                as={NavLink}
+                to="/devices"
+                onClick={handleNavClick}
+              >
+                <i>Edit-Devices</i>
+              </Nav.Link>
             </>
           )}
           {isAuthenticated && <LogoutButton />}
