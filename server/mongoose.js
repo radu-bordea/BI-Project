@@ -294,7 +294,7 @@ const getBehives = async (req, res, next) => {
 const createBehive = async (req, res, next) => {
   const createdBehive = new Behive({
     _id: req.body._id,
-    deviceId: req.body.deviceId,
+    devicesIds: req.body.devicesIds,
   });
 
   try {
