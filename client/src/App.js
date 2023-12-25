@@ -14,6 +14,7 @@ import Locations from "./Components/Locations/Locations";
 import Keepers from "./Components/Keepers/Keepers";
 import Types from "./Components/Types/Types";
 import Devices from "./Components/Devices/Devices";
+import Behives from "./Components/Behive/Behives";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./Components/Login/Login";
@@ -35,6 +36,9 @@ const App = () => {
   // devices
   const [devices, setDevices] = useState();
   const [selectedDevice, setSelectedDevice] = useState(null);
+  // behives
+  const [behives, setBehives] = useState();
+  const [selectedBehive, setSelectedBehive] = useState(null);
 
   // Function to fetch locations from the server
   const fetchLocations = async () => {
@@ -106,7 +110,7 @@ const App = () => {
     }
   };
 
-  // Function to fetch keepers from the server
+  // Function to fetch devices from the server
   const fetchDevices = async () => {
     try {
       const response = await axios.get("http://localhost:5000/devices");
@@ -130,12 +134,34 @@ const App = () => {
     }
   };
 
+  // Function to fetch behives from the server
+  const fetchBehives = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/behives");
+      const behiveData = response.data.map((behive) => ({
+        _id: behive._id,
+        devicesIds: behive.devicesIds,
+      }));
+
+      // Sort the behiveData array by id before setting it in the state
+      behiveData.sort((a, b) => a._id.localeCompare(b._id));
+
+      setBehives(behiveData);
+      setLoading(false); // Data has been fetched, set loading to false
+      console.log(behiveData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Error occurred, set loading to false
+    }
+  };
+
   useEffect(() => {
     fetchLocations();
     fetchKeepers();
     fetchTypes();
     fetchDevices();
-  }, [selectedCity, selectedKeeper, selectedType, selectedDevice]);
+    fetchBehives();
+  }, [selectedCity, selectedKeeper, selectedType, selectedDevice, selectedBehive]);
 
   const handleNavClick = () => {
     setExpanded(false);
@@ -199,6 +225,17 @@ const App = () => {
                   setDevices={setDevices}
                   // selectedDevices={selectedDevice}
                   setSelectedDevice={setSelectedDevice}
+                />
+              )}
+            />
+            <Route
+              path="/behives"
+              component={() => (
+                <Behives
+                  behives={behives}
+                  setBehives={setBehives}
+                  // selectedBehives={selectedBehives}
+                  setSelectedBehive={setSelectedBehive}
                 />
               )}
             />
