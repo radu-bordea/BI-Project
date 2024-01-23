@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Map = ({ cities}) => {
+const Map = ({ cities }) => {
   // States to manage cities, selected city, and form data
   const [selectedCity, setSelectedCity] = useState(null);
 
   // Function to initialize the map
   const initializeMap = () => {
+
+    if(!window.google || !window.google.maps) {
+      // Google Maps API not available yet, return or handle acordingly
+      return
+    }
+
     const map = new window.google.maps.Map(document.getElementById("map"), {
       center: { lat: 60.0971, lng: 19.9348 },
       zoom: 10,
@@ -38,8 +44,25 @@ const Map = ({ cities}) => {
 
   // Effect to initialize the map when cities change
   useEffect(() => {
-    initializeMap();
-  }, [selectedCity]);
+    // Check if the Google Maps API is available
+    if (!window.google || !window.google.maps) {
+      // Load Google Maps API script dynamically
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&callback=initMap`;
+      script.async = true;
+      script.defer = true;
+      script.onload = initializeMap; // Call initializeMap after script is loaded
+      document.head.appendChild(script);
+
+      return () => {
+        // Cleanup function to remove the script from the DOM when the component unmounts
+        document.head.removeChild(script);
+      };
+    } else {
+      // Google Maps API is already available, directly initialize the map
+      initializeMap();
+    }
+  }, [selectedCity, cities]);
 
   // Function to handle city selection
   const handleCity = (city) => {
