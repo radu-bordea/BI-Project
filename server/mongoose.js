@@ -9,6 +9,7 @@ const Behive = require("./models/behive");
 const Data = require("./models/data");
 
 const uri = process.env.MONGO_URI;
+const apiKey = process.env.API_KEY
 
 // connect to mongo atlas bi database
 mongoose
@@ -35,7 +36,7 @@ const createLocation = async (req, res, next) => {
     _id: req.body._id,
     name: req.body.name,
     lat: req.body.lat,
-    long: req.body.long
+    long: req.body.long,
   });
 
   try {
@@ -44,7 +45,9 @@ const createLocation = async (req, res, next) => {
   } catch (error) {
     if (error.code === 11000) {
       // Duplicate key error
-      res.status(400).json({ error: "Location with the same ID already exists." });
+      res
+        .status(400)
+        .json({ error: "Location with the same ID already exists." });
     } else {
       // Handle other errors
       next(error);
@@ -58,10 +61,14 @@ const updateLocation = async (req, res, next) => {
     const locationId = req.params.id;
     const updatedData = req.body;
 
-    const updatedLocation = await Location.findByIdAndUpdate(locationId, updatedData, { new: true });
+    const updatedLocation = await Location.findByIdAndUpdate(
+      locationId,
+      updatedData,
+      { new: true }
+    );
 
     if (!updatedLocation) {
-      return res.status(404).json({ message: 'Location not found' });
+      return res.status(404).json({ message: "Location not found" });
     }
 
     res.json(updatedLocation);
@@ -123,10 +130,14 @@ const updateKeeper = async (req, res, next) => {
     const keeperId = req.params.id;
     const updatedData = req.body;
 
-    const updatedKeeper = await Keeper.findByIdAndUpdate(keeperId, updatedData, { new: true });
+    const updatedKeeper = await Keeper.findByIdAndUpdate(
+      keeperId,
+      updatedData,
+      { new: true }
+    );
 
     if (!updatedKeeper) {
-      return res.status(404).json({ message: 'Keeper not found' });
+      return res.status(404).json({ message: "Keeper not found" });
     }
 
     res.json(updatedKeeper);
@@ -148,12 +159,6 @@ const deleteKeeper = async (req, res, next) => {
     next(error);
   }
 };
-
-
-
-
-
-
 
 /* === TYPES === */
 // get types from mongo atlas
@@ -191,10 +196,12 @@ const updateType = async (req, res, next) => {
     const TypeId = req.params.id;
     const updatedData = req.body;
 
-    const updatedType = await Type.findByIdAndUpdate(TypeId, updatedData, { new: true });
+    const updatedType = await Type.findByIdAndUpdate(TypeId, updatedData, {
+      new: true,
+    });
 
     if (!updatedType) {
-      return res.status(404).json({ message: 'Type not found' });
+      return res.status(404).json({ message: "Type not found" });
     }
 
     res.json(updatedType);
@@ -256,10 +263,14 @@ const updateDevice = async (req, res, next) => {
     const DeviceId = req.params.id;
     const updatedData = req.body;
 
-    const updatedDevice = await Device.findByIdAndUpdate(DeviceId, updatedData, { new: true });
+    const updatedDevice = await Device.findByIdAndUpdate(
+      DeviceId,
+      updatedData,
+      { new: true }
+    );
 
     if (!updatedDevice) {
-      return res.status(404).json({ message: 'Device not found' });
+      return res.status(404).json({ message: "Device not found" });
     }
 
     res.json(updatedDevice);
@@ -281,7 +292,6 @@ const deleteDevice = async (req, res, next) => {
     next(error);
   }
 };
-
 
 /* === BEHIVES === */
 // get behives from mongo atlas
@@ -319,10 +329,14 @@ const updateBehive = async (req, res, next) => {
     const BehiveId = req.params.id;
     const updatedData = req.body;
 
-    const updatedBehive = await Behive.findByIdAndUpdate(BehiveId, updatedData, { new: true });
+    const updatedBehive = await Behive.findByIdAndUpdate(
+      BehiveId,
+      updatedData,
+      { new: true }
+    );
 
     if (!updatedBehive) {
-      return res.status(404).json({ message: 'Behive not found' });
+      return res.status(404).json({ message: "Behive not found" });
     }
 
     res.json(updatedBehive);
@@ -345,7 +359,6 @@ const deleteBehive = async (req, res, next) => {
   }
 };
 
-
 /* === DEVICES === */
 // get data from mongo atlas
 const getData = async (req, res, next) => {
@@ -354,8 +367,44 @@ const getData = async (req, res, next) => {
 };
 
 // post data to mongo atlas
+// const createData = async (req, res, next) => {
+//   const createdData = new Data({
+//     _id: req.body._id,
+//     deviceId: req.body.deviceId,
+//     value: req.body.value,
+//     timeStamp: req.body.timeStamp,
+//     registerTimeStamp: req.body.registerTimeStamp,
+//   });
+
+//   try {
+//     const result = await createdData.save();
+//     res.json(result);
+//   } catch (error) {
+//     if (error.code === 11000) {
+//       // Duplicate key error
+//       res.status(400).json({ error: "Data with the same ID already exists." });
+//     } else {
+//       // Handle other errors
+//       next(error);
+//     }
+//   }
+// };
+
+// new post data for open api connection :::::
+// ????
 const createData = async (req, res, next) => {
-  const createdData = new Data({
+  // Check if API key is present in the request headers
+  const apiKey = req.headers["api-key"];
+
+  // key for api
+  const validApiKey = apiKey;
+
+
+  if (!apiKey || apiKey !== validApiKey) {
+    return res.status(401).json({ error: "Unauthorized. Invalid API key." });
+  }
+
+  const createData = new Data({
     _id: req.body._id,
     deviceId: req.body.deviceId,
     value: req.body.value,
@@ -364,19 +413,18 @@ const createData = async (req, res, next) => {
   });
 
   try {
-    const result = await createdData.save();
+    const result = await createData.save();
     res.json(result);
   } catch (error) {
     if (error.code === 11000) {
       // Duplicate key error
-      res.status(400).json({ error: "Data with the same ID already exists." });
+      res.status(400).json({ error: "Data with the same id already exists." });
     } else {
       // Handle other errors
       next(error);
     }
   }
 };
-
 
 /* === EXPORTS === */
 //locations
@@ -388,8 +436,8 @@ exports.deleteLocation = deleteLocation;
 // keepers
 exports.getKeepers = getKeepers;
 exports.createKeeper = createKeeper;
-exports.updateKeeper = updateKeeper
-exports.deleteKeeper = deleteKeeper
+exports.updateKeeper = updateKeeper;
+exports.deleteKeeper = deleteKeeper;
 
 // types
 exports.getTypes = getTypes;

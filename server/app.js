@@ -51,6 +51,8 @@ app.delete("/behive/:id", mongoose.deleteBehive);
 // data middleware
 app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
+// app.post("/data/api", mongoose.createData);
+
 
 // listening the port
 app.listen(5000);
