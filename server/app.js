@@ -43,7 +43,8 @@ app.put("/device/:id", mongoose.updateDevice);
 app.delete("/device/:id", mongoose.deleteDevice);
 
 // behives middleware
-app.get("/behives", mongoose.getBehives);
+app.get("/behives", mongoose.getBehives); 
+
 app.post("/behives", mongoose.createBehive);
 app.put("/behive/:id", mongoose.updateBehive);
 app.delete("/behive/:id", mongoose.deleteBehive);
