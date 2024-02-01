@@ -1,6 +1,11 @@
+# .gitignore in the root of the project
+
+# Ignore node_modules in both client and server directories
 client/node_modules/
 server/node_modules/
 
+# Ignore .env files in both client and server directories
 client/.env
 server/.env
+
 
