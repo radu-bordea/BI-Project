@@ -4,10 +4,7 @@ import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Auth0Provider } from "@auth0/auth0-react";
-
-// dev-pv2xi15d0b5uo74g.us.auth0.com
-
-// 5JfhSt28v5rnxvC1KescHyaaqTH0bTXz
+// import 'dotenv/config' 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

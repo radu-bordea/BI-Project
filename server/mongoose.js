@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-require("dotenv").config(); // Load environment variables
 
 const Location = require("./models/location");
 const Keeper = require("./models/keeper");
@@ -7,12 +6,11 @@ const Type = require("./models/type");
 const Device = require("./models/device");
 const Behive = require("./models/behive");
 const Data = require("./models/data");
+require("dotenv").config(); // Load environment variables
 
-// const uri2 = process.env.MONGO_URI;
-// const apiKey2 = process.env.API_KEY
 
-const uri = '---???---'
-const apiKey = '---???---'
+const uri = process.env.MONGO_URI
+const apiKey = process.env.API_KEY
 // connect to mongo atlas bi database
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
