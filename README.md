@@ -59,4 +59,7 @@ npm install dotenv
 
 // to be continued ....
 
-
+// API_KEYS to hide
+REACT_APP_GOOGLE_MAPS_API_KEY=AIzaSyBaZ1dNA9lq4qdXc-Svw9r40l82YrKXmd0
+MONGO_URI=mongodb+srv://radu:brn1989@cluster0.37mmycn.mongodb.net/bi-project?retryWrites=true&w=majority
+API_KEY = 'radu-biproject2024-???'

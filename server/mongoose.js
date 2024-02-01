@@ -8,9 +8,11 @@ const Device = require("./models/device");
 const Behive = require("./models/behive");
 const Data = require("./models/data");
 
-const uri = process.env.MONGO_URI;
-const apiKey = process.env.API_KEY
+// const uri2 = process.env.MONGO_URI;
+// const apiKey2 = process.env.API_KEY
 
+const uri = '---???---'
+const apiKey = '---???---'
 // connect to mongo atlas bi database
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -366,39 +368,13 @@ const getData = async (req, res, next) => {
   res.json(data);
 };
 
-// post data to mongo atlas
-// const createData = async (req, res, next) => {
-//   const createdData = new Data({
-//     _id: req.body._id,
-//     deviceId: req.body.deviceId,
-//     value: req.body.value,
-//     timeStamp: req.body.timeStamp,
-//     registerTimeStamp: req.body.registerTimeStamp,
-//   });
-
-//   try {
-//     const result = await createdData.save();
-//     res.json(result);
-//   } catch (error) {
-//     if (error.code === 11000) {
-//       // Duplicate key error
-//       res.status(400).json({ error: "Data with the same ID already exists." });
-//     } else {
-//       // Handle other errors
-//       next(error);
-//     }
-//   }
-// };
-
 // new post data for open api connection :::::
 // ????
 const createData = async (req, res, next) => {
   // Check if API key is present in the request headers
-  const apiKey = req.headers["api-key"];
+  const validApiKey = req.headers["api-key"];
 
   // key for api
-  const validApiKey = apiKey;
-
 
   if (!apiKey || apiKey !== validApiKey) {
     return res.status(401).json({ error: "Unauthorized. Invalid API key." });
