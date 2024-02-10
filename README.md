@@ -55,8 +55,6 @@ create .env file
 npm install dotenv
 
 
-
-
 // git commands
 - git checkout -b feature
 - git rm -r --cached server/node_modules // Remove node_modules from the staging area.
@@ -64,4 +62,10 @@ npm install dotenv
 - git branch -d feature
 - git push origin --delete feature
 
+
+- front end port 443 & ceriticat proxi ????? important
+- back needs to comunicate proxi?
+
+
+- npm i -D nodemon concurrently
 
