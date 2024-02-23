@@ -8,9 +8,8 @@ const Behive = require("./models/behive");
 const Data = require("./models/data");
 require("dotenv").config(); // Load environment variables
 
-
-const uri = process.env.MONGO_URI
-const apiKey = process.env.API_KEY
+const uri = process.env.MONGO_URI;
+const apiKey = process.env.API_KEY;
 // connect to mongo atlas bi database
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -233,12 +232,27 @@ const getDevices = async (req, res, next) => {
 
 // post device to mongo atlas
 const createDevice = async (req, res, next) => {
+  // Generate a random letter
+  function getRandomLetter() {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    const randomIndex = Math.floor(Math.random() * alphabet.length);
+    return alphabet[randomIndex];
+  }
+
+  // Example usage
+  const randomLetter1 = getRandomLetter();
+  const randomLetter2 = getRandomLetter();
+  const randomLetter3 = getRandomLetter();
+  salt1 = Math.round(Math.random() * 999).toString()
+  salt2 = Math.round(Math.random() * 999).toString()
+
   const createdDevice = new Device({
     _id: req.body._id,
     locationId: req.body.locationId,
     typeId: req.body.typeId,
     keeperId: req.body.keeperId,
     address: req.body.address,
+    apiKey: randomLetter1 + salt1 + randomLetter2 + salt2 + randomLetter3,
   });
 
   try {
