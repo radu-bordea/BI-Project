@@ -159,8 +159,8 @@ const Devices = ({ devices, setDevices, setSelectedDevice }) => {
 
           <div className="list-group city-btn">
             {devices.map((device) => (
-              <div className="d-flex m-2 list-group-item list-group-item-dark">
-                <span className="p-1">{device._id}</span>
+              <div key={device._id} className="d-flex m-2 list-group-item list-group-item-dark">
+                <span className="p-1">{device._id} {`-- -- --> apiKey: ${device.apiKey}`}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt
                     className="btn-del mt-2 text-success"

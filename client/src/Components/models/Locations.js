@@ -5,6 +5,7 @@ import Map from "../Map/Map";
 
 function Locations() {
   const [locations, setLocations] = useState([]);
+  const [isLoading, setLoading] = useState(true)
 
   const fetchLocations = async () => {
     try {
@@ -13,6 +14,7 @@ function Locations() {
       console.log(response.data); // Use response.data here
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false)
     }
   };
 
@@ -20,12 +22,16 @@ function Locations() {
     fetchLocations();
   }, []);
 
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <>
       <hr />
       <div>
-        {locations.map((location, index) => (
-          <button key={index}>{location.name}</button>
+        {locations.map( location => (
+          <button key={location._id}>{location.name}</button>
         ))}
         {locations.length > 0 && <Map center={locations[0].location} zoom={16} />}
       </div>

@@ -152,7 +152,7 @@ const Types = ({ types, setTypes, setSelectedType }) => {
 
           <div className="list-group city-btn">
             {types.map((type) => (
-              <div className="d-flex m-2 list-group-item list-group-item-dark">
+              <div key={type._id} className="d-flex m-2 list-group-item list-group-item-dark">
                 <span className="p-1">{type.name}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt

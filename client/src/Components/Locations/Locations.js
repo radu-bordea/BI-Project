@@ -153,7 +153,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
 
           <div className="list-group city-btn">
             {cities.map((city) => (
-              <div className="d-flex m-2 list-group-item list-group-item-dark">
+              <div key={cities._id} className="d-flex m-2 list-group-item list-group-item-dark">
                 <span className="p-1">{city.name}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt

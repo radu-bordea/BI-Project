@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import './models.css'
+import "./models.css";
 
 function Types() {
   const [types, setTypes] = useState([]);
+  const [isLoading, setLoading] = useState(true)
 
   const fetchTypes = async () => {
     try {
@@ -12,6 +13,7 @@ function Types() {
       console.log(types);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false)
     }
   };
 
@@ -19,19 +21,20 @@ function Types() {
     fetchTypes();
   }, []);
 
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <>
-          <hr />
-      <div >
-        {types.map((device, index) => (
-          <button  key={index} >
-            {device.name}
-          </button>
+      <hr />
+      <div>
+        {types.map((type) => (
+          <button key={type._id}>{type.name}</button>
         ))}
       </div>
     </>
   );
-  
 }
 
 export default Types;

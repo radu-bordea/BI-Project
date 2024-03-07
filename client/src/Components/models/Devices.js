@@ -4,6 +4,7 @@ import "./models.css";
 
 function Devices() {
   const [devices, setDevices] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   const fetchDevices = async () => {
     try {
@@ -12,6 +13,7 @@ function Devices() {
       console.log(devices);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false);
     }
   };
 
@@ -19,16 +21,19 @@ function Devices() {
     fetchDevices();
   }, []);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <hr />
       <div>
-        {devices.map((device, index) => (
-          <button key={index}>{device._id}</button>
+        {devices.map(device => (
+          <button key={device._id}>{device._id}</button>
         ))}
       </div>
     </>
   );
 }
-
 export default Devices;

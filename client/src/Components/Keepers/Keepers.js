@@ -161,7 +161,7 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
 
           <div className="list-group city-btn">
             {keepers.map((keeper) => (
-              <div className="d-flex m-2 list-group-item list-group-item-dark">
+              <div key={keeper._id} className="d-flex m-2 list-group-item list-group-item-dark">
                 <span className="p-1">{keeper.firstName} {keeper.lastName}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt

@@ -68,4 +68,15 @@ npm install dotenv
 
 
 - npm i -D nodemon concurrently
+- npm install react-scripts
 
+// these are part of scripts:
+  "scripts": {
+    "server": "nodemon app.js"
+    "client": "cd ../client && npm start",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+
+  // commands:
+  - npm install --save-dev @babel/plugin-proposal-private-property-in-object
+- npm run build

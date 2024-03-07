@@ -3,12 +3,9 @@ import axios from "axios";
 
 import "./Data.css";
 
-
 import LineChart from "./LineChart";
 
-
 const Data = () => {
-  
   const [measurements, setMeasurements] = useState([]);
   const [behives, setBehives] = useState([]);
   const [behiveChoice, setBehiveChoice] = useState("");
@@ -108,10 +105,10 @@ const Data = () => {
       <hr />
       <div className="row">
         <div className="list-group city-btn col-12 col-lg-2">
-          {behives.map((behive, index) => (
+          {behives.map((behive) => (
             <button
               className=" m-1 btn btn-primary"
-              key={index}
+              key={behive._id}
               onClick={() => setBehiveChoice(behive._id)}
             >
               {`Beehive ID: ${behive._id}`}

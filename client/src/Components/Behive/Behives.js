@@ -136,7 +136,7 @@ const Behives = ({ behives, setBehives, setSelectedBehive }) => {
 
           <div className="list-group city-btn">
             {behives.map((behive) => (
-              <div className="d-flex m-2 list-group-item list-group-item-dark">
+              <div key={behive._id} className="d-flex m-2 list-group-item list-group-item-dark">
                 <span className="p-1">{behive.devicesIds}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt

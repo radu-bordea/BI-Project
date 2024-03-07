@@ -28,16 +28,16 @@ const App = () => {
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
   // keepers
-  const [keepers, setKeepers] = useState();
+  const [keepers, setKeepers] = useState([]);
   const [selectedKeeper, setSelectedKeeper] = useState(null);
   // types
-  const [types, setTypes] = useState();
+  const [types, setTypes] = useState([]);
   const [selectedType, setSelectedType] = useState(null);
   // devices
-  const [devices, setDevices] = useState();
+  const [devices, setDevices] = useState([]);
   const [selectedDevice, setSelectedDevice] = useState(null);
   // behives
-  const [behives, setBehives] = useState();
+  const [behives, setBehives] = useState([]);
   const [selectedBehive, setSelectedBehive] = useState(null);
 
   // Function to fetch locations from the server
@@ -120,6 +120,7 @@ const App = () => {
         typeId: device.typeId,
         keeperId: device.keeperId,
         address: device.address,
+        apiKey: device.apiKey
       }));
 
       // Sort the deviceData array by id before setting it in the state

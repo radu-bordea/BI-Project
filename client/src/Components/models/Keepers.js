@@ -4,6 +4,7 @@ import "./models.css";
 
 function Keepers() {
   const [keepers, setKeepers] = useState([]);
+  const [isLoading, setLoading] = useState(true)
 
   const fetchKeepers = async () => {
     try {
@@ -12,6 +13,7 @@ function Keepers() {
       console.log(keepers);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false)
     }
   };
 
@@ -19,12 +21,16 @@ function Keepers() {
     fetchKeepers();
   }, []);
 
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <>
       <hr />
       <div>
-        {keepers.map((keeper, index) => (
-          <button key={index}>
+        {keepers.map(keeper => (
+          <button key={keeper._id}>
             {keeper.firstName} {keeper.lastName}
           </button>
         ))}
