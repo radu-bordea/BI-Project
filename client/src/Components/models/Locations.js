@@ -9,7 +9,7 @@ function Locations() {
 
   const fetchLocations = async () => {
     try {
-      const response = await axios.get("https://bi-project.onrender.com/locations");
+      const response = await axios.get("/locations");
       setLocations(response.data); // Update to set the entire response.data array
       console.log(response.data); // Use response.data here
     } catch (error) {

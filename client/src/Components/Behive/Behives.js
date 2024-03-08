@@ -28,7 +28,7 @@ const Behives = ({ behives, setBehives, setSelectedBehive }) => {
         handleUpdate();
       } else {
         // If not editing, add a new type
-        const response = await axios.post("https://bi-project.onrender.com/behives", {
+        const response = await axios.post("/behives", {
           _id: formData.id,
           devicesIds: formData.devicesIds,
         });
@@ -69,7 +69,7 @@ const Behives = ({ behives, setBehives, setSelectedBehive }) => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `https://bi-project.onrender.com/behive/${formData.id}`,
+        `/behive/${formData.id}`,
         {
           _id: formData.id,
           devicesIds: formData.devicesIds,
@@ -108,7 +108,7 @@ const Behives = ({ behives, setBehives, setSelectedBehive }) => {
   const handleDelete = async (id) => {
     console.log("Deleting behive with id:", id);
     try {
-      const response = await axios.delete(`https://bi-project.onrender.com/behive/${id}`);
+      const response = await axios.delete(`/behive/${id}`);
 
       console.log("Response from server:", response);
 

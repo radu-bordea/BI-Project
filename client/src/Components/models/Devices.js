@@ -8,7 +8,7 @@ function Devices() {
 
   const fetchDevices = async () => {
     try {
-      const response = await axios.get("https://bi-project.onrender.com/devices");
+      const response = await axios.get("/devices");
       setDevices(response.data); // Update to set the entire response.data array
       console.log(devices);
     } catch (error) {

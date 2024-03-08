@@ -43,7 +43,7 @@ const App = () => {
   // Function to fetch locations from the server
   const fetchLocations = async () => {
     try {
-      const response = await axios.get("https://bi-project.onrender.com/locations");
+      const response = await axios.get("/locations");
       const cityData = response.data.map((location) => ({
         _id: location._id,
         name: location.name,
@@ -66,7 +66,7 @@ const App = () => {
   // Function to fetch keepers from the server
   const fetchKeepers = async () => {
     try {
-      const response = await axios.get("https://bi-project.onrender.com/keepers");
+      const response = await axios.get("/keepers");
       const keeperData = response.data.map((keeper) => ({
         _id: keeper._id,
         firstName: keeper.firstName,
@@ -90,7 +90,7 @@ const App = () => {
   // Function to fetch types from the server
   const fetchTypes = async () => {
     try {
-      const response = await axios.get("https://bi-project.onrender.com/types");
+      const response = await axios.get("/types");
       const typeData = response.data.map((type) => ({
         _id: type._id,
         name: type.name,
@@ -113,7 +113,7 @@ const App = () => {
   // Function to fetch devices from the server
   const fetchDevices = async () => {
     try {
-      const response = await axios.get("https://bi-project.onrender.com/devices");
+      const response = await axios.get("/devices");
       const deviceData = response.data.map((device) => ({
         _id: device._id,
         locationId: device.locationId,
@@ -138,7 +138,7 @@ const App = () => {
   // Function to fetch behives from the server
   const fetchBehives = async () => {
     try {
-      const response = await axios.get("https://bi-project.onrender.com/behives");
+      const response = await axios.get("/behives");
       const behiveData = response.data.map((behive) => ({
         _id: behive._id,
         devicesIds: behive.devicesIds,

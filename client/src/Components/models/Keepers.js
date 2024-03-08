@@ -8,7 +8,7 @@ function Keepers() {
 
   const fetchKeepers = async () => {
     try {
-      const response = await axios.get("https://bi-project.onrender.com/keepers");
+      const response = await axios.get("/keepers");
       setKeepers(response.data); // Update to set the entire response.data array
       console.log(keepers);
     } catch (error) {

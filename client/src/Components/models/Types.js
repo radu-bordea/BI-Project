@@ -8,7 +8,7 @@ function Types() {
 
   const fetchTypes = async () => {
     try {
-      const response = await axios.get("https://bi-project.onrender.com/types");
+      const response = await axios.get("/types");
       setTypes(response.data); // Update to set the entire response.data array
       console.log(types);
     } catch (error) {

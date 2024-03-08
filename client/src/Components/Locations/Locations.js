@@ -30,7 +30,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
         handleUpdate();
       } else {
         // If not editing, add a new location
-        const response = await axios.post("https://bi-project.onrender.com/locations", {
+        const response = await axios.post("/locations", {
           _id: formData.id,
           name: formData.name,
           lat: formData.lat,
@@ -78,7 +78,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `https://bi-project.onrender.com/location/${formData.id}`,
+        `/location/${formData.id}`,
         {
           _id: formData.id,
           name: formData.name,
@@ -124,7 +124,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
     console.log("Deleting city with id:", id);
     try {
       const response = await axios.delete(
-        `https://bi-project.onrender.com/location/${id}`
+        `/location/${id}`
       );
 
       console.log("Response from server:", response);
@@ -153,7 +153,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
 
           <div className="list-group city-btn">
             {cities.map((city) => (
-              <div key={cities._id} className="d-flex m-2 list-group-item list-group-item-dark">
+              <div key={city._id} className="d-flex m-2 list-group-item list-group-item-dark">
                 <span className="p-1">{city.name}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt
