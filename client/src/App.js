@@ -179,7 +179,6 @@ const App = () => {
   return (
     <Router className="container-fluid">
       <Navbar
-      serverURL={serverURL}
         handleNavClick={handleNavClick}
         expanded={expanded}
         setExpanded={setExpanded}
@@ -191,11 +190,11 @@ const App = () => {
         ) : (
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path={`${serverURL}/about`} component={About} />
-            <Route path={`${serverURL}/maps`} component={() => <Map cities={cities} />} />
-            <Route path={`${serverURL}/data`} component={Data} />
+            <Route path="/about" component={About} />
+            <Route path="/maps" component={() => <Map cities={cities} />} />
+            <Route path="/data" component={Data} />
             <Route
-              path={`${serverURL}/locations`}
+              path="/locations"
               component={() => (
                 <Locations
                   serverURL={serverURL}
@@ -203,38 +202,38 @@ const App = () => {
                   setCities={setCities}
                   // selectedCities={selectedCity}
                   setSelectedCity={setSelectedCity}
-                />
-              )}
-            />
+                  />
+                  )}
+                  />
             <Route
-              path={`${serverURL}/keepers`}
+              path="/keepers"
               component={() => (
                 <Keepers
-                  serverURL={serverURL}
-                  keepers={keepers}
-                  setKeepers={setKeepers}
-                  // selectedKeepers={selectedKeeper}
-                  setSelectedKeeper={setSelectedKeeper}
+                serverURL={serverURL}
+                keepers={keepers}
+                setKeepers={setKeepers}
+                // selectedKeepers={selectedKeeper}
+                setSelectedKeeper={setSelectedKeeper}
                 />
-              )}
-            />
+                )}
+                />
             <Route
-              path={`${serverURL}/types`}
+              path="/types"
               component={() => (
                 <Types
-                  serverURL={serverURL}
-                  types={types}
-                  setTypes={setTypes}
-                  // selectedTypes={selectedType}
-                  setSelectedType={setSelectedType}
+                serverURL={serverURL}
+                types={types}
+                setTypes={setTypes}
+                // selectedTypes={selectedType}
+                setSelectedType={setSelectedType}
                 />
               )}
             />
             <Route
-              path={`${serverURL}/devices`}
+              path="/devices"
               component={() => (
                 <Devices
-                  serverURL={serverURL}
+                serverURL={serverURL}
                   devices={devices}
                   setDevices={setDevices}
                   // selectedDevices={selectedDevice}
@@ -243,10 +242,10 @@ const App = () => {
               )}
             />
             <Route
-              path={`${serverURL}/behives`}
+              path="/behives"
               component={() => (
                 <Behives
-                  serverURL={serverURL}
+                serverURL={serverURL}
                   behives={behives}
                   setBehives={setBehives}
                   // selectedBehives={selectedBehives}

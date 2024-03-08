@@ -1,3 +1,4 @@
+// NavbarComponent.js
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
@@ -6,7 +7,7 @@ import LogoutButton from "./Login/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const NavbarComponent = ({ serverURL, handleNavClick, expanded, setExpanded }) => {
+const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
   const { isAuthenticated } = useAuth0();
 
   return (
@@ -64,7 +65,7 @@ const NavbarComponent = ({ serverURL, handleNavClick, expanded, setExpanded }) =
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to={serverURL + "/locations"} // Here's the change
+                to="/locations"
                 onClick={handleNavClick}
               >
                 <i>Edit-Locations</i>
@@ -72,7 +73,7 @@ const NavbarComponent = ({ serverURL, handleNavClick, expanded, setExpanded }) =
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to={serverURL + "/keepers"} // Here's the change
+                to="/keepers"
                 onClick={handleNavClick}
               >
                 <i>Edit-Keepers</i>
@@ -80,7 +81,7 @@ const NavbarComponent = ({ serverURL, handleNavClick, expanded, setExpanded }) =
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to={serverURL + "/types"} // Here's the change
+                to="/types"
                 onClick={handleNavClick}
               >
                 <i>Edit-Types</i>
@@ -88,7 +89,7 @@ const NavbarComponent = ({ serverURL, handleNavClick, expanded, setExpanded }) =
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to={serverURL + "/devices"} // Here's the change
+                to="/devices"
                 onClick={handleNavClick}
               >
                 <i>Edit-Devices</i>
@@ -96,7 +97,7 @@ const NavbarComponent = ({ serverURL, handleNavClick, expanded, setExpanded }) =
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to={serverURL + "/behives"} // Here's the change
+                to="/behives"
                 onClick={handleNavClick}
               >
                 <i>Edit-Behives</i>
