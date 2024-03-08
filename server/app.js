@@ -10,14 +10,15 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://bi-project-client.onrender.com"); // Replace with your React app's URL if it's different
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "https://bi-project-client.onrender.com"); // Replace with your React app's URL if it's different
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 // locations middleware
 app.get("/locations", mongoose.getLocations);
