@@ -30,7 +30,7 @@ const Types = ({ types, setTypes, setSelectedType }) => {
         handleUpdate();
       } else {
         // If not editing, add a new type
-        const response = await axios.post("http://localhost:5000/types", {
+        const response = await axios.post("https://bi-project.onrender.com/types", {
           _id: formData.id,
           name: formData.name,
           unit: formData.unit,
@@ -77,7 +77,7 @@ const Types = ({ types, setTypes, setSelectedType }) => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/type/${formData.id}`,
+        `https://bi-project.onrender.com/type/${formData.id}`,
         {
           _id: formData.id,
           name: formData.name,
@@ -123,7 +123,7 @@ const Types = ({ types, setTypes, setSelectedType }) => {
     console.log("Deleting type with id:", id);
     try {
       const response = await axios.delete(
-        `http://localhost:5000/type/${id}`
+        `https://bi-project.onrender.com/type/${id}`
       );
 
       console.log("Response from server:", response);

@@ -31,7 +31,7 @@ const Devices = ({ devices, setDevices, setSelectedDevice }) => {
         handleUpdate();
       } else {
         // If not editing, add a new device
-        const response = await axios.post("http://localhost:5000/devices", {
+        const response = await axios.post("https://bi-project.onrender.com/devices", {
           _id: formData.id,
           locationId: formData.locationId,
           typeId: formData.typeId,
@@ -81,7 +81,7 @@ const Devices = ({ devices, setDevices, setSelectedDevice }) => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/device/${formData.id}`,
+        `https://bi-project.onrender.com/device/${formData.id}`,
         {
           _id: formData.id,
           locationId: formData.locationId,
@@ -129,7 +129,7 @@ const Devices = ({ devices, setDevices, setSelectedDevice }) => {
   const handleDelete = async (id) => {
     console.log("Deleting device with id:", id);
     try {
-      const response = await axios.delete(`http://localhost:5000/device/${id}`);
+      const response = await axios.delete(`https://bi-project.onrender.com/device/${id}`);
 
       console.log("Response from server:", response);
 

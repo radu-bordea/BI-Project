@@ -22,7 +22,7 @@ const Data = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/data");
+      const response = await axios.get("https://bi-project.onrender.com/data");
       setMeasurements(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -31,7 +31,7 @@ const Data = () => {
 
   const fetchBehives = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/behives");
+      const response = await axios.get("https://bi-project.onrender.com/behives");
       setBehives(response.data);
     } catch (error) {
       console.error("Error fetching behives:", error);

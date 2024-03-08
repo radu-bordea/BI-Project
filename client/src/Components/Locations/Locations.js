@@ -30,7 +30,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
         handleUpdate();
       } else {
         // If not editing, add a new location
-        const response = await axios.post("http://localhost:5000/locations", {
+        const response = await axios.post("https://bi-project.onrender.com/locations", {
           _id: formData.id,
           name: formData.name,
           lat: formData.lat,
@@ -78,7 +78,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/location/${formData.id}`,
+        `https://bi-project.onrender.com/location/${formData.id}`,
         {
           _id: formData.id,
           name: formData.name,
@@ -124,7 +124,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
     console.log("Deleting city with id:", id);
     try {
       const response = await axios.delete(
-        `http://localhost:5000/location/${id}`
+        `https://bi-project.onrender.com/location/${id}`
       );
 
       console.log("Response from server:", response);

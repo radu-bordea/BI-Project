@@ -31,7 +31,7 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
         handleUpdate();
       } else {
         // If not editing, add a new location
-        const response = await axios.post("http://localhost:5000/keepers", {
+        const response = await axios.post("https://bi-project.onrender.com/keepers", {
           _id: formData.id,
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -81,7 +81,7 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/keeper/${formData.id}`,
+        `https://bi-project.onrender.com/keeper/${formData.id}`,
         {
           _id: formData.id,
           firstName: formData.firstName,
@@ -130,7 +130,7 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
     console.log("Deleting keeper with id:", id);
     try {
       const response = await axios.delete(
-        `http://localhost:5000/keeper/${id}`
+        `https://bi-project.onrender.com/keeper/${id}`
       );
 
       console.log("Response from server:", response);

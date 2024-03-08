@@ -49,6 +49,12 @@ install dependencies more:
  - npm install @auth0/auth0-react
  - npm install react-slick --save
  - npm install slick-carousel
+ - npm install http-proxy-middleware --save
+ - npm install @babel/plugin-proposal-private-property-in-object --save-dev
+ - npm install --save-dev @babel/preset-env
+ - npm install react-app-rewired --save-dev
+
+
 
 
 create .env file
