@@ -6,9 +6,11 @@ function Devices() {
   const [devices, setDevices] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
+  const serverURL = "https://bi-project.onrender.com";
+
   const fetchDevices = async () => {
     try {
-      const response = await axios.get("/devices");
+      const response = await axios.get(serverURL + "/devices");
       setDevices(response.data); // Update to set the entire response.data array
       console.log(devices);
     } catch (error) {

@@ -6,9 +6,11 @@ function Types() {
   const [types, setTypes] = useState([]);
   const [isLoading, setLoading] = useState(true)
 
+  const serverURL = "https://bi-project.onrender.com";
+
   const fetchTypes = async () => {
     try {
-      const response = await axios.get("/types");
+      const response = await axios.get(serverURL + "/types");
       setTypes(response.data); // Update to set the entire response.data array
       console.log(types);
     } catch (error) {

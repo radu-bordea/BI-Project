@@ -4,7 +4,7 @@ import axios from "axios";
 import KeeperForm from "./KeeperForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
+const Keepers = ({ serverURL, keepers, setKeepers, setSelectedKeeper }) => {
   const [formData, setFormData] = useState({
     id: "",
     firstName: "",
@@ -31,7 +31,7 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
         handleUpdate();
       } else {
         // If not editing, add a new location
-        const response = await axios.post("/keepers", {
+        const response = await axios.post(serverURL + "/keepers", {
           _id: formData.id,
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -80,16 +80,13 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(
-        `/keeper/${formData.id}`,
-        {
-          _id: formData.id,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-        }
-      );
+      const response = await axios.put(serverURL + `/keeper/${formData.id}`, {
+        _id: formData.id,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+      });
 
       console.log("Keeper updated:", response.data);
 
@@ -129,9 +126,7 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
   const handleDelete = async (id) => {
     console.log("Deleting keeper with id:", id);
     try {
-      const response = await axios.delete(
-        `/keeper/${id}`
-      );
+      const response = await axios.delete(serverURL + `/keeper/${id}`);
 
       console.log("Response from server:", response);
 
@@ -161,8 +156,13 @@ const Keepers = ({ keepers, setKeepers, setSelectedKeeper }) => {
 
           <div className="list-group city-btn">
             {keepers.map((keeper) => (
-              <div key={keeper._id} className="d-flex m-2 list-group-item list-group-item-dark">
-                <span className="p-1">{keeper.firstName} {keeper.lastName}</span>
+              <div
+                key={keeper._id}
+                className="d-flex m-2 list-group-item list-group-item-dark"
+              >
+                <span className="p-1">
+                  {keeper.firstName} {keeper.lastName}
+                </span>
                 <div className="btn-del-container">
                   <FaPencilAlt
                     className="btn-del mt-2 text-success"

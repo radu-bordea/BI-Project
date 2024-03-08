@@ -4,7 +4,7 @@ import axios from "axios";
 import BehiveForm from "./BehiveForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Behives = ({ behives, setBehives, setSelectedBehive }) => {
+const Behives = ({ serverURL, behives, setBehives, setSelectedBehive }) => {
   const [formData, setFormData] = useState({
     id: "",
     devicesIds: "",
@@ -28,7 +28,7 @@ const Behives = ({ behives, setBehives, setSelectedBehive }) => {
         handleUpdate();
       } else {
         // If not editing, add a new type
-        const response = await axios.post("/behives", {
+        const response = await axios.post(serverURL + "/behives", {
           _id: formData.id,
           devicesIds: formData.devicesIds,
         });
@@ -68,13 +68,10 @@ const Behives = ({ behives, setBehives, setSelectedBehive }) => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(
-        `/behive/${formData.id}`,
-        {
-          _id: formData.id,
-          devicesIds: formData.devicesIds,
-        }
-      );
+      const response = await axios.put(serverURL + `/behive/${formData.id}`, {
+        _id: formData.id,
+        devicesIds: formData.devicesIds,
+      });
 
       console.log("Behive updated:", response.data);
 
@@ -108,14 +105,16 @@ const Behives = ({ behives, setBehives, setSelectedBehive }) => {
   const handleDelete = async (id) => {
     console.log("Deleting behive with id:", id);
     try {
-      const response = await axios.delete(`/behive/${id}`);
+      const response = await axios.delete(serverURL + `/behive/${id}`);
 
       console.log("Response from server:", response);
 
       if (response.status === 200) {
         console.log("Behive deleted:", response.data);
 
-        setBehives((prevBehives) => prevBehives.filter((behive) => behive._id !== id));
+        setBehives((prevBehives) =>
+          prevBehives.filter((behive) => behive._id !== id)
+        );
       }
     } catch (error) {
       console.error("Error deleting behive:", error);
@@ -136,7 +135,10 @@ const Behives = ({ behives, setBehives, setSelectedBehive }) => {
 
           <div className="list-group city-btn">
             {behives.map((behive) => (
-              <div key={behive._id} className="d-flex m-2 list-group-item list-group-item-dark">
+              <div
+                key={behive._id}
+                className="d-flex m-2 list-group-item list-group-item-dark"
+              >
                 <span className="p-1">{behive.devicesIds}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt

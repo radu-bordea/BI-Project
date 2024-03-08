@@ -7,9 +7,11 @@ function Locations() {
   const [locations, setLocations] = useState([]);
   const [isLoading, setLoading] = useState(true)
 
+  const serverURL = "https://bi-project.onrender.com";
+
   const fetchLocations = async () => {
     try {
-      const response = await axios.get("/locations");
+      const response = await axios.get(serverURL + "/locations");
       setLocations(response.data); // Update to set the entire response.data array
       console.log(response.data); // Use response.data here
     } catch (error) {

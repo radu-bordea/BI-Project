@@ -6,9 +6,11 @@ function Keepers() {
   const [keepers, setKeepers] = useState([]);
   const [isLoading, setLoading] = useState(true)
 
+  const serverURL = "https://bi-project.onrender.com";
+
   const fetchKeepers = async () => {
     try {
-      const response = await axios.get("/keepers");
+      const response = await axios.get(serverURL + "/keepers");
       setKeepers(response.data); // Update to set the entire response.data array
       console.log(keepers);
     } catch (error) {

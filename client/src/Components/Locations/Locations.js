@@ -4,7 +4,7 @@ import axios from "axios";
 import LocationForm from "./LocationForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Locations = ({ cities, setCities, setSelectedCity }) => {
+const Locations = ({ serverURL, cities, setCities, setSelectedCity }) => {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -30,7 +30,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
         handleUpdate();
       } else {
         // If not editing, add a new location
-        const response = await axios.post("/locations", {
+        const response = await axios.post(serverURL + "/locations", {
           _id: formData.id,
           name: formData.name,
           lat: formData.lat,
@@ -72,20 +72,16 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
       lat: city.lat,
       long: city.long,
     });
-
   };
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(
-        `/location/${formData.id}`,
-        {
-          _id: formData.id,
-          name: formData.name,
-          lat: formData.lat,
-          long: formData.long,
-        }
-      );
+      const response = await axios.put(serverURL + `/location/${formData.id}`, {
+        _id: formData.id,
+        name: formData.name,
+        lat: formData.lat,
+        long: formData.long,
+      });
 
       console.log("Location updated:", response.data);
 
@@ -123,9 +119,7 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
   const handleDelete = async (id) => {
     console.log("Deleting city with id:", id);
     try {
-      const response = await axios.delete(
-        `/location/${id}`
-      );
+      const response = await axios.delete(serverURL + `/location/${id}`);
 
       console.log("Response from server:", response);
 
@@ -153,7 +147,10 @@ const Locations = ({ cities, setCities, setSelectedCity }) => {
 
           <div className="list-group city-btn">
             {cities.map((city) => (
-              <div key={city._id} className="d-flex m-2 list-group-item list-group-item-dark">
+              <div
+                key={city._id}
+                className="d-flex m-2 list-group-item list-group-item-dark"
+              >
                 <span className="p-1">{city.name}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt

@@ -4,7 +4,7 @@ import axios from "axios";
 import TypeForm from "./TypeForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Types = ({ types, setTypes, setSelectedType }) => {
+const Types = ({ serverURL, types, setTypes, setSelectedType }) => {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -30,7 +30,7 @@ const Types = ({ types, setTypes, setSelectedType }) => {
         handleUpdate();
       } else {
         // If not editing, add a new type
-        const response = await axios.post("/types", {
+        const response = await axios.post(serverURL + "/types", {
           _id: formData.id,
           name: formData.name,
           unit: formData.unit,
@@ -76,15 +76,12 @@ const Types = ({ types, setTypes, setSelectedType }) => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(
-        `/type/${formData.id}`,
-        {
-          _id: formData.id,
-          name: formData.name,
-          unit: formData.unit,
-          precision: formData.precision,
-        }
-      );
+      const response = await axios.put(`serverURL + /type/${formData.id}`, {
+        _id: formData.id,
+        name: formData.name,
+        unit: formData.unit,
+        precision: formData.precision,
+      });
 
       console.log("Type updated:", response.data);
 
@@ -122,9 +119,7 @@ const Types = ({ types, setTypes, setSelectedType }) => {
   const handleDelete = async (id) => {
     console.log("Deleting type with id:", id);
     try {
-      const response = await axios.delete(
-        `/type/${id}`
-      );
+      const response = await axios.delete(serverURL + `/type/${id}`);
 
       console.log("Response from server:", response);
 
@@ -152,7 +147,10 @@ const Types = ({ types, setTypes, setSelectedType }) => {
 
           <div className="list-group city-btn">
             {types.map((type) => (
-              <div key={type._id} className="d-flex m-2 list-group-item list-group-item-dark">
+              <div
+                key={type._id}
+                className="d-flex m-2 list-group-item list-group-item-dark"
+              >
                 <span className="p-1">{type.name}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt

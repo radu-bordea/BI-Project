@@ -22,7 +22,7 @@ import LoginButton from "./Components/Login/Login";
 const App = () => {
   const { isAuthenticated } = useAuth0();
 
-  const serverURL = "https://bi-project.onrender.com"
+  const serverURL = "https://bi-project.onrender.com";
 
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true); // New loading state
@@ -122,7 +122,7 @@ const App = () => {
         typeId: device.typeId,
         keeperId: device.keeperId,
         address: device.address,
-        apiKey: device.apiKey
+        apiKey: device.apiKey,
       }));
 
       // Sort the deviceData array by id before setting it in the state
@@ -164,7 +164,13 @@ const App = () => {
     fetchTypes();
     fetchDevices();
     fetchBehives();
-  }, [selectedCity, selectedKeeper, selectedType, selectedDevice, selectedBehive]);
+  }, [
+    selectedCity,
+    selectedKeeper,
+    selectedType,
+    selectedDevice,
+    selectedBehive,
+  ]);
 
   const handleNavClick = () => {
     setExpanded(false);
@@ -191,6 +197,7 @@ const App = () => {
               path="/locations"
               component={() => (
                 <Locations
+                  serverURL={serverURL}
                   cities={cities}
                   setCities={setCities}
                   // selectedCities={selectedCity}
@@ -202,6 +209,7 @@ const App = () => {
               path="/keepers"
               component={() => (
                 <Keepers
+                  serverURL={serverURL}
                   keepers={keepers}
                   setKeepers={setKeepers}
                   // selectedKeepers={selectedKeeper}
@@ -213,6 +221,7 @@ const App = () => {
               path="/types"
               component={() => (
                 <Types
+                  serverURL={serverURL}
                   types={types}
                   setTypes={setTypes}
                   // selectedTypes={selectedType}
@@ -224,6 +233,7 @@ const App = () => {
               path="/devices"
               component={() => (
                 <Devices
+                  serverURL={serverURL}
                   devices={devices}
                   setDevices={setDevices}
                   // selectedDevices={selectedDevice}
@@ -235,6 +245,7 @@ const App = () => {
               path="/behives"
               component={() => (
                 <Behives
+                  serverURL={serverURL}
                   behives={behives}
                   setBehives={setBehives}
                   // selectedBehives={selectedBehives}

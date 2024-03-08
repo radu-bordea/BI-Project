@@ -4,7 +4,7 @@ import axios from "axios";
 import DeviceForm from "./DeviceForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Devices = ({ devices, setDevices, setSelectedDevice }) => {
+const Devices = ({ serverURL, devices, setDevices, setSelectedDevice }) => {
   const [formData, setFormData] = useState({
     id: "",
     locationId: "",
@@ -31,7 +31,7 @@ const Devices = ({ devices, setDevices, setSelectedDevice }) => {
         handleUpdate();
       } else {
         // If not editing, add a new device
-        const response = await axios.post("/devices", {
+        const response = await axios.post(serverURL + "/devices", {
           _id: formData.id,
           locationId: formData.locationId,
           typeId: formData.typeId,
@@ -80,16 +80,13 @@ const Devices = ({ devices, setDevices, setSelectedDevice }) => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(
-        `/device/${formData.id}`,
-        {
-          _id: formData.id,
-          locationId: formData.locationId,
-          typeId: formData.typeId,
-          keeperId: formData.keeperId,
-          address: formData.address,
-        }
-      );
+      const response = await axios.put(serverURL + `/device/${formData.id}`, {
+        _id: formData.id,
+        locationId: formData.locationId,
+        typeId: formData.typeId,
+        keeperId: formData.keeperId,
+        address: formData.address,
+      });
 
       console.log("Device updated:", response.data);
 
@@ -129,7 +126,7 @@ const Devices = ({ devices, setDevices, setSelectedDevice }) => {
   const handleDelete = async (id) => {
     console.log("Deleting device with id:", id);
     try {
-      const response = await axios.delete(`/device/${id}`);
+      const response = await axios.delete(serverURL + `/device/${id}`);
 
       console.log("Response from server:", response);
 
@@ -159,8 +156,13 @@ const Devices = ({ devices, setDevices, setSelectedDevice }) => {
 
           <div className="list-group city-btn">
             {devices.map((device) => (
-              <div key={device._id} className="d-flex m-2 list-group-item list-group-item-dark">
-                <span className="p-1">{device._id} {`-- -- --> apiKey: ${device.apiKey}`}</span>
+              <div
+                key={device._id}
+                className="d-flex m-2 list-group-item list-group-item-dark"
+              >
+                <span className="p-1">
+                  {device._id} {`-- -- --> apiKey: ${device.apiKey}`}
+                </span>
                 <div className="btn-del-container">
                   <FaPencilAlt
                     className="btn-del mt-2 text-success"
