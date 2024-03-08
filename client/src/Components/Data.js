@@ -5,7 +5,7 @@ import "./Data.css";
 
 import LineChart from "./LineChart";
 
-const Data = () => {
+const Data = ({ serverURL }) => {
   const [measurements, setMeasurements] = useState([]);
   const [behives, setBehives] = useState([]);
   const [behiveChoice, setBehiveChoice] = useState("");
@@ -22,7 +22,7 @@ const Data = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("/data");
+      const response = await axios.get(serverURL + "/data");
       setMeasurements(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -31,7 +31,7 @@ const Data = () => {
 
   const fetchBehives = async () => {
     try {
-      const response = await axios.get("/behives");
+      const response = await axios.get(serverURL + "/behives");
       setBehives(response.data);
     } catch (error) {
       console.error("Error fetching behives:", error);

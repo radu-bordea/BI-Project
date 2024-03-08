@@ -76,7 +76,7 @@ const Types = ({ serverURL, types, setTypes, setSelectedType }) => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(`serverURL + /type/${formData.id}`, {
+      const response = await axios.put(serverURL + `/type/${formData.id}`, {
         _id: formData.id,
         name: formData.name,
         unit: formData.unit,

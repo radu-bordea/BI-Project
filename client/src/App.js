@@ -192,7 +192,9 @@ const App = () => {
             <Route path="/" exact component={Home} />
             <Route path="/about" component={About} />
             <Route path="/maps" component={() => <Map cities={cities} />} />
-            <Route path="/data" component={Data} />
+            <Route path="/data" component={() => (
+              <Data serverURL={serverURL}/>
+            )} />
             <Route
               path="/locations"
               component={() => (
