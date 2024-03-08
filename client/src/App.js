@@ -179,6 +179,7 @@ const App = () => {
   return (
     <Router className="container-fluid">
       <Navbar
+      serverURL={serverURL}
         handleNavClick={handleNavClick}
         expanded={expanded}
         setExpanded={setExpanded}
@@ -190,11 +191,11 @@ const App = () => {
         ) : (
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/maps" component={() => <Map cities={cities} />} />
-            <Route path="/data" component={Data} />
+            <Route path={`${serverURL}/about`} component={About} />
+            <Route path={`${serverURL}/maps`} component={() => <Map cities={cities} />} />
+            <Route path={`${serverURL}/data`} component={Data} />
             <Route
-              path="/locations"
+              path={`${serverURL}/locations`}
               component={() => (
                 <Locations
                   serverURL={serverURL}
@@ -206,7 +207,7 @@ const App = () => {
               )}
             />
             <Route
-              path="/keepers"
+              path={`${serverURL}/keepers`}
               component={() => (
                 <Keepers
                   serverURL={serverURL}
@@ -218,7 +219,7 @@ const App = () => {
               )}
             />
             <Route
-              path="/types"
+              path={`${serverURL}/types`}
               component={() => (
                 <Types
                   serverURL={serverURL}
@@ -230,7 +231,7 @@ const App = () => {
               )}
             />
             <Route
-              path="/devices"
+              path={`${serverURL}/devices`}
               component={() => (
                 <Devices
                   serverURL={serverURL}
@@ -242,7 +243,7 @@ const App = () => {
               )}
             />
             <Route
-              path="/behives"
+              path={`${serverURL}/behives`}
               component={() => (
                 <Behives
                   serverURL={serverURL}

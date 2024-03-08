@@ -1,4 +1,3 @@
-// NavbarComponent.js
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
@@ -7,7 +6,7 @@ import LogoutButton from "./Login/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
+const NavbarComponent = ({ serverURL, handleNavClick, expanded, setExpanded }) => {
   const { isAuthenticated } = useAuth0();
 
   return (
@@ -65,7 +64,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to="/locations"
+                to={serverURL + "/locations"} // Here's the change
                 onClick={handleNavClick}
               >
                 <i>Edit-Locations</i>
@@ -73,7 +72,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to="/keepers"
+                to={serverURL + "/keepers"} // Here's the change
                 onClick={handleNavClick}
               >
                 <i>Edit-Keepers</i>
@@ -81,7 +80,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to="/types"
+                to={serverURL + "/types"} // Here's the change
                 onClick={handleNavClick}
               >
                 <i>Edit-Types</i>
@@ -89,7 +88,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to="/devices"
+                to={serverURL + "/devices"} // Here's the change
                 onClick={handleNavClick}
               >
                 <i>Edit-Devices</i>
@@ -97,7 +96,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to="/behives"
+                to={serverURL + "/behives"} // Here's the change
                 onClick={handleNavClick}
               >
                 <i>Edit-Behives</i>
