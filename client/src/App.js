@@ -22,6 +22,8 @@ import LoginButton from "./Components/Login/Login";
 const App = () => {
   const { isAuthenticated } = useAuth0();
 
+  const serverURL = "https://bi-project.onrender.com"
+
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true); // New loading state
   // cities
@@ -43,7 +45,7 @@ const App = () => {
   // Function to fetch locations from the server
   const fetchLocations = async () => {
     try {
-      const response = await axios.get("/locations");
+      const response = await axios.get(serverURL + "/locations");
       const cityData = response.data.map((location) => ({
         _id: location._id,
         name: location.name,
@@ -66,7 +68,7 @@ const App = () => {
   // Function to fetch keepers from the server
   const fetchKeepers = async () => {
     try {
-      const response = await axios.get("/keepers");
+      const response = await axios.get(serverURL + "/keepers");
       const keeperData = response.data.map((keeper) => ({
         _id: keeper._id,
         firstName: keeper.firstName,
@@ -90,7 +92,7 @@ const App = () => {
   // Function to fetch types from the server
   const fetchTypes = async () => {
     try {
-      const response = await axios.get("/types");
+      const response = await axios.get(serverURL + "/types");
       const typeData = response.data.map((type) => ({
         _id: type._id,
         name: type.name,
@@ -113,7 +115,7 @@ const App = () => {
   // Function to fetch devices from the server
   const fetchDevices = async () => {
     try {
-      const response = await axios.get("/devices");
+      const response = await axios.get(serverURL + "/devices");
       const deviceData = response.data.map((device) => ({
         _id: device._id,
         locationId: device.locationId,
@@ -138,7 +140,7 @@ const App = () => {
   // Function to fetch behives from the server
   const fetchBehives = async () => {
     try {
-      const response = await axios.get("/behives");
+      const response = await axios.get(serverURL + "/behives");
       const behiveData = response.data.map((behive) => ({
         _id: behive._id,
         devicesIds: behive.devicesIds,
