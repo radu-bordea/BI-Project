@@ -53,6 +53,10 @@ install dependencies more:
  - npm install @babel/plugin-proposal-private-property-in-object --save-dev
  - npm install --save-dev @babel/preset-env
  - npm install react-app-rewired --save-dev
+ - npm install moment
+ - npm install react-datepicker
+
+
 
 
 

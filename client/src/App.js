@@ -22,7 +22,7 @@ import LoginButton from "./Components/Login/Login";
 const App = () => {
   const { isAuthenticated } = useAuth0();
 
-  const serverURL = "http://localhost:5000";
+  const serverURL = "https://bi-project.onrender.com";
 
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true); // New loading state
