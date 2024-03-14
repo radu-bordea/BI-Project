@@ -1,27 +1,8 @@
-import React from 'react'
-
+import React from 'react';
 import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const options = {
   plugins: {
@@ -36,7 +17,6 @@ const options = {
       backgroundColor: "#0f97e6",
     },
     line: {
-      borderColor: "#f7423cde",
       borderWidth: 3,
     },
   },
@@ -62,11 +42,10 @@ const options = {
   },
 };
 
-const LineChart = ({data}) => {
+const LineChart = ({ data }) => {
   return (
-      <Line data={data}  />
+    <Line data={data} options={options} />
   );
 }
 
-
-export default LineChart
+export default LineChart;

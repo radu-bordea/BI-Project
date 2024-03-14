@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-import "./Data.css";
-
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import LineChart from "./LineChart";
 
 const Data = ({ serverURL }) => {
   const [measurements, setMeasurements] = useState([]);
   const [behives, setBehives] = useState([]);
-  const [behiveChoice, setBehiveChoice] = useState("");
-  const [startDate, setStartDate] = useState("2023-09-01");
-  const [endDate, setEndDate] = useState("2023-09-07");
+  const [behiveChoice, setBehiveChoice] = useState("1");
+  const [selectedStartDate, setSelectedStartDate] = useState(
+    new Date("2023-09-01")
+  );
+  const [selectedEndDate, setSelectedEndDate] = useState(() => {
+    const defaultEndDate = new Date(selectedStartDate);
+    defaultEndDate.setDate(defaultEndDate.getDate() + 7);
+    return defaultEndDate;
+  });
+  const [labels, setLabels] = useState([]);
 
-  // Define formatTimestamp function before using it
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const formattedDate = date.toLocaleDateString();
-    const formattedTime = date.toLocaleTimeString();
-    return `${formattedDate}`;
-  };
+  useEffect(() => {
+    fetchBehives();
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setLabels(generateDateLabels());
+  }, [selectedStartDate, selectedEndDate]);
 
   const fetchData = async () => {
     try {
@@ -38,85 +46,122 @@ const Data = ({ serverURL }) => {
     }
   };
 
-  useEffect(() => {
-    fetchBehives();
-    fetchData();
-  }, []);
+  const handleBehiveSelection = (behiveId) => {
+    setBehiveChoice(behiveId);
+  };
 
-  const behiveMeasure = () => {
-    let devices = ["1", "2", "3"];
+  const handleStartDateChange = (date) => {
+    setSelectedStartDate(date);
+  };
+
+  const handleEndDateChange = (date) => {
+    setSelectedEndDate(date);
+  };
+
+  const generateDateLabels = () => {
+    const startDate = moment(selectedStartDate);
+    const endDate = moment(selectedEndDate);
+
+    const labels = [];
+    let currentDate = startDate;
+
+    while (currentDate.isSameOrBefore(endDate, "day")) {
+      labels.push(currentDate.format("YYYY-MM-DD"));
+      currentDate.add(1, "day");
+    }
+
+    return labels;
+  };
+
+  const behiveMeasure = (behiveChoice) => {
+    let devices = [];
     if (behiveChoice === "2") {
-      devices = ["4", "5", "6"];
+      devices = ["4", "5", "6"]; // Example devices for behive 2
+    } else {
+      devices = ["1", "2", "3"]; // Default devices for other behives
     }
     return devices;
   };
 
-  const dev = behiveMeasure();
+  const renderDatasets = () => {
+    const filteredMeasurements = filterMeasurementsByDate();
+    const datasets = [];
 
-  const labels = [
-    ...new Set(
-      measurements
-        .filter((measure) => {
-          const measureTimestamp = new Date(measure.timeStamp).getTime();
-          return (
-            measureTimestamp >= new Date(startDate).getTime() &&
-            measureTimestamp <= new Date(endDate).getTime()
-          );
-        })
-        .map((measure) => formatTimestamp(measure.timeStamp))
-    ),
-  ];
+    const dev = behiveMeasure(behiveChoice);
 
-  const datasetTemp = {
-    label: "Temp °C",
-    data: measurements
-      .filter((measure) => measure.deviceId === dev[0])
-      .map((measure) => measure.value.$numberDecimal),
-    borderColor: "#f18787",
-    backgroundColor: "red",
+    const parameters = ["Temp °C", "Humidity g/m3", "Weight kg"];
+    const colors = ["#f18787", "#8c8cd3", "#6cb66c"];
+
+    parameters.forEach((param, index) => {
+      const dataset = {
+        label: param,
+        data: filteredMeasurements
+          .filter((measure) => measure.deviceId === dev[index])
+          .map((measure) => measure.value.$numberDecimal),
+        borderColor: colors[index],
+        backgroundColor: colors[index],
+      };
+      datasets.push(dataset);
+    });
+
+    return datasets;
   };
 
-  const datasetHum = {
-    label: "Humidity g/m3",
-    data: measurements
-      .filter((measure) => measure.deviceId === dev[1])
-      .map((measure) => measure.value.$numberDecimal),
-    borderColor: "#8c8cd3",
-    backgroundColor: "#0c0cc2",
-  };
-
-  const datasetWeight = {
-    label: "Weight kg",
-    data: measurements
-      .filter((measure) => measure.deviceId === dev[2])
-      .map((measure) => measure.value.$numberDecimal),
-    borderColor: "#6cb66c",
-    backgroundColor: "green",
+  const filterMeasurementsByDate = () => {
+    return measurements.filter((measure) => {
+      const measureDate = moment(measure.timeStamp);
+      return measureDate.isBetween(
+        selectedStartDate,
+        selectedEndDate,
+        "day",
+        "[]"
+      );
+    });
   };
 
   const data = {
     labels: labels,
-    datasets: [datasetTemp, datasetHum, datasetWeight],
+    datasets: renderDatasets(),
   };
 
   return (
     <div className="container">
-      <h3>Here are the Devices with the Graph!</h3>
+      <h3 className="text-center mt-4">Devices and Graph</h3>
       <hr />
       <div className="row">
-        <div className="list-group city-btn col-12 col-lg-2">
-          {behives.map((behive) => (
-            <button
-              className=" m-1 btn btn-primary"
-              key={behive._id}
-              onClick={() => setBehiveChoice(behive._id)}
-            >
-              {`Beehive ID: ${behive._id}`}
-            </button>
-          ))}
+        <div className="col-lg-2">
+          <div className="list-group">
+            {behives.map((behive) => (
+              <button
+                className={`m-1 btn ${
+                  behive._id === behiveChoice ? "btn-primary" : "btn-secondary"
+                }`}
+                key={behive._id}
+                onClick={() => handleBehiveSelection(behive._id)}
+              >
+                {`Beehive ID: ${behive._id}`}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="graph-container col-12 col-lg-10">
-          <LineChart data={data} />
+        <div className="col-lg-2">
+          <DatePicker
+            selected={selectedStartDate}
+            onChange={handleStartDateChange}
+            dateFormat="yyyy-MM-dd"
+            className="form-control mb-2"
+          />
+          <DatePicker
+            selected={selectedEndDate}
+            onChange={handleEndDateChange}
+            dateFormat="yyyy-MM-dd"
+            className="form-control"
+          />
+        </div>
+        <div className="col-lg-8">
+          <div className="graph-container">
+            <LineChart data={data} />
+          </div>
         </div>
       </div>
       <hr />
