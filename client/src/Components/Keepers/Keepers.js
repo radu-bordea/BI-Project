@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import KeeperForm from "./KeeperForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Keepers = ({ serverURL, keepers, setKeepers, setSelectedKeeper }) => {
+const Keepers = () => {
   const [formData, setFormData] = useState({
     id: "",
     firstName: "",
@@ -13,7 +13,42 @@ const Keepers = ({ serverURL, keepers, setKeepers, setSelectedKeeper }) => {
     phone: "",
   });
 
+  const serverURL = "https://bi-project.onrender.com";
+
+  const [loading, setLoading] = useState(true); // New loading state
+
+  // keepers
+  const [keepers, setKeepers] = useState([]);
+
   const [isEditing, setIsEditing] = useState(false); // Add an isEditing state
+
+  // Function to fetch keepers from the server
+  const fetchKeepers = async () => {
+    try {
+      const response = await axios.get(serverURL + "/keepers");
+      const keeperData = response.data.map((keeper) => ({
+        _id: keeper._id,
+        firstName: keeper.firstName,
+        lastName: keeper.lastName,
+        email: keeper.email,
+        phone: keeper.phone,
+      }));
+
+      // Sort the keeperData array by id before setting it in the state
+      keeperData.sort((a, b) => a._id.localeCompare(b._id));
+
+      setKeepers(keeperData);
+      setLoading(false); // Data has been fetched, set loading to false
+      console.log(keeperData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Error occurred, set loading to false
+    }
+  };
+
+  useEffect(() => {
+    fetchKeepers();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +84,6 @@ const Keepers = ({ serverURL, keepers, setKeepers, setSelectedKeeper }) => {
         });
 
         setKeepers((prevKeepers) => [...prevKeepers, response.data]);
-        setSelectedKeeper(response.data.name);
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {

@@ -1,8 +1,42 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Map = ({ cities }) => {
+const Map = () => {
   const [selectedCity, setSelectedCity] = useState(null);
+
+  // cities
+  const [cities, setCities] = useState([]);
+
+  const [loading, setLoading] = useState(true); // New loading state
+
+  const serverURL = "https://bi-project.onrender.com";
+
+  // Function to fetch locations from the server
+  const fetchLocations = async () => {
+    try {
+      const response = await axios.get(serverURL + "/locations");
+      const cityData = response.data.map((location) => ({
+        _id: location._id,
+        name: location.name,
+        lat: location.lat,
+        long: location.long,
+      }));
+
+      // Sort the cityData array by id before setting it in the state
+      cityData.sort((a, b) => a._id.localeCompare(b._id));
+
+      setCities(cityData);
+      setLoading(false); // Data has been fetched, set loading to false
+      console.log(cityData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Error occurred, set loading to false
+    }
+  };
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
 
   useEffect(() => {
     const initializeMap = () => {
@@ -24,7 +58,9 @@ const Map = ({ cities }) => {
       });
 
       if (selectedCity) {
-        const selectedCityCoords = cities.find((city) => city.name === selectedCity);
+        const selectedCityCoords = cities.find(
+          (city) => city.name === selectedCity
+        );
         if (selectedCityCoords) {
           map.setCenter({
             lat: selectedCityCoords.lat,

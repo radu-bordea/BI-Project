@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LineChart from "./LineChart";
 
-const Data = ({ serverURL }) => {
+const Data = () => {
   const [measurements, setMeasurements] = useState([]);
   const [behives, setBehives] = useState([]);
   const [behiveChoice, setBehiveChoice] = useState("1");
@@ -19,14 +19,7 @@ const Data = ({ serverURL }) => {
   });
   const [labels, setLabels] = useState([]);
 
-  useEffect(() => {
-    fetchBehives();
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    setLabels(generateDateLabels());
-  }, [selectedStartDate, selectedEndDate]);
+  const serverURL = "https://bi-project.onrender.com";
 
   const fetchData = async () => {
     try {
@@ -45,6 +38,17 @@ const Data = ({ serverURL }) => {
       console.error("Error fetching behives:", error);
     }
   };
+
+  useEffect(() => {
+    fetchBehives();
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setLabels(generateDateLabels());
+  }, [selectedStartDate, selectedEndDate]);
+
+
 
   const handleBehiveSelection = (behiveId) => {
     setBehiveChoice(behiveId);

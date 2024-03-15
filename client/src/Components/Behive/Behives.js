@@ -1,16 +1,50 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import BehiveForm from "./BehiveForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Behives = ({ serverURL, behives, setBehives, setSelectedBehive }) => {
+const Behives = () => {
   const [formData, setFormData] = useState({
     id: "",
     devicesIds: "",
   });
 
   const [isEditing, setIsEditing] = useState(false); // Add an isEditing state
+
+    // behives
+    const [behives, setBehives] = useState([]);
+
+    const serverURL = "https://bi-project.onrender.com";
+
+    const [loading, setLoading] = useState(true); // New loading state
+
+      // Function to fetch behives from the server
+  const fetchBehives = async () => {
+    try {
+      const response = await axios.get(serverURL + "/behives");
+      const behiveData = response.data.map((behive) => ({
+        _id: behive._id,
+        devicesIds: behive.devicesIds,
+      }));
+
+      // Sort the behiveData array by id before setting it in the state
+      behiveData.sort((a, b) => a._id.localeCompare(b._id));
+
+      setBehives(behiveData);
+      setLoading(false); // Data has been fetched, set loading to false
+      console.log(behiveData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Error occurred, set loading to false
+    }
+  };
+
+  useEffect(() => {
+    fetchBehives();
+  }, []);
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +74,6 @@ const Behives = ({ serverURL, behives, setBehives, setSelectedBehive }) => {
         });
 
         setBehives((prevBehives) => [...prevBehives, response.data]);
-        setSelectedBehive(response.data.devicesIds);
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {

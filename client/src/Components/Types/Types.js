@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import TypeForm from "./TypeForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Types = ({ serverURL, types, setTypes, setSelectedType }) => {
+const Types = () => {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
     unit: "",
     precision: "",
   });
+
+    // types
+    const [types, setTypes] = useState([]);
+
+    const serverURL = "https://bi-project.onrender.com";
+
+    
+  const [loading, setLoading] = useState(true); // New loading state
 
   const [isEditing, setIsEditing] = useState(false); // Add an isEditing state
 
@@ -21,6 +29,34 @@ const Types = ({ serverURL, types, setTypes, setSelectedType }) => {
       [name]: value,
     });
   };
+
+  
+  // Function to fetch types from the server
+  const fetchTypes = async () => {
+    try {
+      const response = await axios.get(serverURL + "/types");
+      const typeData = response.data.map((type) => ({
+        _id: type._id,
+        name: type.name,
+        unit: type.unit,
+        precision: type.precision,
+      }));
+
+      // Sort the typeData array by id before setting it in the state
+      typeData.sort((a, b) => a._id.localeCompare(b._id));
+
+      setTypes(typeData);
+      setLoading(false); // Data has been fetched, set loading to false
+      console.log(typeData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Error occurred, set loading to false
+    }
+  };
+
+  useEffect(()=> {
+    fetchTypes();
+  },[])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +82,6 @@ const Types = ({ serverURL, types, setTypes, setSelectedType }) => {
         });
 
         setTypes((prevTypes) => [...prevTypes, response.data]);
-        setSelectedType(response.data.name);
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
