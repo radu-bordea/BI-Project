@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import DeviceForm from "./DeviceForm";
@@ -22,30 +22,34 @@ const Devices = () => {
   // devices
   const [devices, setDevices] = useState([]);
 
-    // Function to fetch devices from the server
-    const fetchDevices = async () => {
-      try {
-        const response = await axios.get(serverURL + "/devices");
-        const deviceData = response.data.map((device) => ({
-          _id: device._id,
-          locationId: device.locationId,
-          typeId: device.typeId,
-          keeperId: device.keeperId,
-          address: device.address,
-          apiKey: device.apiKey,
-        }));
-  
-        // Sort the deviceData array by id before setting it in the state
-        deviceData.sort((a, b) => a._id.localeCompare(b._id));
-  
-        setDevices(deviceData);
-        setLoading(false); // Data has been fetched, set loading to false
-        console.log(deviceData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false); // Error occurred, set loading to false
-      }
-    };
+  // Function to fetch devices from the server
+  const fetchDevices = async () => {
+    try {
+      const response = await axios.get(serverURL + "/devices");
+      const deviceData = response.data.map((device) => ({
+        _id: device._id,
+        locationId: device.locationId,
+        typeId: device.typeId,
+        keeperId: device.keeperId,
+        address: device.address,
+        apiKey: device.apiKey,
+      }));
+
+      // Sort the deviceData array by id before setting it in the state
+      deviceData.sort((a, b) => a._id.localeCompare(b._id));
+
+      setDevices(deviceData);
+      setLoading(false); // Data has been fetched, set loading to false
+      console.log(deviceData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Error occurred, set loading to false
+    }
+  };
+
+  useEffect(() => {
+    fetchDevices();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

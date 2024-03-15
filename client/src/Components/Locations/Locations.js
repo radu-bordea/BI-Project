@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import LocationForm from "./LocationForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
 const Locations = () => {
-
   // cities
   const [cities, setCities] = useState([]);
 
@@ -22,28 +21,32 @@ const Locations = () => {
 
   const [isEditing, setIsEditing] = useState(false); // Add an isEditing state
 
-    // Function to fetch locations from the server
-    const fetchLocations = async () => {
-      try {
-        const response = await axios.get(serverURL + "/locations");
-        const cityData = response.data.map((location) => ({
-          _id: location._id,
-          name: location.name,
-          lat: location.lat,
-          long: location.long,
-        }));
-  
-        // Sort the cityData array by id before setting it in the state
-        cityData.sort((a, b) => a._id.localeCompare(b._id));
-  
-        setCities(cityData);
-        setLoading(false); // Data has been fetched, set loading to false
-        console.log(cityData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false); // Error occurred, set loading to false
-      }
-    };
+  // Function to fetch locations from the server
+  const fetchLocations = async () => {
+    try {
+      const response = await axios.get(serverURL + "/locations");
+      const cityData = response.data.map((location) => ({
+        _id: location._id,
+        name: location.name,
+        lat: location.lat,
+        long: location.long,
+      }));
+
+      // Sort the cityData array by id before setting it in the state
+      cityData.sort((a, b) => a._id.localeCompare(b._id));
+
+      setCities(cityData);
+      setLoading(false); // Data has been fetched, set loading to false
+      console.log(cityData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false); // Error occurred, set loading to false
+    }
+  };
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
