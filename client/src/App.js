@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./Components/NavbarComponent";
 import Home from "./Components/Home";
@@ -172,12 +176,16 @@ const App = () => {
     selectedBehive,
   ]);
 
+
   const handleNavClick = () => {
     setExpanded(false);
   };
 
   return (
-    <Router className="container-fluid" basename="https://bi-project-client.onrender.com/">
+    <Router
+      className="container-fluid"
+      
+    >
       <Navbar
         handleNavClick={handleNavClick}
         expanded={expanded}
@@ -189,14 +197,15 @@ const App = () => {
           <div>Loading...</div> // Display a loading message
         ) : (
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/maps" component={() => <Map cities={cities} />} />
-            <Route path="/data" component={() => (
-              <Data serverURL={serverURL}/>
-            )} />
+            <Route path="https://bi-project-client.onrender.com/" exact component={Home} />
+            <Route path="https://bi-project-client.onrender.com/about" component={About} />
+            <Route path="https://bi-project-client.onrender.com/maps" component={() => <Map cities={cities} />} />
             <Route
-              path="/locations"
+              path="https://bi-project-client.onrender.com/data"
+              component={() => <Data serverURL={serverURL} />}
+            />
+            <Route
+              path="https://bi-project-client.onrender.com/locations"
               component={() => (
                 <Locations
                   serverURL={serverURL}
@@ -204,38 +213,38 @@ const App = () => {
                   setCities={setCities}
                   // selectedCities={selectedCity}
                   setSelectedCity={setSelectedCity}
-                  />
-                  )}
-                  />
-            <Route
-              path="/keepers"
-              component={() => (
-                <Keepers
-                serverURL={serverURL}
-                keepers={keepers}
-                setKeepers={setKeepers}
-                // selectedKeepers={selectedKeeper}
-                setSelectedKeeper={setSelectedKeeper}
-                />
-                )}
-                />
-            <Route
-              path="/types"
-              component={() => (
-                <Types
-                serverURL={serverURL}
-                types={types}
-                setTypes={setTypes}
-                // selectedTypes={selectedType}
-                setSelectedType={setSelectedType}
                 />
               )}
             />
             <Route
-              path="/devices"
+              path="https://bi-project-client.onrender.com/keepers"
+              component={() => (
+                <Keepers
+                  serverURL={serverURL}
+                  keepers={keepers}
+                  setKeepers={setKeepers}
+                  // selectedKeepers={selectedKeeper}
+                  setSelectedKeeper={setSelectedKeeper}
+                />
+              )}
+            />
+            <Route
+              path="https://bi-project-client.onrender.com/types"
+              component={() => (
+                <Types
+                  serverURL={serverURL}
+                  types={types}
+                  setTypes={setTypes}
+                  // selectedTypes={selectedType}
+                  setSelectedType={setSelectedType}
+                />
+              )}
+            />
+            <Route
+              path="https://bi-project-client.onrender.com/devices"
               component={() => (
                 <Devices
-                serverURL={serverURL}
+                  serverURL={serverURL}
                   devices={devices}
                   setDevices={setDevices}
                   // selectedDevices={selectedDevice}
@@ -244,10 +253,10 @@ const App = () => {
               )}
             />
             <Route
-              path="/behives"
+              path="https://bi-project-client.onrender.com/behives"
               component={() => (
                 <Behives
-                serverURL={serverURL}
+                  serverURL={serverURL}
                   behives={behives}
                   setBehives={setBehives}
                   // selectedBehives={selectedBehives}
@@ -256,7 +265,7 @@ const App = () => {
               )}
             />
 
-            <Route path="/login" component={LoginButton} />
+            <Route path="https://bi-project-client.onrender.com/login" component={LoginButton} />
           </Switch>
         )}
         <Footer className="fixed-bottom" />
