@@ -177,7 +177,7 @@ const App = () => {
   };
 
   return (
-    <Router className="container-fluid">
+    <Router className="container-fluid" basename="https://bi-project-client.onrender.com/">
       <Navbar
         handleNavClick={handleNavClick}
         expanded={expanded}
