@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 cors = require("cors");
 const mongoose = require("./mongoose");
+const path = require("path");
 
 
 const app = express();
@@ -9,6 +10,9 @@ const app = express();
 app.use(cors());
 
 app.use(bodyParser.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 
 // app.use((req, res, next) => {
@@ -56,6 +60,10 @@ app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
 // app.post("/data/api", mongoose.createData);
 
+
+app.get("*", (req, res)=> {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"))
+})
 
 // listening the port
 app.listen(5000);
