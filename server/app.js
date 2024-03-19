@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files from the 'build' directory
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 // locations middleware
 app.get("/locations", mongoose.getLocations);
