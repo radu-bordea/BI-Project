@@ -51,13 +51,15 @@ app.delete("/behive/:id", mongoose.deleteBehive);
 app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
 
-// Catch-all route that serves 'index.html' for any route that doesn't match a static asset
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
-
 // Listening to the port
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+// Catch-all route that serves 'index.html' for any route that doesn't match a static asset
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
