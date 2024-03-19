@@ -26,49 +26,51 @@ const App = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <Navbar
-        handleNavClick={handleNavClick}
-        expanded={expanded}
-        setExpanded={setExpanded}
-        className="navbar navbar-expand-lg navbar-light bg-light fixed-top"
-      />
-      <div className="switch">
-
-          <Route path="/">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/maps">
-            <Map />
-          </Route>
-          <Route path="/data">
-            <Data />
-          </Route>
-          <Route path="/locations">
-            <Locations />
-          </Route>
-          <Route path="/keepers">
-            <Keepers />
-          </Route>
-          <Route path="/types">
-            <Types />
-          </Route>
-          <Route path="/devices">
-            <Devices />
-          </Route>
-          <Route path="/behives">
-            <Behives />
-          </Route>
-          <Route path="/login">
-            <LoginButton />
-          </Route>
-
-        <Footer className="fixed-bottom" />
+    <Router> {/* Wrap your routes with Router */}
+      <div className="container-fluid">
+        <Navbar
+          handleNavClick={handleNavClick}
+          expanded={expanded}
+          setExpanded={setExpanded}
+          className="navbar navbar-expand-lg navbar-light bg-light fixed-top"
+        />
+        <div className="switch">
+          <Switch> {/* Use Switch to render only the first matched route */}
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/maps">
+              <Map />
+            </Route>
+            <Route path="/data">
+              <Data />
+            </Route>
+            <Route path="/locations">
+              <Locations />
+            </Route>
+            <Route path="/keepers">
+              <Keepers />
+            </Route>
+            <Route path="/types">
+              <Types />
+            </Route>
+            <Route path="/devices">
+              <Devices />
+            </Route>
+            <Route path="/behives">
+              <Behives />
+            </Route>
+            <Route path="/login">
+              <LoginButton />
+            </Route>
+          </Switch>
+          <Footer className="fixed-bottom" />
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 
