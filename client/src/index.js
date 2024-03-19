@@ -15,6 +15,7 @@ root.render(
       redirect_uri: window.location.origin,
     }}
   >
+    
     <App />
   </Auth0Provider>
 );
