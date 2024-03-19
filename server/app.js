@@ -6,11 +6,16 @@ const path = require("path");
 
 const app = express();
 
+const __dirname = path.resolve()
+
 app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files from the 'build' directory inside the 'client' folder
 app.use(express.static(path.join(__dirname, "/client/build")));
+
+
+
 
 // locations middleware
 app.get("/locations", mongoose.getLocations);
