@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
-import Route from './Components/Route';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   Navbar,
   Home,
@@ -26,49 +25,28 @@ const App = () => {
   };
 
   return (
-    <Router> {/* Wrap your routes with Router */}
-      <div className="container-fluid">
-        <Navbar
-          handleNavClick={handleNavClick}
-          expanded={expanded}
-          setExpanded={setExpanded}
-          className="navbar navbar-expand-lg navbar-light bg-light fixed-top"
-        />
-        <div className="switch">
-          <Switch> {/* Use Switch to render only the first matched route */}
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/maps">
-              <Map />
-            </Route>
-            <Route path="/data">
-              <Data />
-            </Route>
-            <Route path="/locations">
-              <Locations />
-            </Route>
-            <Route path="/keepers">
-              <Keepers />
-            </Route>
-            <Route path="/types">
-              <Types />
-            </Route>
-            <Route path="/devices">
-              <Devices />
-            </Route>
-            <Route path="/behives">
-              <Behives />
-            </Route>
-            <Route path="/login">
-              <LoginButton />
-            </Route>
-          </Switch>
-          <Footer className="fixed-bottom" />
-        </div>
+    <Router className="container-fluid">
+      <Navbar
+        handleNavClick={handleNavClick}
+        expanded={expanded}
+        setExpanded={setExpanded}
+        className="navbar navbar-expand-lg navbar-light bg-light fixed-top"
+      />
+      <div className="switch">
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/maps" component={Map} />
+          <Route path="/data" component={Data} />
+          <Route path="/locations" component={Locations} />
+          <Route path="/keepers" component={Keepers} />
+          <Route path="/types" component={Types} />
+          <Route path="/devices" component={Devices} />
+          <Route path="/behives" component={Behives} />
+          <Route path="/login" component={LoginButton} />
+        </Switch>
+
+        <Footer className="fixed-bottom" />
       </div>
     </Router>
   );

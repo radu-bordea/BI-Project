@@ -4,8 +4,7 @@ import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Auth0Provider } from "@auth0/auth0-react";
-// import 'dotenv/config'
-import { NavigationProvider } from "./context/navigation";
+// import 'dotenv/config' 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,8 +15,6 @@ root.render(
       redirect_uri: window.location.origin,
     }}
   >
-    <NavigationProvider> {/* Providing navigation context */}
-      <App />
-    </NavigationProvider>
+    <App />
   </Auth0Provider>
 );
