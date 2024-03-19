@@ -1,21 +1,11 @@
+// NavbarComponent.js
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import logo from "../images/beehive-logo.png";
 import LogoutButton from "./Login/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-const Link = ({ className, to, onClick, children }) => {
-  return (
-    <a
-      href={to}
-      className={`nav-link ${className}`}
-      onClick={onClick}
-    >
-      {children}
-    </a>
-  );
-};
 
 const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
   const { isAuthenticated } = useAuth0();
@@ -28,92 +18,103 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
       variant="dark"
       onToggle={() => setExpanded(!expanded)}
     >
-      <Navbar.Brand href="/">
+      <Navbar.Brand as={NavLink} to="/">
         <span style={{}}>
           <img src={logo} alt="Logo for beehive project" className="logo" />
         </span>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Link
-            className="nav-link mx-1"
+        <Nav className="mr-auto ">
+          <Nav.Link
+            className=" mx-1"
+            as={NavLink}
             to="/"
+            exact
             onClick={handleNavClick}
           >
             Home
-          </Link>
-          <Link
-            className="nav-link mx-1"
+          </Nav.Link>
+          <Nav.Link
+            className="mx-1"
+            as={NavLink}
             to="/about"
             onClick={handleNavClick}
           >
             About
-          </Link>
-          <Link
-            className="nav-link mx-1"
+          </Nav.Link>
+
+          <Nav.Link
+            className="mx-1"
+            as={NavLink}
             to="/maps"
             onClick={handleNavClick}
           >
             Map
-          </Link>
-          <Link
-            className="nav-link mx-1"
+          </Nav.Link>
+          <Nav.Link
+            className="mx-1"
+            as={NavLink}
             to="/data"
             onClick={handleNavClick}
           >
             Data
-          </Link>
+          </Nav.Link>
           {isAuthenticated && (
             <>
-              <Link
-                className="nav-link mx-1"
+              <Nav.Link
+                className="mx-1"
+                as={NavLink}
                 to="/locations"
                 onClick={handleNavClick}
               >
                 <i>Edit-Locations</i>
-              </Link>
-              <Link
-                className="nav-link mx-1"
+              </Nav.Link>
+              <Nav.Link
+                className="mx-1"
+                as={NavLink}
                 to="/keepers"
                 onClick={handleNavClick}
               >
                 <i>Edit-Keepers</i>
-              </Link>
-              <Link
-                className="nav-link mx-1"
+              </Nav.Link>
+              <Nav.Link
+                className="mx-1"
+                as={NavLink}
                 to="/types"
                 onClick={handleNavClick}
               >
                 <i>Edit-Types</i>
-              </Link>
-              <Link
-                className="nav-link mx-1"
+              </Nav.Link>
+              <Nav.Link
+                className="mx-1"
+                as={NavLink}
                 to="/devices"
                 onClick={handleNavClick}
               >
                 <i>Edit-Devices</i>
-              </Link>
-              <Link
-                className="nav-link mx-1"
+              </Nav.Link>
+              <Nav.Link
+                className="mx-1"
+                as={NavLink}
                 to="/behives"
                 onClick={handleNavClick}
               >
                 <i>Edit-Behives</i>
-              </Link>
+              </Nav.Link>
             </>
           )}
-          {isAuthenticated ? (
-            <LogoutButton />
-          ) : (
-            <Link
-              className="nav-link mx-1 btn"
+          {isAuthenticated && <LogoutButton />}
+          {!isAuthenticated && (
+            <Nav.Link
+              className="mx-1 btn"
               style={{ backgroundColor: "#007BFF" }}
+              as={NavLink}
               to="/login"
               onClick={handleNavClick}
             >
               Login
-            </Link>
+            </Nav.Link>
           )}
         </Nav>
       </Navbar.Collapse>
