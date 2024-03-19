@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files from the 'build' directory inside the 'client' folder
-app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 // locations middleware
 app.get("/locations", mongoose.getLocations);
@@ -48,7 +48,7 @@ app.post("/data", mongoose.createData);
 
 // Catch-all route that serves 'index.html' for any route that doesn't match a static asset
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 // Listening to the port
