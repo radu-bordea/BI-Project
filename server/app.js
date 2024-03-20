@@ -63,7 +63,8 @@ app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
 
 // Render
-app.get('*', (req, res) => res.sendFile(path.join(dirname, '../client/build/index.html')))
+app.get('*', (req, res) => res.sendFile(path.join(dirname, 'client/build/index.html')));
+
 
 // Listening to the port
 const port = process.env.PORT || 5000;
