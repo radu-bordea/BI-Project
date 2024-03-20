@@ -28,9 +28,7 @@ const path = require("path");
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
+
 
 
 // locations middleware
@@ -69,6 +67,10 @@ app.post("/data", mongoose.createData);
 
 // // Render
 // app.get('*', (req, res) => res.sendFile(path.join(dirname, 'client/build/index.html')));
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
 
 
 // Listening to the port
