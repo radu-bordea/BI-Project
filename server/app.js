@@ -2,34 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("./mongoose");
+const path = require("path");
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-
-const path = require("path");
-// const { URL } = require('url');
-// const { fileURLToPath } = require("url");
-
-// // Get the current module's URL
-// const moduleURL = new URL('file://' + __filename);
-
-// // Convert the 'file:' scheme to 'file'
-// moduleURL.protocol = 'file';
-
-// // Resolve filename and dirname
-// const filename = fileURLToPath(moduleURL);
-// const dirname = path.dirname(filename);
-// console.log(path.join(dirname, '/client/build/index.html'))
-
-
-// // Serve static files from the 'build' directory inside the 'client' folder
-// app.use(express.static(path.join(dirname, '/client/build')))
-
 app.use(express.static(path.join(__dirname, 'client/build')));
-
-
-
 
 // locations middleware
 app.get("/locations", mongoose.getLocations);
@@ -70,8 +48,6 @@ app.post("/data", mongoose.createData);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-
-
 
 // Listening to the port
 const port = process.env.PORT || 5000;
