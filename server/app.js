@@ -20,13 +20,12 @@ moduleURL.protocol = 'file';
 // Resolve filename and dirname
 const filename = fileURLToPath(moduleURL);
 const dirname = path.dirname(filename);
+console.log(path.join(dirname, '/client/build/index.html'))
 
 
 // Serve static files from the 'build' directory inside the 'client' folder
-app.use(express.static(path.join(dirname, '../client/build')))
+app.use(express.static(path.join(dirname, '/client/build')))
 
-// Render
-app.get('*', (req, res) => res.sendFile(path.join(dirname, '../client/build/index.html')))
 
 
 // locations middleware
@@ -62,6 +61,9 @@ app.delete("/behive/:id", mongoose.deleteBehive);
 // data middleware
 app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
+
+// Render
+app.get('*', (req, res) => res.sendFile(path.join(dirname, '../client/build/index.html')))
 
 // Listening to the port
 const port = process.env.PORT || 5000;
