@@ -2,19 +2,31 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("./mongoose");
-const path = require("path");
-
 const app = express();
-
-const __dirname = path.resolve()
 
 app.use(cors());
 app.use(bodyParser.json());
 
+const path = require("path");
+const { URL } = require('url');
+const { fileURLToPath } = require("url");
+
+// Get the current module's URL
+const moduleURL = new URL('file://' + __filename);
+
+// Convert the 'file:' scheme to 'file'
+moduleURL.protocol = 'file';
+
+// Resolve filename and dirname
+const filename = fileURLToPath(moduleURL);
+const dirname = path.dirname(filename);
+
+
 // Serve static files from the 'build' directory inside the 'client' folder
-app.use(express.static(path.join(__dirname, "/client/build")));
+app.use(express.static(path.join(dirname, '../client/build')))
 
-
+// Render
+app.get('*', (req, res) => res.sendFile(path.join(dirname, '../client/build/index.html')))
 
 
 // locations middleware
@@ -58,8 +70,4 @@ app.listen(port, () => {
 });
 
 
-// Catch-all route that serves 'index.html' for any route that doesn't match a static asset
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
 
