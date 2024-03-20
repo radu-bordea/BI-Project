@@ -4,11 +4,12 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LineChart from "./LineChart";
-import { useLocation } from "react-router-dom";
 
 const Data = () => {
-  const location = useLocation();
-  const [currentPath, setCurrentPath] = useState("");
+
+  console.log('Data component rendered');
+  // Rest of the component code...
+
 
   const [measurements, setMeasurements] = useState([]);
   const [behives, setBehives] = useState([]);
@@ -52,20 +53,7 @@ const Data = () => {
     setLabels(generateDateLabels());
   }, [selectedStartDate, selectedEndDate]);
 
-  useEffect(() => {
-    // store the current path in the local storage before the page reloads
-    localStorage.setItem("lastPath", location.pathname);
-  }, [location]);
 
-  useEffect(() => {
-    // Retrieve the stored path from local storage after the page reloads
-    const storedPath = localStorage.getItem("lastPath");
-    setCurrentPath(storedPath)
-  }, []);
-
-  useEffect(() => {
-    console.log("Current Path:", currentPath);
-  }, [currentPath]);
 
   const handleBehiveSelection = (behiveId) => {
     setBehiveChoice(behiveId);
