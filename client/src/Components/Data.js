@@ -4,15 +4,11 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LineChart from "./LineChart";
-import { useLocation } from "react-router-dom"
 
 const Data = () => {
 
-  const location = useLocation();
-
-  useEffect(() => {
-    console.log("Current Path:", location.pathname);
-  }, [location]);
+  console.log('Data component rendered');
+  // Rest of the component code...
 
 
   const [measurements, setMeasurements] = useState([]);
