@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom";
 import {
   Navbar,
   Home,
@@ -19,6 +19,12 @@ import "./App.css";
 
 const App = () => {
   const [expanded, setExpanded] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log("Current Path:", location.pathname);
+  }, [location]);
 
   const handleNavClick = () => {
     setExpanded(false);

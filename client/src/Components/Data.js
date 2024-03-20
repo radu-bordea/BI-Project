@@ -4,8 +4,17 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LineChart from "./LineChart";
+import { useLocation } from "react-router-dom;
 
 const Data = () => {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log("Current Path:", location.pathname);
+  }, [location]);
+
+
   const [measurements, setMeasurements] = useState([]);
   const [behives, setBehives] = useState([]);
   const [behiveChoice, setBehiveChoice] = useState("1");
