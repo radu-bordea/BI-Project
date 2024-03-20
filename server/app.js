@@ -66,8 +66,8 @@ app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
 
 // // Render
-// app.get('*', (req, res) => res.sendFile(path.join(dirname, 'client/build/index.html')));
-app.get('/*', function (req, res) {
+// Catch-all route to serve the React application
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
