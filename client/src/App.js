@@ -20,13 +20,12 @@ import "./App.css";
 const App = () => {
   const [expanded, setExpanded] = useState(false);
 
-
   const handleNavClick = () => {
     setExpanded(false);
   };
 
   return (
-    <Router className="container-fluid">
+    <Router className="container-fluid" basename="/">
       <Navbar
         handleNavClick={handleNavClick}
         expanded={expanded}
