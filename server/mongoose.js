@@ -6,7 +6,6 @@ const Type = require("./models/type");
 const Device = require("./models/device");
 const Behive = require("./models/behive");
 const Data = require("./models/data");
-const Counter = require("./counter"); // import Counter model
 require("dotenv").config(); // Load environment variables
 
 const uri = process.env.MONGO_URI;
@@ -26,70 +25,45 @@ mongoose
 /* === LOCATIONS === */
 // get locations from mongo atlas
 const getLocations = async (req, res, next) => {
-  try {
-    const locations = await Location.find().sort({ _id: 1 }).exec(); // Sort by _id in ascending order
-    res.json(locations);
-  } catch (error) {
-    next(error); // Pass error to the error handling middleware
-  }
+  const locations = await Location.find().exec();
+  res.json(locations);
 };
+// const getLocations = async (req, res, next) => {
+//   try {
+//     const locations = await Location.find().sort({ _id: 1 }).exec(); // Sort by _id in ascending order
+//     res.json(locations);
+//   } catch (error) {
+//     next(error); // Pass error to the error handling middleware
+//   }
+// };
 // get locations from mongo atlas
 
 
-// const getLocations = async (req, res, next) => {
-//   const locations = await Location.find().exec();
-//   res.json(locations);
-// };
 
 // post location to mongo atlas
 const createLocation = async (req, res, next) => {
+  const createdLocation = new Location({
+    _id: req.body._id,
+    name: req.body.name,
+    lat: req.body.lat,
+    long: req.body.long,
+  });
+
   try {
-    const counter = await Counter.findOneAndUpdate(
-      { _id: "locationId" }, // Using _id field to query the counter collection
-      { $inc: { seq: 1 } },
-      { new: true, upsert: true }
-    );
-    const createdLocation = await Location.create({
-      id: counter.seq,
-      name: req.body.name,
-      lat: req.body.lat,
-      long: req.body.long
-    });
-    res.json(createdLocation);
+    const result = await createdLocation.save();
+    res.json(result);
   } catch (error) {
     if (error.code === 11000) {
       // Duplicate key error
-      res.status(400).json({ error: "Location with the same ID already exists." });
+      res
+        .status(400)
+        .json({ error: "Location with the same ID already exists." });
     } else {
       // Handle other errors
       next(error);
     }
   }
 };
-
-// const createLocation = async (req, res, next) => {
-//   const createdLocation = new Location({
-//     _id: req.body._id,
-//     name: req.body.name,
-//     lat: req.body.lat,
-//     long: req.body.long,
-//   });
-
-//   try {
-//     const result = await createdLocation.save();
-//     res.json(result);
-//   } catch (error) {
-//     if (error.code === 11000) {
-//       // Duplicate key error
-//       res
-//         .status(400)
-//         .json({ error: "Location with the same ID already exists." });
-//     } else {
-//       // Handle other errors
-//       next(error);
-//     }
-//   }
-// };
 
 // update location to mongo atlas
 const updateLocation = async (req, res, next) => {
