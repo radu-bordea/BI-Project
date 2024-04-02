@@ -15,7 +15,7 @@ const Types = () => {
     // types
     const [types, setTypes] = useState([]);
 
-    const serverURL = "https://bi-project-server.onrender.com";
+    const serverURL = "https://bi-project.onrender.com";
 
     
   const [loading, setLoading] = useState(true); // New loading state
