@@ -9,7 +9,7 @@ const LocationForm = ({
 }) => {
   return (
     <form onSubmit={handleSubmit} className="row my-3 mx-auto">
-      {/* Input field for ID */}
+      {/* Input field for ID
       <div className="form-group col-lg-6">
         <label htmlFor="id">ID</label>
         <input
@@ -22,7 +22,7 @@ const LocationForm = ({
           required
           disabled={isEditing}
         />
-      </div>
+      </div> */}
       {/* Input field for Name */}
       <div className="form-group col-lg-6">
         <label htmlFor="name">Name</label>
