@@ -9,7 +9,7 @@ const Map = () => {
 
   const [loading, setLoading] = useState(true); // New loading state
 
-  const serverURL = "https://bi-project.onrender.com";
+  const serverURL = "https://bi-project-server.onrender.com";
 
   // Function to fetch locations from the server
   const fetchLocations = async () => {
