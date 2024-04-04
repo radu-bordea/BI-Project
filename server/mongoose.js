@@ -6,6 +6,10 @@ const Type = require("./models/type");
 const Device = require("./models/device");
 const Behive = require("./models/behive");
 const Data = require("./models/data");
+const Picture = require("./models/picture");
+
+// const Picture = require("./models/picture");
+// const multer = require("multer");
 require("dotenv").config(); // Load environment variables
 
 const uri = process.env.MONGO_URI;
@@ -37,8 +41,6 @@ const getLocations = async (req, res, next) => {
 //   }
 // };
 // get locations from mongo atlas
-
-
 
 // post location to mongo atlas
 const createLocation = async (req, res, next) => {
@@ -254,8 +256,8 @@ const createDevice = async (req, res, next) => {
   const randomLetter1 = getRandomLetter();
   const randomLetter2 = getRandomLetter();
   const randomLetter3 = getRandomLetter();
-  salt1 = Math.round(Math.random() * 999).toString()
-  salt2 = Math.round(Math.random() * 999).toString()
+  salt1 = Math.round(Math.random() * 999).toString();
+  salt2 = Math.round(Math.random() * 999).toString();
 
   const createdDevice = new Device({
     _id: req.body._id,
@@ -425,6 +427,27 @@ const createData = async (req, res, next) => {
   }
 };
 
+/* === PICTURES === */
+// get pictures from mongo atlas
+const getPictures = async (req, res, next) => {
+  try {
+    const pictures = await Picture.find();
+    res.json(pictures);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const createPicture = async (req, res, next) => {
+  try {
+    Picture.create({ image: req.file.filename });
+    console.log(req.file);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 /* === EXPORTS === */
 //locations
 exports.getLocations = getLocations;
@@ -459,3 +482,8 @@ exports.deleteBehive = deleteBehive;
 // data
 exports.getData = getData;
 exports.createData = createData;
+
+// pictures
+// exports.getPictures = getPictures;
+exports.createPicture = createPicture;
+exports.getPictures = getPictures

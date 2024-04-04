@@ -22,6 +22,7 @@ In the server folder from the CMD run:
 	- npm install mongoose
  	- npm install -g nodemon
 	- npm install cors
+	- npm install multer
 In the package.json in the “scripts” add:
 - “start”: “nodemon app.js”
 Implement the necessary code in all the files.

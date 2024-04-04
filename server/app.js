@@ -2,12 +2,29 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("./mongoose");
+const multer = require("multer");
 const path = require("path");
 const app = express();
 
+// Multer configuration for handling file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "../client/src/images");
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+const upload = multer({ storage: storage });
+// end Muler configuration
+
+
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // locations middleware
 app.get("/locations", mongoose.getLocations);
@@ -34,7 +51,7 @@ app.put("/device/:id", mongoose.updateDevice);
 app.delete("/device/:id", mongoose.deleteDevice);
 
 // behives middleware
-app.get("/behives", mongoose.getBehives); 
+app.get("/behives", mongoose.getBehives);
 app.post("/behives", mongoose.createBehive);
 app.put("/behive/:id", mongoose.updateBehive);
 app.delete("/behive/:id", mongoose.deleteBehive);
@@ -43,10 +60,31 @@ app.delete("/behive/:id", mongoose.deleteBehive);
 app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
 
+// **************** PICTURES UPLOADS *******************
+// **************** PICTURES UPLOADS *******************
+// **************** PICTURES UPLOADS *******************
+
+
+// picture middleware
+// app.get("/pictures", mongoose.getPictures);
+// app.post("/pictures", upload.single("file"), (req, res) => {
+//   Picture.create({ image: req.file.filename })
+//     .then((result) => res.json(result))
+//     .catch((err) => console.log(err));
+// });
+
+app.get("/pictures", mongoose.getPictures)
+app.post("/pictures", upload.single("file"), mongoose.createPicture);
+// app.delete("/pictures/:id", mongoose.deletePicture);
+
+// **************** PICTURES UPLOADS *******************
+// **************** PICTURES UPLOADS *******************
+// **************** PICTURES UPLOADS *******************
+
 // // Render
 // Catch-all route to serve the React application
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
 // Listening to the port
@@ -54,6 +92,3 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-
-
