@@ -37,7 +37,7 @@ const Home = () => {
 
   const fetchPictures = async () => {
     try {
-      const response = await axios.get(serverURL + "pictures");
+      const response = await axios.get(serverURL + "/pictures");
       setPictures(response.data);
       console.log(response.data);
     } catch (error) {
@@ -49,7 +49,7 @@ const Home = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      await axios.post(serverURL + "pictures" + formData);
+      await axios.post(serverURL + "/pictures/" + formData);
       console.log(file);
     } catch (error) {
       console.error("Error uploading picture:", error);
