@@ -17,7 +17,7 @@ const Devices = () => {
 
   const [loading, setLoading] = useState(true); // New loading state
 
-  const serverURL = "https://bi-project-server.onrender.com";
+  const serverURL = "https://bi-project.onrender.com";
 
   // devices
   const [devices, setDevices] = useState([]);

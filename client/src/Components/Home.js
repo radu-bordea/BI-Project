@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// import beehive4 from "../images/beehive4.jpg";
 
 import file_1712251074473 from "../images/file_1712251074473.jpg";
 
