@@ -60,7 +60,10 @@ const Home = () => {
           <div key={index} className="slider-img">
             {console.log(picture.image)}
             {/* Use imagePaths array to render images */}
-            <img src={require(`../images/${picture.image}`).default} alt={picture.image} />
+            {/* MUST BE FIXED *******************************************************/}
+            {/* MUST BE FIXED ***********************************************************/}
+            {/* MUST BE FIXED ************************************************************/}
+            <img src={''} alt={picture.image} />
           </div>
         ))}
       </Slider>
