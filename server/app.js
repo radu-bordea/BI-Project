@@ -64,15 +64,6 @@ app.post("/data", mongoose.createData);
 // **************** PICTURES UPLOADS *******************
 // **************** PICTURES UPLOADS *******************
 
-
-// picture middleware
-// app.get("/pictures", mongoose.getPictures);
-// app.post("/pictures", upload.single("file"), (req, res) => {
-//   Picture.create({ image: req.file.filename })
-//     .then((result) => res.json(result))
-//     .catch((err) => console.log(err));
-// });
-
 app.get("/pictures", mongoose.getPictures)
 app.post("/pictures", upload.single("file"), mongoose.createPicture);
 // app.delete("/pictures/:id", mongoose.deletePicture);

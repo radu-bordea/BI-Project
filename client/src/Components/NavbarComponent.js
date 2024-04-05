@@ -2,7 +2,7 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import logo from "../images/beehive-logo.png";
+import logo from "../beehive-logo.png";
 import LogoutButton from "./Login/Logout";
 import { useAuth0 } from "@auth0/auth0-react";
 import "bootstrap/dist/css/bootstrap.min.css";

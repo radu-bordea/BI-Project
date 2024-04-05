@@ -4,21 +4,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-
-import file_1712251074473 from "../images/file_1712251074473.jpg";
-
-// Create a context for all files in the images folder
-const images = require.context("../images", false, /\.(png|jpe?g|svg)$/);
-
 const Home = () => {
   const [file, setFile] = useState();
   const [pictures, setPictures] = useState([]);
 
   const serverURL = "https://bi-project.onrender.com";
-
-  // Get all image paths
-  const imagePaths = images.keys().map(images);
-  console.log(imagePaths);
+  // const serverURL = "http://localhost:5000";
 
   var settings = {
     dots: true,
@@ -39,7 +30,6 @@ const Home = () => {
     try {
       const response = await axios.get(serverURL + "/pictures");
       setPictures(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -49,8 +39,9 @@ const Home = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      await axios.post(serverURL + "/pictures/" + formData);
+      await axios.post(serverURL + "/pictures/", formData);
       console.log(file);
+      fetchPictures() // Refresh pictures after upload
     } catch (error) {
       console.error("Error uploading picture:", error);
       // Handle the error, show a message to the user, or perform any necessary action
@@ -68,13 +59,8 @@ const Home = () => {
         {pictures.map((picture, index) => (
           <div key={index} className="slider-img">
             {console.log(picture.image)}
-            {/* Using the absolute path to the public directory */}
-            <img
-              // src={`./images/${picture.image}`}
-              
-              src={imagePaths[index]}
-              alt={picture.image}
-            />
+            {/* Use imagePaths array to render images */}
+            <img src={require(`../images/${picture.image}`).default} alt={picture.image} />
           </div>
         ))}
       </Slider>
