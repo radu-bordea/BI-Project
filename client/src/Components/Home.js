@@ -1,74 +1,38 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from 'react'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import beehive1 from '../images/beehive1.jpg'
+import beehive2 from '../images/beehive2.jpg'
+import beehive3 from '../images/beehive3.jpg'
+
 
 const Home = () => {
-  const [file, setFile] = useState();
-  const [pictures, setPictures] = useState([]);
-
-  const serverURL = "https://bi-project.onrender.com";
-  // const serverURL = "http://localhost:5000";
-
   var settings = {
     dots: true,
     infinite: true,
     speed: 1000,
     slidesToShow: 2,
     slidesToScroll: 1,
+    // fade:true,
     autoplay: true,
     autoplaySpeed: 3000,
-    pauseOnHover: true,
-  };
-
-  useEffect(() => {
-    fetchPictures();
-  }, []);
-
-  const fetchPictures = async () => {
-    try {
-      const response = await axios.get(serverURL + "/pictures");
-      setPictures(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleUpload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      await axios.post(serverURL + "/pictures/", formData);
-      console.log(file);
-      fetchPictures() // Refresh pictures after upload
-    } catch (error) {
-      console.error("Error uploading picture:", error);
-      // Handle the error, show a message to the user, or perform any necessary action
-    }
-  };
+    pauseOnHover: true
+  }
 
   return (
-    <div>
-      <div>
-        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-        <button onClick={handleUpload}>Upload</button>
+    <Slider {...settings} className="slider-container">
+      <div className="slider-img">
+        <img src={beehive1} alt="beehive 3" />
       </div>
-
-      <Slider {...settings} className="slider-container">
-        {pictures.map((picture, index) => (
-          <div key={index} className="slider-img">
-            {console.log(picture.image)}
-            {/* Use imagePaths array to render images */}
-            {/* MUST BE FIXED *******************************************************/}
-            {/* MUST BE FIXED ***********************************************************/}
-            {/* MUST BE FIXED ************************************************************/}
-            <img src={''} alt={picture.image} />
-          </div>
-        ))}
-      </Slider>
-    </div>
+      <div className="slider-img">
+        <img src={beehive2} alt="beehive 4" />
+      </div>
+      <div className="slider-img">
+        <img src={beehive3} alt="beehive 5" />
+      </div>
+    </Slider>
   );
-};
+}
 
-export default Home;
+export default Home

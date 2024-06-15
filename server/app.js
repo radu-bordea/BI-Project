@@ -6,20 +6,20 @@ const multer = require("multer");
 const path = require("path");
 const app = express();
 
-// Multer configuration for handling file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "../client/src/images");
-  },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-const upload = multer({ storage: storage });
-// end Muler configuration
+// // Multer configuration for handling file uploads
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "../client/src/images");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(
+//       null,
+//       file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
+// const upload = multer({ storage: storage });
+// // end Muler configuration
 
 
 app.use(cors());
@@ -65,7 +65,8 @@ app.post("/data", mongoose.createData);
 // **************** PICTURES UPLOADS *******************
 
 app.get("/pictures", mongoose.getPictures)
-app.post("/pictures", upload.single("file"), mongoose.createPicture);
+app.post("/pictures", mongoose.createPicture)
+// app.post("/pictures", upload.single("file"), mongoose.createPicture);
 // app.delete("/pictures/:id", mongoose.deletePicture);
 
 // **************** PICTURES UPLOADS *******************

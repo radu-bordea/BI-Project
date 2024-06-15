@@ -429,24 +429,47 @@ const createData = async (req, res, next) => {
 
 /* === PICTURES === */
 // get pictures from mongo atlas
-const getPictures = async (req, res, next) => {
+const getPictures = (req, res, next) => {
   try {
-    const pictures = await Picture.find();
-    res.json(pictures);
+    Picture.find({})
+      .thend((data) => {
+        res.json(data);
+      })
+      .catch((error) => {
+        res.status(408).json({ error });
+      });
   } catch (error) {
-    next(error);
+    res.json({ error });
   }
 };
 
 const createPicture = async (req, res, next) => {
+  const body = req.body;
   try {
-    Picture.create({ image: req.file.filename });
-    console.log(req.file);
+    const newPicture = await Picture.create(body);
+    newPicture.save();
+    res.status(201).json({ msg: "New image uploaded...!" });
   } catch (error) {
-    console.error(error);
+    res.status(409).json({ message: error.message });
   }
 };
 
+// const getPictures = async (req, res, next) => {
+//   try {
+//     const pictures = await Picture.find();
+//     res.json(pictures);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+// const createPicture = async (req, res, next) => {
+//   try {
+//     const picture = await Picture.create({ image: req.file.filename });
+//     res.status(201).json(picture)
+//   } catch (error) {
+//     next(error)
+//   }
+// };
 
 /* === EXPORTS === */
 //locations
@@ -486,4 +509,4 @@ exports.createData = createData;
 // pictures
 // exports.getPictures = getPictures;
 exports.createPicture = createPicture;
-exports.getPictures = getPictures
+exports.getPictures = getPictures;
