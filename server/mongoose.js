@@ -7,6 +7,7 @@ const Device = require("./models/device");
 const Behive = require("./models/behive");
 const Data = require("./models/data");
 const Picture = require("./models/picture");
+const About = require("./models/about");
 
 // const Picture = require("./models/picture");
 // const multer = require("multer");
@@ -386,7 +387,7 @@ const deleteBehive = async (req, res, next) => {
   }
 };
 
-/* === DEVICES === */
+/* === DATA === */
 // get data from mongo atlas
 const getData = async (req, res, next) => {
   const data = await Data.find().exec();
@@ -417,8 +418,8 @@ const createData = async (req, res, next) => {
     const result = await createData.save();
     res.json(result);
   } catch (error) {
+    // Duplicate key error
     if (error.code === 11000) {
-      // Duplicate key error
       res.status(400).json({ error: "Data with the same id already exists." });
     } else {
       // Handle other errors
@@ -432,7 +433,7 @@ const createData = async (req, res, next) => {
 const getPictures = (req, res, next) => {
   try {
     Picture.find({})
-      .thend((data) => {
+      .then((data) => {
         res.json(data);
       })
       .catch((error) => {
@@ -451,6 +452,35 @@ const createPicture = async (req, res, next) => {
     res.status(201).json({ msg: "New image uploaded...!" });
   } catch (error) {
     res.status(409).json({ message: error.message });
+  }
+};
+
+/* === ABOUT === */
+// get about data from mongo atlas
+const getAbout = async (req, res, next) => {
+  const about = await About.find().exec();
+  res.json(about);
+};
+
+// create about data
+const createAbout = async (req, res, next) => {
+  const createAbout = new About({
+    _id: req.body._id,
+    title: req.body.title,
+    message: req.body.message,
+  });
+
+  try {
+    const result = await createAbout.save();
+    res.json(result);
+  } catch (error) {
+    // duplicate key error
+    if (error.code === 11000) {
+      res.status(400).json({ error: "Data with the same id already exist" });
+    } else {
+      // handle other error
+      next(error);
+    }
   }
 };
 
@@ -510,3 +540,7 @@ exports.createData = createData;
 // exports.getPictures = getPictures;
 exports.createPicture = createPicture;
 exports.getPictures = getPictures;
+
+// about
+exports.getAbout = getAbout;
+exports.createAbout = createAbout;

@@ -73,6 +73,9 @@ app.post("/pictures", mongoose.createPicture)
 // **************** PICTURES UPLOADS *******************
 // **************** PICTURES UPLOADS *******************
 
+app.get("/about", mongoose.getAbout)
+app.post("/about", mongoose.createAbout)
+
 // // Render
 // Catch-all route to serve the React application
 app.get("*", (req, res) => {
