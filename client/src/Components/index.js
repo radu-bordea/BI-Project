@@ -1,7 +1,7 @@
 // Components/index.js
 export { default as Navbar } from "./NavbarComponent";
 export { default as Home } from "./Home";
-export { default as About } from "./About";
+export { default as About } from "./About/About";
 export { default as Data } from "./Data";
 export { default as Map } from "./MapPage/Map";
 export { default as Footer } from "./Footer";
