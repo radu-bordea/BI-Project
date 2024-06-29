@@ -484,6 +484,42 @@ const createAbout = async (req, res, next) => {
   }
 };
 
+// update about data
+const updateAbout = async (req, res, next) => {
+  try {
+    const AboutId = req.params.id;
+    const updatedData = req.body;
+
+    const updatedAbout = await About.findByIdAndUpdate(
+      AboutId,
+      updatedData,
+      { new: true }
+    );
+
+    if (!updatedAbout) {
+      return res.status(404).json({ message: "About not found" });
+    }
+
+    res.json(updatedAbout);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// delete update data
+const deleteAbout = async (req, res, next) => {
+  try {
+    const UpdateId = req.params.id;
+    const deleteUpdate = await About.findByIdAndDelete(UpdateId);
+    if (!deleteUpdate) {
+      return res.status(404).json({ message: "Update not found" });
+    }
+    res.json({ message: "Update deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // const getPictures = async (req, res, next) => {
 //   try {
 //     const pictures = await Picture.find();
@@ -544,3 +580,5 @@ exports.getPictures = getPictures;
 // about
 exports.getAbout = getAbout;
 exports.createAbout = createAbout;
+exports.updateAbout = updateAbout
+exports.deleteAbout = deleteAbout

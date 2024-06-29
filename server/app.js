@@ -6,21 +6,6 @@ const multer = require("multer");
 const path = require("path");
 const app = express();
 
-// // Multer configuration for handling file uploads
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "../client/src/images");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(
-//       null,
-//       file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-//     );
-//   },
-// });
-// const upload = multer({ storage: storage });
-// // end Muler configuration
-
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -75,6 +60,8 @@ app.post("/pictures", mongoose.createPicture)
 
 app.get("/about", mongoose.getAbout)
 app.post("/about", mongoose.createAbout)
+app.put("/about/:id", mongoose.updateAbout)
+app.delete("/about/:id", mongoose.deleteAbout)
 
 // // Render
 // Catch-all route to serve the React application
