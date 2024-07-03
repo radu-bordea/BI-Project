@@ -170,6 +170,7 @@ const About = () => {
             />
           )}
         </div>
+        <br />
         <div>
           {about.map((about) => {
             return (
@@ -193,10 +194,6 @@ const About = () => {
                   </div>
                 </div>{" "}
                 <hr />
-                <br />
-                <br />
-                <br />
-                <br />
                 <br />
               </div>
             );
