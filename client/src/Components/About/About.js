@@ -100,14 +100,14 @@ const About = () => {
       console.log("About data updated:", response.data);
 
       // Update the corresponding about in the devices state
-      setAboutData((prevDevices) =>
-        prevDevices.map((about) =>
+      setAboutData((prevAbout) =>
+        prevAbout.map((about) =>
           about._id === aboutForm.id ? response.data : about
         )
       );
 
       // Clear the form data and set isEditing to false
-      aboutForm({
+      setAboutForm({
         id: "",
         title: "",
         message: "",
@@ -190,21 +190,7 @@ const About = () => {
               </div>
             );
           })}
-          {/* 
-      
-      <h2>Deployment</h2>
-      
-      <p>
-      Ensure all dependencip ap installed using the provided package.json
-      files for the frontend and backend.Configure environmentp variables, including MongoDB Atlas credentials,
-      Google Maps API key, and Auth0 configuration. Deploy the Node.js backend and React frontend on the chosen cloud
-      provider. Verify the live deployment by accessing the application URL.</p>
-      
-      <h2>Conclusion</h2>
-      <p>
-      The Beehive Monitoring System offers a robust solution for beekeepers
-      and researchers to monitor and manage beehive data efficiently...
-      </p> */}
+          
         </div>
       </div>
     </div>
