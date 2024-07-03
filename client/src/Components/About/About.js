@@ -28,8 +28,6 @@ const About = () => {
         message: about.message,
       }));
 
-      // Sort the about array by id before setting it in the state
-      about.sort((a, b) => a._id.localeCompare(b._id));
 
       setAbout(about);
       setLoading(false);
