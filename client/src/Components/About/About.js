@@ -23,9 +23,14 @@ const About = () => {
     try {
       const response = await axios.get(serverURL + "/about");
       console.log(response.data);
+
+      // Sort aboutData array by id before setting it in the state
+      aboutData.sort((a, b) => a._id.localeCompare(b._id));
       setAboutData(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false);
     }
   };
 
@@ -54,7 +59,7 @@ const About = () => {
           title: aboutForm.title,
           message: aboutForm.message,
         });
-        console.log("ABout data added:", response.data);
+        console.log("About data added:", response.data);
 
         setAboutForm({
           id: "",
@@ -67,7 +72,7 @@ const About = () => {
     } catch (error) {
       if (error.response && error.response.status === 409) {
         console.error(
-          "Duplicate key error: Device with the same ID already exists."
+          "Duplicate key error: ABout with the same ID already exists."
         );
         // Handle the duplicate key error here (e.g., show an error message to the user).
       }
@@ -91,10 +96,10 @@ const About = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(serverURL + `/about/${aboutData.id}`, {
-        _id: aboutData.id,
-        title: aboutData.title,
-        message: aboutData.message,
+      const response = await axios.put(serverURL + `/about/${aboutForm.id}`, {
+        _id: aboutForm.id,
+        title: aboutForm.title,
+        message: aboutForm.message,
       });
 
       console.log("About data updated:", response.data);
@@ -190,7 +195,6 @@ const About = () => {
               </div>
             );
           })}
-          
         </div>
       </div>
     </div>
