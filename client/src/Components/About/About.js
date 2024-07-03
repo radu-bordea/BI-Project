@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AboutForm from "./AboutForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const About = () => {
+  const { isAuthenticated } = useAuth0();
+
   const [formData, setFormData] = useState({
     id: "",
     title: "",
@@ -27,7 +30,6 @@ const About = () => {
         title: about.title,
         message: about.message,
       }));
-
 
       setAbout(about);
       setLoading(false);
@@ -147,9 +149,7 @@ const About = () => {
       if (response.status === 200) {
         console.log("About data deleted:", response.data);
 
-        setAbout((prevAbout) =>
-          prevAbout.filter((about) => about._id !== id)
-        );
+        setAbout((prevAbout) => prevAbout.filter((about) => about._id !== id));
       }
     } catch (error) {
       console.error("Error deleting about data:", error);
@@ -160,13 +160,15 @@ const About = () => {
     <div>
       <div className="container">
         <div className="row">
-          <AboutForm
-            formData={formData}
-            handleInputChange={handleInputChange}
-            handleSubmit={handleSubmit}
-            isEditing={isEditing}
-            handleCancel={handleCancel} // Pass the handleCancel function
-          />
+          {isAuthenticated && (
+            <AboutForm
+              formData={formData}
+              handleInputChange={handleInputChange}
+              handleSubmit={handleSubmit}
+              isEditing={isEditing}
+              handleCancel={handleCancel} // Pass the handleCancel function
+            />
+          )}
         </div>
         <div>
           {about.map((about) => {
