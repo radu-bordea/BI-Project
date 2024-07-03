@@ -5,7 +5,7 @@ import AboutForm from "./AboutForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
 const About = () => {
-  const [aboutForm, setAboutForm] = useState({
+  const [formData, setFormData] = useState({
     id: "",
     title: "",
     message: "",
@@ -15,19 +15,25 @@ const About = () => {
 
   const [loading, setLoading] = useState(true); // New loading state
 
-  const [aboutData, setAboutData] = useState([]);
+  const [about, setAbout] = useState([]);
 
   const serverURL = "https://bi-project.onrender.com";
 
-  const fetchAboutData = async () => {
+  const fetchAbout = async () => {
     try {
       const response = await axios.get(serverURL + "/about");
-      console.log(response.data);
+      const about = response.data.map((about) => ({
+        id: about._id,
+        title: about.title,
+        message: about.message,
+      }));
 
-      // Sort aboutData array by id before setting it in the state
-      aboutData.sort((a, b) => a._id.localeCompare(b._id));
-      setAboutData(response.data);
+      // Sort the about array by id before setting it in the state
+      about.sort((a, b) => a._id.localeCompare(b._id));
+
+      setAbout(about);
       setLoading(false);
+      console.log(about);
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
@@ -35,13 +41,13 @@ const About = () => {
   };
 
   useEffect(() => {
-    fetchAboutData();
+    fetchAbout();
   }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAboutForm({
-      ...aboutForm,
+    setFormData({
+      ...formData,
       [name]: value,
     });
   };
@@ -55,19 +61,19 @@ const About = () => {
       } else {
         // If not editing, add a new device
         const response = await axios.post(serverURL + "/about", {
-          _id: aboutForm.id,
-          title: aboutForm.title,
-          message: aboutForm.message,
+          _id: formData.id,
+          title: formData.title,
+          message: formData.message,
         });
         console.log("About data added:", response.data);
 
-        setAboutForm({
+        setFormData({
           id: "",
           title: "",
           message: "",
         });
 
-        setAboutData((prevAboutData) => [...prevAboutData, response.data]);
+        setAbout((prevAbout) => [...prevAbout, response.data]);
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -87,32 +93,32 @@ const About = () => {
     console.log("Editing about:", about);
 
     // Set the formData with the selected about's data
-    setAboutForm({
-      id: aboutData._id,
-      title: aboutData.title,
-      message: aboutData.message,
+    setFormData({
+      id: about._id,
+      title: about.title,
+      message: about.message,
     });
   };
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(serverURL + `/about/${aboutForm.id}`, {
-        _id: aboutForm.id,
-        title: aboutForm.title,
-        message: aboutForm.message,
+      const response = await axios.put(serverURL + `/about/${formData.id}`, {
+        _id: formData.id,
+        title: formData.title,
+        message: formData.message,
       });
 
       console.log("About data updated:", response.data);
 
       // Update the corresponding about in the devices state
-      setAboutData((prevAbout) =>
+      setAbout((prevAbout) =>
         prevAbout.map((about) =>
-          about._id === aboutForm.id ? response.data : about
+          about._id === formData.id ? response.data : about
         )
       );
 
       // Clear the form data and set isEditing to false
-      setAboutForm({
+      setFormData({
         id: "",
         title: "",
         message: "",
@@ -125,7 +131,7 @@ const About = () => {
 
   const handleCancel = () => {
     // Clear the form data and set isEditing to false
-    setAboutForm({
+    setFormData({
       id: "",
       title: "",
       message: "",
@@ -143,8 +149,8 @@ const About = () => {
       if (response.status === 200) {
         console.log("About data deleted:", response.data);
 
-        setAboutData((prevAboutData) =>
-          prevAboutData.filter((about) => about._id !== id)
+        setAbout((prevAbout) =>
+          prevAbout.filter((about) => about._id !== id)
         );
       }
     } catch (error) {
@@ -157,7 +163,7 @@ const About = () => {
       <div className="container">
         <div className="row">
           <AboutForm
-            aboutForm={aboutForm}
+            formData={formData}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
             isEditing={isEditing}
@@ -165,7 +171,7 @@ const About = () => {
           />
         </div>
         <div>
-          {aboutData.map((about) => {
+          {about.map((about) => {
             return (
               <div className="row text-center">
                 <div className="col-md-10">

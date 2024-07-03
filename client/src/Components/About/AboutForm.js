@@ -1,7 +1,7 @@
 import React from "react";
 
 const AboutForm = ({
-  aboutForm,
+  formData,
   handleInputChange,
   handleSubmit,
   isEditing,
@@ -17,7 +17,7 @@ const AboutForm = ({
           className="form-control form-control-sm"
           id="id"
           name="id"
-          value={aboutForm.id}
+          value={formData.id}
           onChange={handleInputChange}
           required
           disabled={isEditing}
@@ -31,7 +31,7 @@ const AboutForm = ({
           className="form-control form-control-sm"
           id="title"
           name="title"
-          value={aboutForm.title}
+          value={formData.title}
           onChange={handleInputChange}
           required
         />
@@ -44,7 +44,7 @@ const AboutForm = ({
           className="form-control form-control-sm"
           id="message"
           name="message"
-          value={aboutForm.message}
+          value={formData.message}
           onChange={handleInputChange}
           required
         /><br/>
