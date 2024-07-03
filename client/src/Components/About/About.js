@@ -23,7 +23,7 @@ const About = () => {
     try {
       const response = await axios.get(serverURL + "/about");
       const about = response.data.map((about) => ({
-        id: about._id,
+        _id: about._id,
         title: about.title,
         message: about.message,
       }));
