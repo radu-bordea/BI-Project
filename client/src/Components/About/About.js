@@ -9,6 +9,7 @@ const About = () => {
   const { isAuthenticated } = useAuth0();
 
   const [formData, setFormData] = useState({
+    id: "",
     title: "",
     message: "",
   });
@@ -60,12 +61,14 @@ const About = () => {
       } else {
         // If not editing, add a new device
         const response = await axios.post(serverURL + "/about", {
+          _id: formData.id,
           title: formData.title,
           message: formData.message,
         });
         console.log("About data added:", response.data);
 
         setFormData({
+          id: "",
           title: "",
           message: "",
         });
@@ -91,6 +94,7 @@ const About = () => {
 
     // Set the formData with the selected about's data
     setFormData({
+      id: about._id,
       title: about.title,
       message: about.message,
     });
@@ -98,7 +102,8 @@ const About = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(serverURL + `/about/${about._id}`, {
+      const response = await axios.put(serverURL + `/about/${formData.id}`, {
+        _id: formData.id,
         title: formData.title,
         message: formData.message,
       });
@@ -114,6 +119,7 @@ const About = () => {
 
       // Clear the form data and set isEditing to false
       setFormData({
+        id: "",
         title: "",
         message: "",
       });
@@ -126,6 +132,7 @@ const About = () => {
   const handleCancel = () => {
     // Clear the form data and set isEditing to false
     setFormData({
+      id: "",
       title: "",
       message: "",
     });
