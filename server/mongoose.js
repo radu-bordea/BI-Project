@@ -465,7 +465,7 @@ const getAbout = async (req, res, next) => {
 // create about data
 const createAbout = async (req, res, next) => {
   try {
-    const nextId = await getNextSequenceValue("aboutId");
+    const nextId = await getNextSequenceValue("AboutId");
     const createAbout = new About({
       _id: nextId,
       title: req.body.title,
