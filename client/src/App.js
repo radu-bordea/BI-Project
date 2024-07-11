@@ -16,42 +16,55 @@ import {
 } from "./Components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { ToastContainer } from "react-toastify"; // import ToastContainer
+import { ToastContainer, toast } from "react-toastify"; // import ToastContainer
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [expanded, setExpanded] = useState(false);
 
   const handleNavClick = () => {
     setExpanded(false);
-
   };
 
   return (
-    <Router className="container-fluid" basename="/">
-      <Navbar
-        handleNavClick={handleNavClick}
-        expanded={expanded}
-        setExpanded={setExpanded}
-        className="navbar navbar-expand-lg navbar-light bg-light fixed-top"
-      />
-      <div className="switch">
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/maps" component={Map} />
-          <Route path="/data" component={Data} />
-          <Route path="/locations" component={Locations} />
-          <Route path="/keepers" component={Keepers} />
-          <Route path="/types" component={Types} />
-          <Route path="/devices" component={Devices} />
-          <Route path="/behives" component={Behives} />
-          <Route path="/login" component={LoginButton} />
-        </Switch>
+    <>
+      <Router className="container-fluid" basename="/">
+        <Navbar
+          handleNavClick={handleNavClick}
+          expanded={expanded}
+          setExpanded={setExpanded}
+          className="navbar navbar-expand-lg navbar-light bg-light fixed-top"
+        />
+        <div className="switch">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/maps" component={Map} />
+            <Route path="/data" component={Data} />
+            <Route path="/locations" component={Locations} />
+            <Route path="/keepers" component={Keepers} />
+            <Route path="/types" component={Types} />
+            <Route path="/devices" component={Devices} />
+            <Route path="/behives" component={Behives} />
+            <Route path="/login" component={LoginButton} />
+          </Switch>
 
-        <Footer className="fixed-bottom" />
-      </div>
-      <ToastContainer />
-    </Router>
+          <Footer className="fixed-bottom" />
+        </div>
+      </Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </>
   );
 };
 
