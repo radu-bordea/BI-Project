@@ -4,6 +4,7 @@ import axios from "axios";
 import AboutForm from "./AboutForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 import { useAuth0 } from "@auth0/auth0-react";
+import { toast } from "react-toastify";
 
 const About = () => {
   const { isAuthenticated } = useAuth0();
@@ -74,15 +75,20 @@ const About = () => {
         });
 
         setAbout((prevAbout) => [...prevAbout, response.data]);
+        toast.success("Data saved successfully");
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
         console.error(
-          "Duplicate key error: ABout with the same ID already exists."
+          "Duplicate key error: About with the same ID already exists."
+        );
+        toast.error(
+          "Duplicate key error: About with the same ID already exists!"
         );
         // Handle the duplicate key error here (e.g., show an error message to the user).
       }
-      console.error("Error adding device:", error);
+      console.error("Error adding data:", error);
+      toast.error("Error saving data");
     }
   };
 
@@ -124,8 +130,10 @@ const About = () => {
         message: "",
       });
       setIsEditing(false);
-    } catch (error) {
-      console.error("Error updating about data:", error);
+      toast.success("Updated successfully");
+    } catch (err) {
+      console.error("Error updating about data:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -151,8 +159,10 @@ const About = () => {
 
         setAbout((prevAbout) => prevAbout.filter((about) => about._id !== id));
       }
-    } catch (error) {
-      console.error("Error deleting about data:", error);
+      toast.success("Data deleted succesfully");
+    } catch (err) {
+      console.error("Error deleting about data:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 

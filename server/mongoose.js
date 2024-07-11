@@ -506,12 +506,12 @@ const updateAbout = async (req, res, next) => {
 // delete update data
 const deleteAbout = async (req, res, next) => {
   try {
-    const UpdateId = req.params.id;
-    const deleteUpdate = await About.findByIdAndDelete(UpdateId);
+    const DeleteId = req.params.id;
+    const deleteUpdate = await About.findByIdAndDelete(DeleteId);
     if (!deleteUpdate) {
-      return res.status(404).json({ message: "Update not found" });
+      return res.status(404).json({ message: "Id not found" });
     }
-    res.json({ message: "Update deleted successfully" });
+    res.json({ message: "Id deleted successfully" });
   } catch (error) {
     next(error);
   }

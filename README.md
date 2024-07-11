@@ -56,6 +56,7 @@ install dependencies more:
  - npm install react-app-rewired --save-dev
  - npm install moment
  - npm install react-datepicker
+ - npm install --save react-toastify
 
 
 
