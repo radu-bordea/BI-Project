@@ -16,6 +16,7 @@ import {
 } from "./Components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import { ToastContainer } from "react-bootstrap";
 
 const App = () => {
   const [expanded, setExpanded] = useState(false);
@@ -48,6 +49,7 @@ const App = () => {
 
         <Footer className="fixed-bottom" />
       </div>
+      <ToastContainer />
     </Router>
   );
 };
