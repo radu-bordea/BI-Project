@@ -9,20 +9,6 @@ const AboutForm = ({
 }) => {
   return (
     <form onSubmit={handleSubmit} className="row text-center my-3 mx-auto">
-      {/* Input field for ID */}
-      <div className="form-group col-lg-3">
-        <label htmlFor="id">ID</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="id"
-          name="id"
-          value={formData.id}
-          onChange={handleInputChange}
-          required
-          disabled={isEditing}
-        />
-      </div>
       {/* Input field for title */}
       <div className="form-group col-lg-3">
         <label htmlFor="name">Title</label>
