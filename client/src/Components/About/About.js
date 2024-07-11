@@ -98,7 +98,7 @@ const About = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(serverURL + `/about/${formData.id}`, {
+      const response = await axios.put(serverURL + `/about/${about._id}`, {
         title: formData.title,
         message: formData.message,
       });

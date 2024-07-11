@@ -23,10 +23,11 @@ const AboutForm = ({
         />
       </div>
       {/* Input field for message */}
-      <div className="form-group col-lg-6">
+      <div className="form-group col-lg-9">
         <label htmlFor="name">Message</label>
-        <input
-          type="text"
+        <textarea
+          rows='4'
+          cols="50"
           className="form-control form-control-sm"
           id="message"
           name="message"
