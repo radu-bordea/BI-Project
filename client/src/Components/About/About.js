@@ -130,7 +130,7 @@ const About = () => {
         message: "",
       });
       setIsEditing(false);
-      toast.success("Updated successfully");
+      toast.success("Data updated successfully");
     } catch (err) {
       console.error("Error updating about data:", err);
       toast.error(err?.data?.message || err.error);
