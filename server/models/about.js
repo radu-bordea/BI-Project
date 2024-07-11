@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const aboutSchema = mongoose.Schema({
-  _id: { type: String, require: true },
+  _id: { type: Number, unique: true, required: true },
   title: { type: String, require: true },
   message: { type: String, require: true },
 });

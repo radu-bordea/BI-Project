@@ -9,8 +9,8 @@ const Data = require("./models/data");
 const Picture = require("./models/picture");
 const About = require("./models/about");
 
-// const Picture = require("./models/picture");
-// const multer = require("multer");
+const getNextSequenceValue = require("./utils/sequence");
+
 require("dotenv").config(); // Load environment variables
 
 const uri = process.env.MONGO_URI;
@@ -464,21 +464,20 @@ const getAbout = async (req, res, next) => {
 
 // create about data
 const createAbout = async (req, res, next) => {
-  const createAbout = new About({
-    _id: req.body._id,
-    title: req.body.title,
-    message: req.body.message,
-  });
-
   try {
+    const nextId = await getNextSequenceValue("aboutId");
+    const createAbout = new About({
+      _id: nextId,
+      title: req.body.title,
+      message: req.body.message,
+    });
+
     const result = await createAbout.save();
     res.json(result);
   } catch (error) {
-    // duplicate key error
     if (error.code === 11000) {
-      res.status(400).json({ error: "Data with the same id already exist" });
+      res.status(400).json({ error: "Data with the same id already exists" });
     } else {
-      // handle other error
       next(error);
     }
   }
@@ -490,11 +489,9 @@ const updateAbout = async (req, res, next) => {
     const AboutId = req.params.id;
     const updatedData = req.body;
 
-    const updatedAbout = await About.findByIdAndUpdate(
-      AboutId,
-      updatedData,
-      { new: true }
-    );
+    const updatedAbout = await About.findByIdAndUpdate(AboutId, updatedData, {
+      new: true,
+    });
 
     if (!updatedAbout) {
       return res.status(404).json({ message: "About not found" });
@@ -519,23 +516,6 @@ const deleteAbout = async (req, res, next) => {
     next(error);
   }
 };
-
-// const getPictures = async (req, res, next) => {
-//   try {
-//     const pictures = await Picture.find();
-//     res.json(pictures);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-// const createPicture = async (req, res, next) => {
-//   try {
-//     const picture = await Picture.create({ image: req.file.filename });
-//     res.status(201).json(picture)
-//   } catch (error) {
-//     next(error)
-//   }
-// };
 
 /* === EXPORTS === */
 //locations
@@ -580,5 +560,5 @@ exports.getPictures = getPictures;
 // about
 exports.getAbout = getAbout;
 exports.createAbout = createAbout;
-exports.updateAbout = updateAbout
-exports.deleteAbout = deleteAbout
+exports.updateAbout = updateAbout;
+exports.deleteAbout = deleteAbout;
