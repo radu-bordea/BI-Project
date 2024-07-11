@@ -16,13 +16,14 @@ import {
 } from "./Components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { ToastContainer } from "react-bootstrap";
+import { ToastContainer } from "react-toastify"; // import ToastContainer
 
 const App = () => {
   const [expanded, setExpanded] = useState(false);
 
   const handleNavClick = () => {
     setExpanded(false);
+
   };
 
   return (
