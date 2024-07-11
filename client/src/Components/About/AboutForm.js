@@ -10,49 +10,53 @@ const AboutForm = ({
   return (
     <form onSubmit={handleSubmit} className="row text-center my-3 mx-auto">
       {/* Input field for ID */}
-      <div className="form-group col-lg-3">
-        <label htmlFor="id">ID</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="id"
-          name="id"
-          value={formData.id}
-          onChange={handleInputChange}
-          required
-          disabled={isEditing}
-        />
-      </div>
-      {/* Input field for title */}
-      <div className="form-group col-lg-3">
-        <label htmlFor="name">Title</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="title"
-          name="title"
-          value={formData.title}
-          onChange={handleInputChange}
-          required
-        />
+      <div className="form-group col-lg-6">
+        {isEditing && (
+          <div>
+            <label htmlFor="id">ID</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="id"
+              name="id"
+              value={formData.id}
+              onChange={handleInputChange}
+              disabled={isEditing}
+            />
+          </div>
+        )}
+        {/* Input field for title */}
+        <div>
+          <label htmlFor="name">Title</label>
+          <input
+            type="text"
+            className="form-control form-control-sm"
+            id="title"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
       </div>
       {/* Input field for message */}
       <div className="form-group col-lg-6">
         <label htmlFor="name">Message</label>
         <textarea
           type="text"
-          rows='4'
-          cols='50'
+          rows="4"
+          cols="50"
           className="form-control form-control-sm"
           id="message"
           name="message"
           value={formData.message}
           onChange={handleInputChange}
           required
-        /><br/>
-      </div><hr/>
-      
-      
+        />
+        <br />
+      </div>
+      <hr />
+
       {/* Submit and Cancel buttons */}
       <div className=" text-center col-11 mt-2 mx-auto">
         <button
