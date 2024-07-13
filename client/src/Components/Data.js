@@ -13,7 +13,7 @@ const Data = () => {
 
   const [measurements, setMeasurements] = useState([]);
   const [beehives, setBeehives] = useState([]);
-  const [beehiveChoice, setBeehiveChoice] = useState("1");
+  const [beehiveChoice, setBeehiveChoice] = useState(1);
   const [selectedStartDate, setSelectedStartDate] = useState(
     new Date("2023-09-01")
   );
@@ -55,7 +55,7 @@ const Data = () => {
 
 
 
-  const handleBehiveSelection = (beehiveId) => {
+  const handleBeehiveSelection = (beehiveId) => {
     setBeehiveChoice(beehiveId);
   };
 
@@ -84,7 +84,7 @@ const Data = () => {
 
   const beehiveMeasure = (beehiveChoice) => {
     let devices = [];
-    if (beehiveChoice === "2") {
+    if (beehiveChoice === 2) {
       devices = ["4", "5", "6"]; // Example devices for beehive 2
     } else {
       devices = ["1", "2", "3"]; // Default devices for other beehives
@@ -146,7 +146,7 @@ const Data = () => {
                   beehive._id === beehiveChoice ? "btn-primary" : "btn-secondary"
                 }`}
                 key={beehive._id}
-                onClick={() => handleBehiveSelection(beehive._id)}
+                onClick={() => handleBeehiveSelection(beehive._id)}
               >
                 {`Beehive ID: ${beehive._id}`}
               </button>
