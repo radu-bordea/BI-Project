@@ -97,7 +97,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
               <Nav.Link
                 className="mx-1"
                 as={NavLink}
-                to="/behives"
+                to="/beehives"
                 onClick={handleNavClick}
               >
                 <i>Edit-Beehives</i>
