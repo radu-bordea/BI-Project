@@ -12,8 +12,8 @@ const Data = () => {
 
 
   const [measurements, setMeasurements] = useState([]);
-  const [behives, setBehives] = useState([]);
-  const [behiveChoice, setBehiveChoice] = useState("1");
+  const [beehives, setBeehives] = useState([]);
+  const [beehiveChoice, setBeehiveChoice] = useState("1");
   const [selectedStartDate, setSelectedStartDate] = useState(
     new Date("2023-09-01")
   );
@@ -35,17 +35,17 @@ const Data = () => {
     }
   };
 
-  const fetchBehives = async () => {
+  const fetchBeehives = async () => {
     try {
-      const response = await axios.get(serverURL + "/behives");
-      setBehives(response.data);
+      const response = await axios.get(serverURL + "/beehives");
+      setBeehives(response.data);
     } catch (error) {
-      console.error("Error fetching behives:", error);
+      console.error("Error fetching beehives:", error);
     }
   };
 
   useEffect(() => {
-    fetchBehives();
+    fetchBeehives();
     fetchData();
   }, []);
 
@@ -55,8 +55,8 @@ const Data = () => {
 
 
 
-  const handleBehiveSelection = (behiveId) => {
-    setBehiveChoice(behiveId);
+  const handleBehiveSelection = (beehiveId) => {
+    setBeehiveChoice(beehiveId);
   };
 
   const handleStartDateChange = (date) => {
@@ -82,12 +82,12 @@ const Data = () => {
     return labels;
   };
 
-  const behiveMeasure = (behiveChoice) => {
+  const beehiveMeasure = (beehiveChoice) => {
     let devices = [];
-    if (behiveChoice === "2") {
-      devices = ["4", "5", "6"]; // Example devices for behive 2
+    if (beehiveChoice === "2") {
+      devices = ["4", "5", "6"]; // Example devices for beehive 2
     } else {
-      devices = ["1", "2", "3"]; // Default devices for other behives
+      devices = ["1", "2", "3"]; // Default devices for other beehives
     }
     return devices;
   };
@@ -96,7 +96,7 @@ const Data = () => {
     const filteredMeasurements = filterMeasurementsByDate();
     const datasets = [];
 
-    const dev = behiveMeasure(behiveChoice);
+    const dev = beehiveMeasure(beehiveChoice);
 
     const parameters = ["Temp °C", "Humidity g/m3", "Weight kg"];
     const colors = ["#f18787", "#8c8cd3", "#6cb66c"];
@@ -140,15 +140,15 @@ const Data = () => {
       <div className="row">
         <div className="col-lg-2">
           <div className="list-group">
-            {behives.map((behive) => (
+            {beehives.map((beehive) => (
               <button
                 className={`m-1 btn ${
-                  behive._id === behiveChoice ? "btn-primary" : "btn-secondary"
+                  beehive._id === beehiveChoice ? "btn-primary" : "btn-secondary"
                 }`}
-                key={behive._id}
-                onClick={() => handleBehiveSelection(behive._id)}
+                key={beehive._id}
+                onClick={() => handleBehiveSelection(beehive._id)}
               >
-                {`Beehive ID: ${behive._id}`}
+                {`Beehive ID: ${beehive._id}`}
               </button>
             ))}
           </div>

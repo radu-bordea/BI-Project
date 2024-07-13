@@ -28,8 +28,6 @@ const Beehives = () => {
         devicesIds: beehive.devicesIds,
       }));
 
-      // Sort the beehiveData array by id before setting it in the state
-      beehiveData.sort((a, b) => a._id.localeCompare(b._id));
 
       setBeehives(beehiveData);
       setLoading(false); // Data has been fetched, set loading to false

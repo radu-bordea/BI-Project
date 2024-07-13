@@ -32,9 +32,6 @@ const Locations = () => {
         long: location.long,
       }));
 
-      // Sort the cityData array by id before setting it in the state
-      // cityData.sort((a, b) => a._id.localeCompare(b._id));
-
       setCities(cityData);
       setLoading(false); // Data has been fetched, set loading to false
       console.log(cityData);

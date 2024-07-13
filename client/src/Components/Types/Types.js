@@ -42,9 +42,6 @@ const Types = () => {
         precision: type.precision,
       }));
 
-      // Sort the typeData array by id before setting it in the state
-      typeData.sort((a, b) => a._id.localeCompare(b._id));
-
       setTypes(typeData);
       setLoading(false); // Data has been fetched, set loading to false
       console.log(typeData);

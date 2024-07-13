@@ -35,9 +35,6 @@ const Devices = () => {
         apiKey: device.apiKey,
       }));
 
-      // Sort the deviceData array by id before setting it in the state
-      deviceData.sort((a, b) => a._id.localeCompare(b._id));
-
       setDevices(deviceData);
       setLoading(false); // Data has been fetched, set loading to false
       console.log(deviceData);

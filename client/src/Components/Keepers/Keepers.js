@@ -34,9 +34,6 @@ const Keepers = () => {
         phone: keeper.phone,
       }));
 
-      // Sort the keeperData array by id before setting it in the state
-      keeperData.sort((a, b) => a._id.localeCompare(b._id));
-
       setKeepers(keeperData);
       setLoading(false); // Data has been fetched, set loading to false
       console.log(keeperData);
