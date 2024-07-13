@@ -185,24 +185,26 @@ const About = () => {
           {about.map((about) => {
             return (
               <div className="row text-center">
-                <div className="col-md-10">
+                <div className={isAuthenticated ? "col-md-10" : "col-md-12"}>
                   <h5>{about.title}</h5>
                   <p>{about.message}</p>
                 </div>
-                <div className=" col-md-2 mb-2 ">
-                  <div
-                    className="btn btn-success mt-2 w-25 mx-2"
-                    onClick={() => handleEdit(about)}
-                  >
-                    <FaPencilAlt />
+                {isAuthenticated && (
+                  <div className=" col-md-2 mb-2 ">
+                    <div
+                      className="btn btn-success mt-2 w-25 mx-2"
+                      onClick={() => handleEdit(about)}
+                    >
+                      <FaPencilAlt />
+                    </div>
+                    <div
+                      className="btn btn-danger mt-2 w-25 mx-2"
+                      onClick={() => handleDelete(about._id)}
+                    >
+                      <FaRegTrashAlt />
+                    </div>
                   </div>
-                  <div
-                    className="btn btn-danger mt-2 w-25 mx-2"
-                    onClick={() => handleDelete(about._id)}
-                  >
-                    <FaRegTrashAlt />
-                  </div>
-                </div>{" "}
+                )}
                 <hr />
                 <br />
               </div>
