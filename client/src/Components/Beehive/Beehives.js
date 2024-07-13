@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import BehiveForm from "./BehiveForm";
+import BeehiveForm from "./BeehiveForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 
-const Behives = () => {
+const Beehives = () => {
   const [formData, setFormData] = useState({
     id: "",
     devicesIds: "",
@@ -106,7 +106,7 @@ const Behives = () => {
         devicesIds: formData.devicesIds,
       });
 
-      console.log("Behive updated:", response.data);
+      console.log("Beehive updated:", response.data);
 
       // Update the corresponding type in the types state
       setBeehives((prevBeehives) =>
@@ -143,7 +143,7 @@ const Behives = () => {
       console.log("Response from server:", response);
 
       if (response.status === 200) {
-        console.log("Behive deleted:", response.data);
+        console.log("Beehive deleted:", response.data);
 
         setBeehives((prevBeehives) =>
           prevBeehives.filter((beehive) => beehive._id !== id)
@@ -158,7 +158,7 @@ const Behives = () => {
     <div>
       <div className="container">
         <div className="row">
-          <BehiveForm
+          <BeehiveForm
             formData={formData}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
@@ -192,4 +192,4 @@ const Behives = () => {
   );
 };
 
-export default Behives;
+export default Beehives;

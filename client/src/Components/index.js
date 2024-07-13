@@ -9,5 +9,5 @@ export { default as Locations } from "./Locations/Locations";
 export { default as Keepers } from "./Keepers/Keepers";
 export { default as Types } from "./Types/Types";
 export { default as Devices } from "./Devices/Devices";
-export { default as Behives } from "./Behive/Behives";
+export { default as Beehives } from "./Beehive/Beehives";
 export { default as LoginButton } from "./Login/Login";

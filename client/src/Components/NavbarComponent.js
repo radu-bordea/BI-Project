@@ -100,7 +100,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
                 to="/behives"
                 onClick={handleNavClick}
               >
-                <i>Edit-Behives</i>
+                <i>Edit-Beehives</i>
               </Nav.Link>
             </>
           )}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const BehiveForm = ({
+const BeehiveForm = ({
   formData,
   handleInputChange,
   handleSubmit,
@@ -61,4 +61,4 @@ const BehiveForm = ({
   );
 };
 
-export default BehiveForm;
+export default BeehiveForm;

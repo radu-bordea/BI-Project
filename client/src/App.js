@@ -11,7 +11,7 @@ import {
   Keepers,
   Types,
   Devices,
-  Behives,
+  Beehives,
   LoginButton,
 } from "./Components";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -45,7 +45,7 @@ const App = () => {
             <Route path="/keepers" component={Keepers} />
             <Route path="/types" component={Types} />
             <Route path="/devices" component={Devices} />
-            <Route path="/behives" component={Behives} />
+            <Route path="/beehives" component={Beehives} />
             <Route path="/login" component={LoginButton} />
           </Switch>
 
