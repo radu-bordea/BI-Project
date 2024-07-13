@@ -12,28 +12,28 @@ const Behives = () => {
 
   const [isEditing, setIsEditing] = useState(false); // Add an isEditing state
 
-    // behives
-    const [behives, setBehives] = useState([]);
+    // beehives
+    const [beehives, setBeehives] = useState([]);
 
     const serverURL = "https://bi-project.onrender.com";
 
     const [loading, setLoading] = useState(true); // New loading state
 
-      // Function to fetch behives from the server
-  const fetchBehives = async () => {
+      // Function to fetch beehives from the server
+  const fetchBeehives = async () => {
     try {
-      const response = await axios.get(serverURL + "/behives");
-      const behiveData = response.data.map((behive) => ({
-        _id: behive._id,
-        devicesIds: behive.devicesIds,
+      const response = await axios.get(serverURL + "/beehives");
+      const beehiveData = response.data.map((beehive) => ({
+        _id: beehive._id,
+        devicesIds: beehive.devicesIds,
       }));
 
-      // Sort the behiveData array by id before setting it in the state
-      behiveData.sort((a, b) => a._id.localeCompare(b._id));
+      // Sort the beehiveData array by id before setting it in the state
+      beehiveData.sort((a, b) => a._id.localeCompare(b._id));
 
-      setBehives(behiveData);
+      setBeehives(beehiveData);
       setLoading(false); // Data has been fetched, set loading to false
-      console.log(behiveData);
+      console.log(beehiveData);
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false); // Error occurred, set loading to false
@@ -41,7 +41,7 @@ const Behives = () => {
   };
 
   useEffect(() => {
-    fetchBehives();
+    fetchBeehives();
   }, []);
 
 
@@ -62,7 +62,7 @@ const Behives = () => {
         handleUpdate();
       } else {
         // If not editing, add a new type
-        const response = await axios.post(serverURL + "/behives", {
+        const response = await axios.post(serverURL + "/beehives", {
           _id: formData.id,
           devicesIds: formData.devicesIds,
         });
@@ -73,7 +73,7 @@ const Behives = () => {
           devicesIds: "",
         });
 
-        setBehives((prevBehives) => [...prevBehives, response.data]);
+        setBeehives((prevBeehives) => [...prevBeehives, response.data]);
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -82,7 +82,7 @@ const Behives = () => {
         );
         // Handle the duplicate key error here (e.g., show an error message to the user).
       }
-      console.error("Error adding behive:", error);
+      console.error("Error adding beehive:", error);
     }
   };
 
@@ -101,7 +101,7 @@ const Behives = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(serverURL + `/behive/${formData.id}`, {
+      const response = await axios.put(serverURL + `/beehive/${formData.id}`, {
         _id: formData.id,
         devicesIds: formData.devicesIds,
       });
@@ -109,9 +109,9 @@ const Behives = () => {
       console.log("Behive updated:", response.data);
 
       // Update the corresponding type in the types state
-      setBehives((prevBehives) =>
-        prevBehives.map((behive) =>
-          behive._id === formData.id ? response.data : behive
+      setBeehives((prevBeehives) =>
+        prevBeehives.map((beehive) =>
+          beehive._id === formData.id ? response.data : beehive
         )
       );
 
@@ -122,7 +122,7 @@ const Behives = () => {
       });
       setIsEditing(false);
     } catch (error) {
-      console.error("Error updating behive:", error);
+      console.error("Error updating beehive:", error);
     }
   };
 
@@ -136,21 +136,21 @@ const Behives = () => {
   };
 
   const handleDelete = async (id) => {
-    console.log("Deleting behive with id:", id);
+    console.log("Deleting beehive with id:", id);
     try {
-      const response = await axios.delete(serverURL + `/behive/${id}`);
+      const response = await axios.delete(serverURL + `/beehive/${id}`);
 
       console.log("Response from server:", response);
 
       if (response.status === 200) {
         console.log("Behive deleted:", response.data);
 
-        setBehives((prevBehives) =>
-          prevBehives.filter((behive) => behive._id !== id)
+        setBeehives((prevBeehives) =>
+          prevBeehives.filter((beehive) => beehive._id !== id)
         );
       }
     } catch (error) {
-      console.error("Error deleting behive:", error);
+      console.error("Error deleting beehive:", error);
     }
   };
 
@@ -167,20 +167,20 @@ const Behives = () => {
           />
 
           <div className="list-group city-btn">
-            {behives.map((behive) => (
+            {beehives.map((beehive) => (
               <div
-                key={behive._id}
+                key={beehive._id}
                 className="d-flex m-2 list-group-item list-group-item-dark"
               >
-                <span className="p-1">{behive.devicesIds}</span>
+                <span className="p-1">{beehive.devicesIds}</span>
                 <div className="btn-del-container">
                   <FaPencilAlt
                     className="btn-del mt-2 text-success"
-                    onClick={() => handleEdit(behive)}
+                    onClick={() => handleEdit(beehive)}
                   />
                   <FaRegTrashAlt
                     className="btn-del mt-2 text-danger"
-                    onClick={() => handleDelete(behive._id)}
+                    onClick={() => handleDelete(beehive._id)}
                   />
                 </div>
               </div>

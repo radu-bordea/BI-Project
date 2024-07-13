@@ -4,9 +4,8 @@ const Location = require("./models/location");
 const Keeper = require("./models/keeper");
 const Type = require("./models/type");
 const Device = require("./models/device");
-const Behive = require("./models/behive");
+const Beehive = require("./models/beehive");
 const Data = require("./models/data");
-const Picture = require("./models/picture");
 const About = require("./models/about");
 
 const getNextSequenceValue = require("./utils/sequence");
@@ -33,26 +32,18 @@ const getLocations = async (req, res, next) => {
   const locations = await Location.find().exec();
   res.json(locations);
 };
-// const getLocations = async (req, res, next) => {
-//   try {
-//     const locations = await Location.find().sort({ _id: 1 }).exec(); // Sort by _id in ascending order
-//     res.json(locations);
-//   } catch (error) {
-//     next(error); // Pass error to the error handling middleware
-//   }
-// };
-// get locations from mongo atlas
 
-// post location to mongo atlas
+// create location to mongo atlas
 const createLocation = async (req, res, next) => {
-  const createdLocation = new Location({
-    _id: req.body._id,
-    name: req.body.name,
-    lat: req.body.lat,
-    long: req.body.long,
-  });
-
   try {
+    const nextId = await getNextSequenceValue("locationId");
+    const createdLocation = new Location({
+      _id: nextId,
+      name: req.body.name,
+      lat: req.body.lat,
+      long: req.body.long,
+    });
+
     const result = await createdLocation.save();
     res.json(result);
   } catch (error) {
@@ -111,17 +102,18 @@ const getKeepers = async (req, res, next) => {
   res.json(keepers);
 };
 
-// post keeper to mongo atlas
+// create keeper to mongo atlas
 const createKeeper = async (req, res, next) => {
-  const createdKeeper = new Keeper({
-    _id: req.body._id,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    phone: req.body.phone,
-  });
-
   try {
+    const nextId = await getNextSequenceValue("keeperId");
+    const createdKeeper = new Keeper({
+      _id: nextId,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phone: req.body.phone,
+    });
+
     const result = await createdKeeper.save();
     res.json(result);
   } catch (error) {
@@ -180,16 +172,17 @@ const getTypes = async (req, res, next) => {
   res.json(types);
 };
 
-// post type to mongo atlas
+// create type to mongo atlas
 const createType = async (req, res, next) => {
-  const createdType = new Type({
-    _id: req.body._id,
-    name: req.body.name,
-    unit: req.body.unit,
-    precision: req.body.precision,
-  });
-
   try {
+    const nextId = await getNextSequenceValue("typeId");
+    const createdType = new Type({
+      _id: nextId,
+      name: req.body.name,
+      unit: req.body.unit,
+      precision: req.body.precision,
+    });
+
     const result = await createdType.save();
     res.json(result);
   } catch (error) {
@@ -244,7 +237,7 @@ const getDevices = async (req, res, next) => {
   res.json(devices);
 };
 
-// post device to mongo atlas
+// delete device to mongo atlas
 const createDevice = async (req, res, next) => {
   // Generate a random letter
   function getRandomLetter() {
@@ -260,16 +253,17 @@ const createDevice = async (req, res, next) => {
   salt1 = Math.round(Math.random() * 999).toString();
   salt2 = Math.round(Math.random() * 999).toString();
 
-  const createdDevice = new Device({
-    _id: req.body._id,
-    locationId: req.body.locationId,
-    typeId: req.body.typeId,
-    keeperId: req.body.keeperId,
-    address: req.body.address,
-    apiKey: randomLetter1 + salt1 + randomLetter2 + salt2 + randomLetter3,
-  });
-
   try {
+    const nextId = await getNextSequenceValue("deviceId");
+    const createdDevice = new Device({
+      _id: nextId,
+      locationId: req.body.locationId,
+      typeId: req.body.typeId,
+      keeperId: req.body.keeperId,
+      address: req.body.address,
+      apiKey: randomLetter1 + salt1 + randomLetter2 + salt2 + randomLetter3,
+    });
+
     const result = await createdDevice.save();
     res.json(result);
   } catch (error) {
@@ -322,20 +316,21 @@ const deleteDevice = async (req, res, next) => {
 };
 
 /* === BEHIVES === */
-// get behives from mongo atlas
-const getBehives = async (req, res, next) => {
-  const behives = await Behive.find().exec();
-  res.json(behives);
+// get beehives from mongo atlas
+const getBeehive = async (req, res, next) => {
+  const beehives = await Beehive.find().exec();
+  res.json(beehives);
 };
 
-// post behive to mongo atlas
-const createBehive = async (req, res, next) => {
-  const createdBehive = new Behive({
-    _id: req.body._id,
-    devicesIds: req.body.devicesIds,
-  });
-
+// create behive to mongo atlas
+const createBeehive = async (req, res, next) => {
   try {
+    const nextId = await getNextSequenceValue("beehiveId");
+    const createdBehive = new Beehive({
+      _id: nextId,
+      devicesIds: req.body.devicesIds,
+    });
+
     const result = await createdBehive.save();
     res.json(result);
   } catch (error) {
@@ -343,7 +338,7 @@ const createBehive = async (req, res, next) => {
       // Duplicate key error
       res
         .status(400)
-        .json({ error: "Behive with the same ID already exists." });
+        .json({ error: "Beehive with the same ID already exists." });
     } else {
       // Handle other errors
       next(error);
@@ -352,36 +347,36 @@ const createBehive = async (req, res, next) => {
 };
 
 // update behive to mongo atlas
-const updateBehive = async (req, res, next) => {
+const updateBeehive = async (req, res, next) => {
   try {
-    const BehiveId = req.params.id;
+    const BeehiveId = req.params.id;
     const updatedData = req.body;
 
-    const updatedBehive = await Behive.findByIdAndUpdate(
-      BehiveId,
+    const updatedBeehive = await Beehive.findByIdAndUpdate(
+      BeehiveId,
       updatedData,
       { new: true }
     );
 
-    if (!updatedBehive) {
-      return res.status(404).json({ message: "Behive not found" });
+    if (!updatedBeehive) {
+      return res.status(404).json({ message: "Beehive not found" });
     }
 
-    res.json(updatedBehive);
+    res.json(updatedBeehive);
   } catch (error) {
     next(error);
   }
 };
 
 // delete behive to mongo atlas
-const deleteBehive = async (req, res, next) => {
+const deleteBeehive = async (req, res, next) => {
   try {
-    const behiveId = req.params.id;
-    const deleteBehive = await Behive.findByIdAndDelete(behiveId);
-    if (!deleteBehive) {
-      return res.status(404).json({ message: "Behive not found" });
+    const beehiveId = req.params.id;
+    const deletedBeehive = await Beehive.findByIdAndDelete(beehiveId);
+    if (!deletedBeehive) {
+      return res.status(404).json({ message: "Beehive not found" });
     }
-    res.json({ message: "Behive deleted successfully" });
+    res.json({ message: "Beehive deleted successfully" });
   } catch (error) {
     next(error);
   }
@@ -406,15 +401,17 @@ const createData = async (req, res, next) => {
     return res.status(401).json({ error: "Unauthorized. Invalid API key." });
   }
 
-  const createData = new Data({
-    _id: req.body._id,
-    deviceId: req.body.deviceId,
-    value: req.body.value,
-    timeStamp: req.body.timeStamp,
-    registerTimeStamp: req.body.registerTimeStamp,
-  });
 
   try {
+    const nextId = await getNextSequenceValue("DataId");
+    const createData = new Data({
+      _id: nextId,
+      deviceId: req.body.deviceId,
+      value: req.body.value,
+      timeStamp: req.body.timeStamp,
+      registerTimeStamp: req.body.registerTimeStamp,
+    });
+
     const result = await createData.save();
     res.json(result);
   } catch (error) {
@@ -428,32 +425,6 @@ const createData = async (req, res, next) => {
   }
 };
 
-/* === PICTURES === */
-// get pictures from mongo atlas
-const getPictures = (req, res, next) => {
-  try {
-    Picture.find({})
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((error) => {
-        res.status(408).json({ error });
-      });
-  } catch (error) {
-    res.json({ error });
-  }
-};
-
-const createPicture = async (req, res, next) => {
-  const body = req.body;
-  try {
-    const newPicture = await Picture.create(body);
-    newPicture.save();
-    res.status(201).json({ msg: "New image uploaded...!" });
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-};
 
 /* === ABOUT === */
 // get about data from mongo atlas
@@ -466,13 +437,13 @@ const getAbout = async (req, res, next) => {
 const createAbout = async (req, res, next) => {
   try {
     const nextId = await getNextSequenceValue("AboutId");
-    const createAbout = new About({
+    const createdAbout = new About({
       _id: nextId,
       title: req.body.title,
       message: req.body.message,
     });
 
-    const result = await createAbout.save();
+    const result = await createdAbout.save();
     res.json(result);
   } catch (error) {
     if (error.code === 11000) {
@@ -542,20 +513,15 @@ exports.createDevice = createDevice;
 exports.updateDevice = updateDevice;
 exports.deleteDevice = deleteDevice;
 
-// behives
-exports.getBehives = getBehives;
-exports.createBehive = createBehive;
-exports.updateBehive = updateBehive;
-exports.deleteBehive = deleteBehive;
+// beehives
+exports.getBeehive = getBeehive;
+exports.createBeehive = createBeehive;
+exports.updateBeehive = updateBeehive;
+exports.deleteBeehive = deleteBeehive;
 
 // data
 exports.getData = getData;
 exports.createData = createData;
-
-// pictures
-// exports.getPictures = getPictures;
-exports.createPicture = createPicture;
-exports.getPictures = getPictures;
 
 // about
 exports.getAbout = getAbout;

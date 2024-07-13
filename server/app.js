@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("./mongoose");
-const multer = require("multer");
 const path = require("path");
 const app = express();
 
@@ -36,27 +35,14 @@ app.put("/device/:id", mongoose.updateDevice);
 app.delete("/device/:id", mongoose.deleteDevice);
 
 // behives middleware
-app.get("/behives", mongoose.getBehives);
-app.post("/behives", mongoose.createBehive);
-app.put("/behive/:id", mongoose.updateBehive);
-app.delete("/behive/:id", mongoose.deleteBehive);
+app.get("/beehives", mongoose.getBeehive);
+app.post("/beehives", mongoose.createBeehive);
+app.put("/beehive/:id", mongoose.updateBeehive);
+app.delete("/beehive/:id", mongoose.deleteBeehive);
 
 // data middleware
 app.get("/data", mongoose.getData);
 app.post("/data", mongoose.createData);
-
-// **************** PICTURES UPLOADS *******************
-// **************** PICTURES UPLOADS *******************
-// **************** PICTURES UPLOADS *******************
-
-app.get("/pictures", mongoose.getPictures)
-app.post("/pictures", mongoose.createPicture)
-// app.post("/pictures", upload.single("file"), mongoose.createPicture);
-// app.delete("/pictures/:id", mongoose.deletePicture);
-
-// **************** PICTURES UPLOADS *******************
-// **************** PICTURES UPLOADS *******************
-// **************** PICTURES UPLOADS *******************
 
 app.get("/about", mongoose.getAbout)
 app.post("/about", mongoose.createAbout)

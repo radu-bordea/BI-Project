@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const keeperSchema = mongoose.Schema({
-  _id: { type: String, require: true },
+  _id: { type: Number, unique: true, required: true },
   firstName: { type: String, require: true },
   lastName: { type: String, require: true },
   email: { type: String, require: true },
