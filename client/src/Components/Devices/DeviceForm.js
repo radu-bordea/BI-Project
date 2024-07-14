@@ -28,7 +28,9 @@ const DeviceForm = ({
         )}
       </div>
       {/* Input field for locationsId */}
-      <div className="form-group col-lg-6">
+      <div
+        className={isEditing ? "form-group col-lg-2" : "form-group col-lg-6"}
+      >
         <label htmlFor="locationId">Location Id</label>
         <input
           type="text"
@@ -41,7 +43,9 @@ const DeviceForm = ({
         />
       </div>
       {/* Input field for typeId */}
-      <div className="form-group col-lg-6">
+      <div
+        className={isEditing ? "form-group col-lg-2" : "form-group col-lg-6"}
+      >
         <label htmlFor="typeId">Type Id</label>
         <input
           type="text"
@@ -54,7 +58,9 @@ const DeviceForm = ({
         />
       </div>
       {/* Input field for keeperId */}
-      <div className="form-group col-lg-6">
+      <div
+        className={isEditing ? "form-group col-lg-2" : "form-group col-lg-6"}
+      >
         <label htmlFor="keeperId">Keeper Id</label>
         <input
           type="text"

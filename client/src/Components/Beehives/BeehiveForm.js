@@ -27,7 +27,9 @@ const BeehiveForm = ({
         )}
       </div>
       {/* Input field for Devices array */}
-      <div className="form-group col-lg-6">
+      <div
+        className={isEditing ? "form-group col-lg-6" : "form-group col-lg-12"}
+      >
         <label htmlFor="devicesIds">All Devices</label>
         <input
           type="text"
