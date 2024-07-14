@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import DeviceForm from "./DeviceForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Devices = () => {
   const [formData, setFormData] = useState({
@@ -71,7 +72,6 @@ const Devices = () => {
           keeperId: formData.keeperId,
           address: formData.address,
         });
-        console.log("Device added:", response.data);
 
         setFormData({
           id: "",
@@ -82,15 +82,22 @@ const Devices = () => {
         });
 
         setDevices((prevDevices) => [...prevDevices, response.data]);
+
+        console.log("Device added:", response.data);
+        toast.success("Data saved successfully");
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
+        // Handle the duplicate key error here (e.g., show an error message to the user).
         console.error(
           "Duplicate key error: Device with the same ID already exists."
         );
-        // Handle the duplicate key error here (e.g., show an error message to the user).
+        toast.error(
+          "Duplicate key error: Device with the same ID already exists!"
+        );
       }
       console.error("Error adding device:", error);
+      toast.error("Error saving data");
     }
   };
 
@@ -138,8 +145,9 @@ const Devices = () => {
         address: "",
       });
       setIsEditing(false);
-    } catch (error) {
-      console.error("Error updating device:", error);
+    } catch (err) {
+      console.error("Error updating device:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -169,8 +177,10 @@ const Devices = () => {
           prevDevices.filter((device) => device._id !== id)
         );
       }
-    } catch (error) {
-      console.error("Error deleting device:", error);
+      toast.success("Data deleted succesfully");
+    } catch (err) {
+      console.error("Error deleting device:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 

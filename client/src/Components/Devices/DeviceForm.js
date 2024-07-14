@@ -11,17 +11,21 @@ const DeviceForm = ({
     <form onSubmit={handleSubmit} className="row my-3 mx-auto">
       {/* Input field for ID */}
       <div className="form-group col-lg-6">
-        <label htmlFor="id">ID</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="id"
-          name="id"
-          value={formData.id}
-          onChange={handleInputChange}
-          required
-          disabled={isEditing}
-        />
+        {isEditing(
+          <div>
+            <label htmlFor="id">ID</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="id"
+              name="id"
+              value={formData.id}
+              onChange={handleInputChange}
+              required
+              disabled={isEditing}
+            />
+          </div>
+        )}
       </div>
       {/* Input field for locationsId */}
       <div className="form-group col-lg-6">

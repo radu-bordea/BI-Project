@@ -65,7 +65,6 @@ const Beehives = () => {
           _id: formData.id,
           devicesIds: formData.devicesIds,
         });
-        console.log("Behive added:", response.data);
 
         setFormData({
           id: "",
@@ -73,6 +72,8 @@ const Beehives = () => {
         });
 
         setBeehives((prevBeehives) => [...prevBeehives, response.data]);
+
+        console.log("Beehive added:", response.data);
         toast.success("Data saved successfully");
       }
     } catch (error) {
@@ -82,7 +83,7 @@ const Beehives = () => {
           "Duplicate key error: Behive with the same ID already exists."
         );
         toast.error(
-          "Duplicate key error: About with the same ID already exists!"
+          "Duplicate key error: Beehive with the same ID already exists!"
         );
       }
       console.error("Error adding beehive:", error);

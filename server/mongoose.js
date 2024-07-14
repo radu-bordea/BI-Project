@@ -254,7 +254,7 @@ const createDevice = async (req, res, next) => {
   salt2 = Math.round(Math.random() * 999).toString();
 
   try {
-    const nextId = await getNextSequenceValue("deviceId");
+    const nextId = await getNextSequenceValue("DeviceID");
     const createdDevice = new Device({
       _id: nextId,
       locationId: req.body.locationId,
@@ -325,7 +325,7 @@ const getBeehive = async (req, res, next) => {
 // create behive to mongo atlas
 const createBeehive = async (req, res, next) => {
   try {
-    const nextId = await getNextSequenceValue("BeehiveId");
+    const nextId = await getNextSequenceValue("BeehiveID");
     const createdBehive = new Beehive({
       _id: nextId,
       devicesIds: req.body.devicesIds,
