@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import BeehiveForm from "./BeehiveForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Beehives = () => {
   const [formData, setFormData] = useState({
@@ -59,7 +60,7 @@ const Beehives = () => {
         // If editing, call handleUpdate
         handleUpdate();
       } else {
-        // If not editing, add a new type
+        // If not editing, add a new beehive
         const response = await axios.post(serverURL + "/beehives", {
           _id: formData.id,
           devicesIds: formData.devicesIds,
@@ -72,28 +73,33 @@ const Beehives = () => {
         });
 
         setBeehives((prevBeehives) => [...prevBeehives, response.data]);
+        toast.success("Data saved successfully");
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
+        //  Handle the duplicate key error here (e.g., show an error message to the user).
         console.error(
           "Duplicate key error: Behive with the same ID already exists."
         );
-        // Handle the duplicate key error here (e.g., show an error message to the user).
+        toast.error(
+          "Duplicate key error: About with the same ID already exists!"
+        );
       }
       console.error("Error adding beehive:", error);
+      toast.error("Error saving data");
     }
   };
 
-  const handleEdit = (type) => {
+  const handleEdit = (beehive) => {
     setIsEditing(true);
 
-    // Log the type object to the console
-    console.log("Editing type:", type);
+    // Log the beehive object to the console
+    console.log("Editing beehive:", beehive);
 
-    // Set the formData with the selected type's data
+    // Set the formData with the selected beehive's data
     setFormData({
-      id: type._id,
-      devicesIds: type.devicesIds,
+      id: beehive._id,
+      devicesIds: beehive.devicesIds,
     });
   };
 
@@ -106,7 +112,7 @@ const Beehives = () => {
 
       console.log("Beehive updated:", response.data);
 
-      // Update the corresponding type in the types state
+      // Update the corresponding beehive in the types state
       setBeehives((prevBeehives) =>
         prevBeehives.map((beehive) =>
           beehive._id === formData.id ? response.data : beehive
@@ -119,8 +125,10 @@ const Beehives = () => {
         devicesIds: "",
       });
       setIsEditing(false);
-    } catch (error) {
-      console.error("Error updating beehive:", error);
+      toast.success("Data updated successfully");
+    } catch (err) {
+      console.error("Error updating beehive:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -147,8 +155,10 @@ const Beehives = () => {
           prevBeehives.filter((beehive) => beehive._id !== id)
         );
       }
-    } catch (error) {
-      console.error("Error deleting beehive:", error);
+      toast.success("Data deleted succesfully");
+    } catch (err) {
+      console.error("Error deleting beehive:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 

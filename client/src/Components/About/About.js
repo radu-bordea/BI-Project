@@ -79,13 +79,13 @@ const About = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
+        // Handle the duplicate key error here (e.g., show an error message to the user).
         console.error(
           "Duplicate key error: About with the same ID already exists."
         );
         toast.error(
           "Duplicate key error: About with the same ID already exists!"
         );
-        // Handle the duplicate key error here (e.g., show an error message to the user).
       }
       console.error("Error adding data:", error);
       toast.error("Error saving data");
