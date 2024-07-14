@@ -10,7 +10,9 @@ const DeviceForm = ({
   return (
     <form onSubmit={handleSubmit} className="row my-3 mx-auto">
       {/* Input field for ID */}
-      <div className={!isEditing ? "form-group col-lg-6" : "form-group col-lg-12"}>
+      <div
+        className="form-group col-lg-2"
+      >
         {isEditing && (
           <div>
             <label htmlFor="id">ID</label>
@@ -27,65 +29,60 @@ const DeviceForm = ({
           </div>
         )}
       </div>
-      {/* Input field for locationsId */}
-      <div
-        className="form-group col-lg-2"
-      >
-        <label htmlFor="locationId">Location Id</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="locationId"
-          name="locationId"
-          value={formData.locationId}
-          onChange={handleInputChange}
-          required
-        />
+      <div>
+        {/* Input field for locationsId */}
+        <div className="form-group col-lg-2">
+          <label htmlFor="locationId">Location Id</label>
+          <input
+            type="text"
+            className="form-control form-control-sm"
+            id="locationId"
+            name="locationId"
+            value={formData.locationId}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        {/* Input field for typeId */}
+        <div className="form-group col-lg-2">
+          <label htmlFor="typeId">Type Id</label>
+          <input
+            type="text"
+            className="form-control form-control-sm"
+            id="typeId"
+            name="typeId"
+            value={formData.typeId}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        {/* Input field for keeperId */}
+        <div className="form-group col-lg-2">
+          <label htmlFor="keeperId">Keeper Id</label>
+          <input
+            type="text"
+            className="form-control form-control-sm"
+            id="keeperId"
+            name="keeperId"
+            value={formData.keeperId}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        {/* Input field for address */}
+        <div className="form-group col-lg-6">
+          <label htmlFor="address">Address</label>
+          <input
+            type="text"
+            className="form-control form-control-sm"
+            id="address"
+            name="address"
+            value={formData.address}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
       </div>
-      {/* Input field for typeId */}
-      <div
-        className="form-group col-lg-2"
-      >
-        <label htmlFor="typeId">Type Id</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="typeId"
-          name="typeId"
-          value={formData.typeId}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      {/* Input field for keeperId */}
-      <div
-        className="form-group col-lg-2"
-      >
-        <label htmlFor="keeperId">Keeper Id</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="keeperId"
-          name="keeperId"
-          value={formData.keeperId}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      {/* Input field for address */}
-      <div className="form-group col-lg-6">
-        <label htmlFor="address">Address</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="address"
-          name="address"
-          value={formData.address}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-
       {/* Submit and Cancel buttons */}
       <div className="d-flex justify-content-between col-11 mt-3 mx-auto">
         <button
