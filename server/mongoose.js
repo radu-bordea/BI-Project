@@ -254,7 +254,7 @@ const createDevice = async (req, res, next) => {
   salt2 = Math.round(Math.random() * 999).toString();
 
   try {
-    const nextId = await getNextSequenceValue("DeviceID");
+    const nextId = await getNextSequenceValue("deviceID");
     const createdDevice = new Device({
       _id: nextId,
       locationId: req.body.locationId,
