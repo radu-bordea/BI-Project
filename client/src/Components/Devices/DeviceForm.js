@@ -10,7 +10,7 @@ const DeviceForm = ({
   return (
     <form onSubmit={handleSubmit} className="row my-3 mx-auto">
       {/* Input field for ID */}
-      <div className="form-group col-lg-6">
+      <div className={!isEditing ? "form-group col-lg-6" : "form-group col-lg-12"}>
         {isEditing && (
           <div>
             <label htmlFor="id">ID</label>
@@ -29,7 +29,7 @@ const DeviceForm = ({
       </div>
       {/* Input field for locationsId */}
       <div
-        className={!isEditing ? "form-group col-lg-2" : "form-group col-lg-6"}
+        className="form-group col-lg-2"
       >
         <label htmlFor="locationId">Location Id</label>
         <input
@@ -44,7 +44,7 @@ const DeviceForm = ({
       </div>
       {/* Input field for typeId */}
       <div
-        className={!isEditing ? "form-group col-lg-2" : "form-group col-lg-6"}
+        className="form-group col-lg-2"
       >
         <label htmlFor="typeId">Type Id</label>
         <input
@@ -59,7 +59,7 @@ const DeviceForm = ({
       </div>
       {/* Input field for keeperId */}
       <div
-        className={!isEditing ? "form-group col-lg-2" : "form-group col-lg-6"}
+        className="form-group col-lg-2"
       >
         <label htmlFor="keeperId">Keeper Id</label>
         <input
