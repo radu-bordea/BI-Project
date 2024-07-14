@@ -325,7 +325,7 @@ const getBeehive = async (req, res, next) => {
 // create behive to mongo atlas
 const createBeehive = async (req, res, next) => {
   try {
-    const nextId = await getNextSequenceValue("beehiveId");
+    const nextId = await getNextSequenceValue("BeehiveId");
     const createdBehive = new Beehive({
       _id: nextId,
       devicesIds: req.body.devicesIds,

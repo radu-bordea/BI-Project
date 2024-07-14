@@ -21,7 +21,6 @@ const BeehiveForm = ({
               name="id"
               value={formData.id}
               onChange={handleInputChange}
-              required
               disabled={isEditing}
             />
           </div>
