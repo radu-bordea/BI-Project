@@ -92,7 +92,7 @@ const Keepers = () => {
           "Duplicate key error: Keeper with the same ID already exists."
         );
         toast.error(
-          "Duplicate key error: Device with the same ID already exists!"
+          "Duplicate key error: Keeper with the same ID already exists!"
         );
       }
       console.error("Error adding keeper:", error);

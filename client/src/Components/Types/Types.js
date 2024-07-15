@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import TypeForm from "./TypeForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Types = () => {
   const [formData, setFormData] = useState({
@@ -79,15 +80,20 @@ const Types = () => {
         });
 
         setTypes((prevTypes) => [...prevTypes, response.data]);
+        toast.success("Data saved successfully");
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
+        // Handle the duplicate key error here (e.g., show an error message to the user).
         console.error(
           "Duplicate key error: Type with the same ID already exists."
         );
-        // Handle the duplicate key error here (e.g., show an error message to the user).
+        toast.error(
+          "Duplicate key error: Type with the same ID already exists!"
+        );
       }
       console.error("Error adding type:", error);
+      toast.error("Error saving data");
     }
   };
 
@@ -132,8 +138,9 @@ const Types = () => {
         precision: "",
       });
       setIsEditing(false);
-    } catch (error) {
-      console.error("Error updating type:", error);
+    } catch (err) {
+      console.error("Error updating type:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -159,9 +166,11 @@ const Types = () => {
         console.log("Type deleted:", response.data);
 
         setTypes((prevTypes) => prevTypes.filter((type) => type._id !== id));
+        toast.success("Data deleted succesfully");
       }
-    } catch (error) {
-      console.error("Error deleting type:", error);
+    } catch (err) {
+      console.error("Error deleting type:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
