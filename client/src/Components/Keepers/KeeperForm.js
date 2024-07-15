@@ -10,7 +10,7 @@ const KeeperForm = ({
   return (
     <form onSubmit={handleSubmit} className="row my-3 mx-auto">
       {/* Input field for ID */}
-      <div className="form-group col-lg-6">
+      <div className="form-group col-lg-2">
         {isEditing && (
           <div>
             <label htmlFor="id">ID</label>
@@ -28,7 +28,7 @@ const KeeperForm = ({
         )}
       </div>
       {/* Input field for firstName */}
-      <div className="form-group col-lg-6">
+      <div className="form-group col-lg-2">
         <label htmlFor="name">First Name</label>
         <input
           type="text"
@@ -41,7 +41,7 @@ const KeeperForm = ({
         />
       </div>
       {/* Input field for lastName */}
-      <div className="form-group col-lg-6">
+      <div className="form-group col-lg-2">
         <label htmlFor="name">Last Name</label>
         <input
           type="text"
@@ -54,7 +54,7 @@ const KeeperForm = ({
         />
       </div>
       {/* Input field for email */}
-      <div className="form-group col-lg-6">
+      <div className="form-group col-lg-2">
         <label htmlFor="name">Email</label>
         <input
           type="text"
@@ -67,7 +67,7 @@ const KeeperForm = ({
         />
       </div>
       {/* Input field for phone */}
-      <div className="form-group col-lg-6">
+      <div className="form-group col-lg-4">
         <label htmlFor="name">Phone</label>
         <input
           type="text"
