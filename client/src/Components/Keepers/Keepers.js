@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import KeeperForm from "./KeeperForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Keepers = () => {
   const [formData, setFormData] = useState({
@@ -70,8 +71,7 @@ const Keepers = () => {
           email: formData.email,
           phone: formData.phone,
         });
-        console.log("Keeper added:", response.data);
-
+        
         setFormData({
           id: "",
           firstName: "",
@@ -79,17 +79,24 @@ const Keepers = () => {
           email: "",
           phone: "",
         });
-
+        
         setKeepers((prevKeepers) => [...prevKeepers, response.data]);
+        
+        console.log("Keeper added:", response.data);
+        toast.success("Data saved successfully");
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
+        // Handle the duplicate key error here (e.g., show an error message to the user).
         console.error(
           "Duplicate key error: Keeper with the same ID already exists."
         );
-        // Handle the duplicate key error here (e.g., show an error message to the user).
+        toast.error(
+          "Duplicate key error: Device with the same ID already exists!"
+        );
       }
       console.error("Error adding keeper:", error);
+      toast.error("Error saving data");
     }
   };
 
@@ -137,8 +144,9 @@ const Keepers = () => {
         phone: "",
       });
       setIsEditing(false);
-    } catch (error) {
-      console.error("Error updating keeper:", error);
+    } catch (err) {
+      console.error("Error updating keeper:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -168,8 +176,10 @@ const Keepers = () => {
           prevKeepers.filter((keeper) => keeper._id !== id)
         );
       }
-    } catch (error) {
-      console.error("Error deleting keeper:", error);
+      toast.success("Data deleted succesfully");
+    } catch (err) {
+      console.error("Error deleting keeper:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
