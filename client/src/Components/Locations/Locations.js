@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import LocationForm from "./LocationForm";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Locations = () => {
   // cities
@@ -13,7 +14,7 @@ const Locations = () => {
   const serverURL = "https://bi-project.onrender.com";
 
   const [formData, setFormData] = useState({
-    // id: "",
+    id: "",
     name: "",
     lat: "",
     long: "",
@@ -26,7 +27,7 @@ const Locations = () => {
     try {
       const response = await axios.get(serverURL + "/locations");
       const cityData = response.data.map((location) => ({
-        // _id: location._id,
+        _id: location._id,
         name: location.name,
         lat: location.lat,
         long: location.long,
@@ -67,25 +68,30 @@ const Locations = () => {
           lat: formData.lat,
           long: formData.long,
         });
-        console.log("Location added:", response.data);
-
+        
         setFormData({
           // id: "",
           name: "",
           lat: "",
           long: "",
         });
-
+        
         setCities((prevCities) => [...prevCities, response.data]);
+        console.log("Location added:", response.data);
+        toast.success("Data saved successfully");
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
         console.error(
+          // Handle the duplicate key error here (e.g., show an error message to the user).
           "Duplicate key error: Location with the same ID already exists."
         );
-        // Handle the duplicate key error here (e.g., show an error message to the user).
+        toast.error(
+          "Duplicate key error: Location with the same ID already exists!"
+        );
       }
       console.error("Error adding location:", error);
+      toast.error("Error saving data");
     }
   };
 
@@ -97,7 +103,7 @@ const Locations = () => {
 
     // Set the formData with the selected location's data
     setFormData({
-      // id: city._id,
+      id: city._id,
       name: city.name,
       lat: city.lat,
       long: city.long,
@@ -107,7 +113,7 @@ const Locations = () => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(serverURL + `/location/${formData.id}`, {
-        // _id: formData.id,
+        _id: formData.id,
         name: formData.name,
         lat: formData.lat,
         long: formData.long,
@@ -130,8 +136,9 @@ const Locations = () => {
         long: "",
       });
       setIsEditing(false);
-    } catch (error) {
-      console.error("Error updating location:", error);
+    } catch (err) {
+      console.error("Error updating location:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 
@@ -157,9 +164,11 @@ const Locations = () => {
         console.log("Location deleted:", response.data);
 
         setCities((prevCities) => prevCities.filter((city) => city._id !== id));
+        toast.success("Data deleted succesfully");
       }
-    } catch (error) {
-      console.error("Error deleting location:", error);
+    } catch (err) {
+      console.error("Error deleting location:", err);
+      toast.error(err?.data?.message || err.error);
     }
   };
 

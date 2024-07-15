@@ -9,22 +9,27 @@ const LocationForm = ({
 }) => {
   return (
     <form onSubmit={handleSubmit} className="row my-3 mx-auto">
-      {/* Input field for ID
-      <div className="form-group col-lg-6">
-        <label htmlFor="id">ID</label>
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="id"
-          name="id"
-          value={formData.id}
-          onChange={handleInputChange}
-          required
-          disabled={isEditing}
-        />
-      </div> */}
+      {/* Input field for Id */}
+      <div className="form-group col-lg-3">
+        {isEditing && (
+          <div>
+            <label htmlFor="id">ID</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="id"
+              name="id"
+              value={formData.id}
+              onChange={handleInputChange}
+              required
+              disabled={isEditing}
+            />
+          </div>
+        )}
+      </div>
+
       {/* Input field for Name */}
-      <div className="form-group col-lg-6">
+      <div className="form-group col-lg-3">
         <label htmlFor="name">Name</label>
         <input
           type="text"
@@ -37,7 +42,7 @@ const LocationForm = ({
         />
       </div>
       {/* Input field for Latitude */}
-      <div className="form-group col-lg-6">
+      <div className="form-group col-lg-3">
         <label htmlFor="lat">
           Latitude <span className="coordinates">N(+) | S(-)</span>
         </label>
@@ -52,7 +57,7 @@ const LocationForm = ({
         />
       </div>
       {/* Input field for Longitude */}
-      <div className="form-group col-lg-6">
+      <div className="form-group col-lg-3">
         <label htmlFor="long">
           Longitude <span className="coordinates">E(+) | W(-)</span>
         </label>
