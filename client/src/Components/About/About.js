@@ -192,13 +192,13 @@ const About = () => {
                 {isAuthenticated && (
                   <div className=" col-md-2 mb-2 ">
                     <div
-                      className="btn btn-success mt-2 w-25 mx-2"
+                      className="btn btn-success btn-mobile mt-2 mx-2"
                       onClick={() => handleEdit(about)}
                     >
                       <FaPencilAlt />
                     </div>
                     <div
-                      className="btn btn-danger mt-2 w-25 mx-2"
+                      className="btn btn-danger btn-mobile mt-2 mx-2"
                       onClick={() => handleDelete(about._id)}
                     >
                       <FaRegTrashAlt />

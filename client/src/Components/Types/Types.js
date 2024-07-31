@@ -186,7 +186,7 @@ const Types = () => {
             handleCancel={handleCancel} // Pass the handleCancel function
           />
 
-          <div className="list-group city-btn">
+          <div className="list-group">
             {types.map((type) => (
               <div
                 key={type._id}

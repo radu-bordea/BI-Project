@@ -175,7 +175,7 @@ const Beehives = () => {
             handleCancel={handleCancel} // Pass the handleCancel function
           />
 
-          <div className="list-group city-btn">
+          <div className="list-group">
             {beehives.map((beehive) => (
               <div
                 key={beehive._id}

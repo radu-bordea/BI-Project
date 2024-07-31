@@ -68,7 +68,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
                 to="/locations"
                 onClick={handleNavClick}
               >
-                <i>Edit-Locations</i>
+                <i>Locations</i>
               </Nav.Link>
               <Nav.Link
                 className="mx-1"
@@ -76,7 +76,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
                 to="/keepers"
                 onClick={handleNavClick}
               >
-                <i>Edit-Keepers</i>
+                <i>Keepers</i>
               </Nav.Link>
               <Nav.Link
                 className="mx-1"
@@ -84,7 +84,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
                 to="/types"
                 onClick={handleNavClick}
               >
-                <i>Edit-Types</i>
+                <i>Types</i>
               </Nav.Link>
               <Nav.Link
                 className="mx-1"
@@ -92,7 +92,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
                 to="/devices"
                 onClick={handleNavClick}
               >
-                <i>Edit-Devices</i>
+                <i>Devices</i>
               </Nav.Link>
               <Nav.Link
                 className="mx-1"
@@ -100,7 +100,7 @@ const NavbarComponent = ({ handleNavClick, expanded, setExpanded }) => {
                 to="/beehives"
                 onClick={handleNavClick}
               >
-                <i>Edit-Beehives</i>
+                <i>Beehives</i>
               </Nav.Link>
             </>
           )}

@@ -47,7 +47,7 @@ h3 {
   display: flex;
   flex-direction: column;
   max-height: 280px; /* Removed quotes */
-  overflow-y: auto; /* Removed quotes */
+
   /* border: 2px solid red; */
 }
 .city-btn,
@@ -179,6 +179,12 @@ form {
   .btn-del {
     margin-left: 10px;
     font-size: 12px;
+  }
+
+  .btn-mobile {
+    font-size: 8px;
+    width: 8px;
+    width: 20px;
   }
 
   form {

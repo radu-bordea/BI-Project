@@ -184,7 +184,7 @@ const Locations = () => {
             handleCancel={handleCancel} // Pass the handleCancel function
           />
 
-          <div className="list-group city-btn">
+          <div className="list-group">
             {cities.map((city) => (
               <div
                 key={city._id}

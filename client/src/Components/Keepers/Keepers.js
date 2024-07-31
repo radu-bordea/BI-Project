@@ -195,7 +195,7 @@ const Keepers = () => {
             handleCancel={handleCancel} // Pass the handleCancel function
           />
 
-          <div className="list-group city-btn">
+          <div className="list-group ">
             {keepers.map((keeper) => (
               <div
                 key={keeper._id}

@@ -196,7 +196,7 @@ const Devices = () => {
             handleCancel={handleCancel} // Pass the handleCancel function
           />
 
-          <div className="list-group city-btn">
+          <div className="list-group ">
             {devices.map((device) => (
               <div
                 key={device._id}

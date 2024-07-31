@@ -57,6 +57,8 @@ install dependencies more:
  - npm install moment
  - npm install react-datepicker
  - npm install --save react-toastify
+ - npm install -D tailwindcss
+ - npx tailwindcss init
 
 
 
