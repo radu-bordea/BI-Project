@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import TypeForm from "./TypeForm";
-import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Types = () => {
@@ -190,18 +189,18 @@ const Types = () => {
             {types.map((type) => (
               <div
                 key={type._id}
-                className="d-flex m-2 list-group-item list-group-item-dark"
+                className="d-flex m-2 list-group-item"
               >
                 <span className="p-1">{type.name}</span>
                 <div className="btn-del-container">
-                  <FaPencilAlt
-                    className="btn-del mt-2 text-success"
+                  <button
+                    className="btn btn-sm btn-outline-warning mx-1"
                     onClick={() => handleEdit(type)}
-                  />
-                  <FaRegTrashAlt
-                    className="btn-del mt-2 text-danger"
+                  >Edit</button>
+                  <button
+                    className="btn btn-sm btn-outline-danger mx-1"
                     onClick={() => handleDelete(type._id)}
-                  />
+                  >Delete</button>
                 </div>
               </div>
             ))}

@@ -179,18 +179,18 @@ const Beehives = () => {
             {beehives.map((beehive) => (
               <div
                 key={beehive._id}
-                className="d-flex m-2 list-group-item list-group-item-dark"
+                className="d-flex m-2 list-group-item"
               >
                 <span className="p-1">{beehive.devicesIds}</span>
                 <div className="btn-del-container">
-                  <FaPencilAlt
-                    className="btn-del mt-2 text-success"
+                  <button
+                    className="btn btn-sm btn-outline-warning mx-1"
                     onClick={() => handleEdit(beehive)}
-                  />
-                  <FaRegTrashAlt
-                    className="btn-del mt-2 text-danger"
+                  >Edit</button>
+                  <button
+                    className="btn btn-sm btn-outline-danger mx-1"
                     onClick={() => handleDelete(beehive._id)}
-                  />
+                  >Delete</button>
                 </div>
               </div>
             ))}

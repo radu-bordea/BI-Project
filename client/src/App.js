@@ -18,6 +18,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { ToastContainer, toast } from "react-toastify"; // import ToastContainer
 import "react-toastify/dist/ReactToastify.css";
+import DataNew from "./Components/DataNew";
 
 const App = () => {
   const [expanded, setExpanded] = useState(false);
@@ -40,7 +41,7 @@ const App = () => {
             <Route path="/" exact component={Home} />
             <Route path="/about" component={About} />
             <Route path="/maps" component={Map} />
-            <Route path="/data" component={Data} />
+            <Route path="/data" component={DataNew} />
             <Route path="/locations" component={Locations} />
             <Route path="/keepers" component={Keepers} />
             <Route path="/types" component={Types} />

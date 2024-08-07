@@ -3,7 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import LineChart from "./LineChart";
+import LineChart from "./charts/LineChart";
 
 const Data = () => {
 

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import DeviceForm from "./DeviceForm";
-import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Devices = () => {
@@ -200,20 +199,20 @@ const Devices = () => {
             {devices.map((device) => (
               <div
                 key={device._id}
-                className="d-flex m-2 list-group-item list-group-item-dark"
+                className="d-flex m-2 list-group-item"
               >
                 <span className="p-1">
                   {device._id} {`-- -- --> apiKey: ${device.apiKey}`}
                 </span>
                 <div className="btn-del-container">
-                  <FaPencilAlt
-                    className="btn-del mt-2 text-success"
+                  <button
+                    className="btn btn-sm btn-outline-warning mx-1"
                     onClick={() => handleEdit(device)}
-                  />
-                  <FaRegTrashAlt
-                    className="btn-del mt-2 text-danger"
+                  >Edit</button>
+                  <button
+                    className="btn btn-sm btn-outline-danger mx-1"
                     onClick={() => handleDelete(device._id)}
-                  />
+                  >Delete</button>
                 </div>
               </div>
             ))}

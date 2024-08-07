@@ -59,6 +59,8 @@ install dependencies more:
  - npm install --save react-toastify
  - npm install -D tailwindcss
  - npx tailwindcss init
+ - npm install @mui/x-charts
+ - npm install @mui/material @emotion/react @emotion/styled
 
 
 

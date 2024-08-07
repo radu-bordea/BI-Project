@@ -70,10 +70,8 @@ form {
   box-shadow: 5px 5px 5px rgb(27, 27, 27);
 }
 
-.btn,
-.list-group-item {
-  min-width: 150px;
-  opacity: 70%;
+.btn {
+  opacity: 80%;
 }
 
 .btn-del-container {
@@ -159,6 +157,14 @@ form {
   box-shadow: 5px 5px 5px lightgray;
   opacity:90%;
 }
+
+.devices-container {
+  /* Optional: add additional custom styles */
+  padding: 10px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Optional: add a border if needed */
+  background-color: #f9f9f9; /* Optional: add a background color if needed */
+}
+
 
 @media screen and (max-width: 1000px) {
   .container {

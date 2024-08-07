@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import KeeperForm from "./KeeperForm";
-import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Keepers = () => {
@@ -199,20 +198,20 @@ const Keepers = () => {
             {keepers.map((keeper) => (
               <div
                 key={keeper._id}
-                className="d-flex m-2 list-group-item list-group-item-dark"
+                className="d-flex m-2 list-group-item"
               >
                 <span className="p-1">
                   {keeper.firstName} {keeper.lastName}
                 </span>
                 <div className="btn-del-container">
-                  <FaPencilAlt
-                    className="btn-del mt-2 text-success"
+                  <buton
+                    className="btn btn-sm btn-outline-warning mx-1"
                     onClick={() => handleEdit(keeper)}
-                  />
-                  <FaRegTrashAlt
-                    className="btn-del mt-2 text-danger"
+                  >Edit</buton>
+                  <button
+                    className="btn btn-sm btn-outline-danger mx-1"
                     onClick={() => handleDelete(keeper._id)}
-                  />
+                  >Delete</button>
                 </div>
               </div>
             ))}
