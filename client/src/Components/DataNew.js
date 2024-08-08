@@ -139,24 +139,24 @@ const DataNew = () => {
         <div className="row container mt-4">
           <div className="devices-container p-1 border comon-color">
             <div
-              className="d-flex justify-content-center overflow-auto"
+              className="d-flex justify-content-around overflow-auto"
               style={{ whiteSpace: "nowrap" }}
             >
               {devices.map((device) => (
                 <button
                   key={device._id}
-                  className="btn btn-primary mx-2"
+                  className="btn btn-outline-primary btn-sm"
                   value={device._id} // Pass the device ID as the button value
                   onClick={handleDeviceChoice}
                 >
-                  DeviceId: {device._id}
+                  Id: {device._id}
                 </button>
               ))}
             </div>
           </div>
         </div>
         <hr />
-        <div className="graph-container bg-light d-flex justify-content-center">
+        <div className="graph-container bg-light d-flex justify-content-center ">
           <LineChart
             xAxis={[{ scaleType: "point", data: labels, title: "Date" }]}
             series={[
