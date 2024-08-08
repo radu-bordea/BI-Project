@@ -4,7 +4,6 @@ import {
   Navbar,
   Home,
   About,
-  Data,
   Map,
   Footer,
   Locations,
@@ -29,13 +28,14 @@ const App = () => {
 
   return (
     <>
-      <Router className="container-fluid" basename="/">
+      <Router className="container-fluid"  basename="/">
         <Navbar
           handleNavClick={handleNavClick}
           expanded={expanded}
           setExpanded={setExpanded}
           className="navbar navbar-expand-lg navbar-light bg-light fixed-top"
         />
+        <br />
         <div className="switch">
           <Switch>
             <Route path="/" exact component={Home} />

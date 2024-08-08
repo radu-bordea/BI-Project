@@ -137,7 +137,7 @@ const DataNew = () => {
           </div>
         </div>
         <div className="row container mt-4">
-          <div className="devices-container p-1 border bg-light">
+          <div className="devices-container p-1 border comon-color">
             <div
               className="d-flex justify-content-center overflow-auto"
               style={{ whiteSpace: "nowrap" }}

@@ -33,7 +33,7 @@ const Map = () => {
 
   useEffect(() => {
     fetchLocations();
-  }, []);
+  }, [setCities]);
 
   useEffect(() => {
     const initializeMap = () => {

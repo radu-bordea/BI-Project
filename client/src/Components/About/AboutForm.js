@@ -61,14 +61,14 @@ const AboutForm = ({
       <div className=" text-center col-11 mt-2 mx-auto">
         <button
           type="submit"
-          className={`w-75 m-1 btn btn-${isEditing ? "success" : "primary"}`}
+          className={`w-75 m-1 btn opacity-75 btn-${isEditing ? "success" : "primary"}`}
         >
           {isEditing ? "Update Data" : "Add Data"}
         </button>
         {isEditing && ( // Render Cancel button only in edit mode
           <button
             type="button"
-            className="w-75 m-1 btn btn-danger"
+            className="w-75 m-1 btn btn-danger opacity-75"
             onClick={handleCancel} // Call handleCancel function
           >
             Cancel

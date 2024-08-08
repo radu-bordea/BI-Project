@@ -192,7 +192,7 @@ const About = () => {
                 {isAuthenticated && (
                   <div className=" col-md-2 mb-2 ">
                     <div
-                      className="btn btn-success btn-mobile mt-2 mx-2"
+                      className="btn btn-warning mt-2 mx-2"
                       onClick={() => handleEdit(about)}
                     >
                       <FaPencilAlt />

@@ -1,5 +1,8 @@
 @import "~react-datepicker/dist/react-datepicker.css";
 
+.comon-color {
+  background: linear-gradient(to bottom,#d7e6e4, #e2e4df);
+}
 
 .navbar {
   position: fixed;
