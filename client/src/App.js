@@ -28,7 +28,7 @@ const App = () => {
 
   return (
     <>
-      <Router className="container-fluid"  basename="/">
+      <Router className="container-fluid" basename="/">
         <Navbar
           handleNavClick={handleNavClick}
           expanded={expanded}
@@ -49,7 +49,9 @@ const App = () => {
             <Route path="/beehives" component={Beehives} />
             <Route path="/login" component={LoginButton} />
           </Switch>
-
+          <br />
+          <br />
+          <br />
           <Footer className="fixed-bottom" />
         </div>
       </Router>
