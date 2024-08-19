@@ -91,7 +91,7 @@ const Map = () => {
     <div className="container">
       <h3>Here are the Devices with the Graph!</h3>
       <hr />
-      <div className="row">
+      <div className="row px-4">
         <div className="row">
           <div className="list-group city-btn col-lg-3">
             {cities.map((city) => (
